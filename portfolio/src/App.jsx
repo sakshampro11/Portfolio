@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "@fontsource/inter";
 import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 const figmaColors = [
   "#F24E1E", // orange
@@ -16,6 +17,7 @@ const projects = [
     thumbnail: "https://via.placeholder.com/200x120?text=Project+1",
     description: "A cool project about web design.",
     tech: ["React", "Tailwind", "Figma"],
+    tags: ["UI", "Web"],
     details: "This project demonstrates my ability to design and build modern web apps.",
     x: 100,
     y: 100,
@@ -25,6 +27,7 @@ const projects = [
     thumbnail: "https://via.placeholder.com/200x120?text=Project+2",
     description: "A creative mobile app.",
     tech: ["React Native", "Expo"],
+    tags: ["Mobile", "UI"],
     details: "A mobile app built for both iOS and Android.",
     x: 500,
     y: 100,
@@ -34,6 +37,7 @@ const projects = [
     thumbnail: "https://via.placeholder.com/200x120?text=Project+3",
     description: "A data visualization dashboard.",
     tech: ["D3.js", "React", "CSS"],
+    tags: ["Dashboard", "DataViz"],
     details: "A dashboard for visualizing complex data interactively.",
     x: 100,
     y: 400,
@@ -43,6 +47,7 @@ const projects = [
     thumbnail: "https://via.placeholder.com/200x120?text=Project+4",
     description: "A productivity tool for teams.",
     tech: ["Node.js", "MongoDB", "Express"],
+    tags: ["Productivity", "Team"],
     details: "A collaborative tool to boost team productivity.",
     x: 500,
     y: 400,
@@ -111,6 +116,9 @@ export default function App() {
   const [tab, setTab] = useState("about");
   const [zoom, setZoom] = useState(1);
   const workspaceRef = useRef(null);
+  const [showFakeCursor, setShowFakeCursor] = useState(true);
+  const [cursorPos, setCursorPos] = useState({ x: 80, y: 80 });
+  const [aboutFlipped, setAboutFlipped] = useState(false);
 
   // Only set Figma cursor for workspace
   useEffect(() => {
@@ -138,6 +146,37 @@ export default function App() {
     workspace.addEventListener("wheel", handleWheel, { passive: false });
     return () => workspace.removeEventListener("wheel", handleWheel);
   }, [zoom]);
+
+  useEffect(() => {
+    if (!showFakeCursor) return;
+    // Animate cursor path: guide through project cards in order
+    const cardPositions = [
+      { x: 120, y: 120 }, // Project 1
+      { x: 520, y: 120 }, // Project 2
+      { x: 120, y: 420 }, // Project 3
+      { x: 520, y: 420 }, // Project 4
+    ];
+    // Start at top left, then visit each card
+    const path = [
+      { x: 60, y: 60 },
+      ...cardPositions,
+    ];
+    let i = 0;
+    setCursorPos(path[0]);
+    const interval = setInterval(() => {
+      i++;
+      if (i >= path.length) i = 0;
+      setCursorPos(path[i]);
+    }, 600);
+    const timeout = setTimeout(() => {
+      setShowFakeCursor(false);
+      clearInterval(interval);
+    }, 3000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [showFakeCursor]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: 'Inter, sans-serif', background: '#232323' }}>
@@ -179,41 +218,67 @@ export default function App() {
               className="relative w-full flex-1 min-h-0 overflow-scroll rounded-xl border border-[#232323] custom-scrollbar"
               style={{ background: '#1e1e1e', scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: `url(${figmaCursorSVG}) 4 4, auto`, height: '100%' }}
             >
-              <div
-                style={{
-                  width: 1200,
-                  height: 800,
-                  position: 'relative',
-                  transform: `scale(${zoom})`,
-                  transformOrigin: '0 0',
-                  transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)',
+              {/* Fake animated cursor */}
+              <AnimatePresence>
+                {showFakeCursor && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
+                  >
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="#fff" strokeWidth="3"/></svg>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {/* Project cards grid with staggered animation */}
+              <motion.div
+                style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.18,
+                    },
+                  },
                 }}
               >
                 {projects.map((project, idx) => (
-                  <div
+                  <motion.div
                     key={project.title}
-                    className={`absolute group w-[320px] h-[220px] rounded-xl shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 cursor-pointer flex flex-col items-stretch p-0 bg-[#232323]`}
-                    style={{
-                      left: project.x,
-                      top: project.y,
-                    }}
+                    className={`absolute group w-[320px] h-[240px] rounded-xl shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 cursor-pointer flex flex-col items-stretch p-0 bg-[#232323]`}
+                    style={{ left: project.x, top: project.y }}
                     onClick={() => setSelected(idx)}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 32, delay: idx * 0.18 }}
                   >
                     {/* Main thumbnail area */}
                     <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[#262626]">
                       <img src={project.thumbnail} alt={project.title} className="object-contain max-h-[120px] max-w-[90%]" />
                     </div>
                     {/* Bottom bar */}
-                    <div className="flex items-center gap-2 px-4 py-3 bg-[#232323] rounded-b-xl border-t border-[#262626]">
-                      <div className="w-7 h-7 rounded-full bg-[#262626] flex items-center justify-center text-xs font-bold text-white">{project.title[0]}</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="truncate text-white font-medium text-base">{project.title}</div>
-                        <div className="truncate text-xs text-gray-400">{project.description}</div>
+                    <div className="flex flex-col gap-1 px-4 py-3 bg-[#232323] rounded-b-xl border-t border-[#262626]">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-[#262626] flex items-center justify-center text-xs font-bold text-white">{project.title[0]}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="truncate text-white font-medium text-base">{project.title}</div>
+                          <div className="truncate text-xs text-gray-400">{project.description}</div>
+                        </div>
+                      </div>
+                      {/* Figma-style tags/pills */}
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {project.tags && project.tags.map((tag, i) => (
+                          <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                        ))}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           ) : (
             <div
@@ -325,7 +390,7 @@ export default function App() {
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold" style={{ background: figmaColors[0] }}>S</div>
-                  <div>
+      <div>
                     <div className="text-xl font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
                     <div className="text-sm text-gray-400">UI UX Designer</div>
                   </div>
@@ -337,12 +402,70 @@ export default function App() {
                 </div>
                 {/* Tab Content */}
                 {tab === 'about' ? (
-                  <div className="mb-6 text-gray-200 min-h-[120px]">
-                    👋 Hi, I’m Saksham Budhiraja — a UI/UX designer and frontend developer who thinks in frames and builds in pixels. I’m passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
-
-From designing collaborative platforms like Skollab to civic tools like City Issue Reporter, I enjoy solving real-world problems through user-centered design. I work with tools like Figma, React, and Tailwind, and I’m always exploring how design systems and interactivity can enhance product experiences.
-
-Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
+                  <div className="relative mb-6 min-h-[120px]">
+                    <div className="absolute top-3 right-4 z-10">
+                      <button
+                        onClick={() => setAboutFlipped(f => !f)}
+                        className="rounded-full bg-[#232323] hover:bg-[#1ABCFE] text-[#1ABCFE] hover:text-white p-2 shadow-md border border-[#1ABCFE] transition-transform active:scale-90"
+                        title="Flip Card"
+                        style={{ outline: 'none', border: 'none' }}
+                      >
+                        {/* Figma-inspired 3D flip icon */}
+                        <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
+                          <rect x="4" y="6" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="2" fill="#232323" />
+                          <path d="M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          <path d="M12 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          <path d="M4 12c0-4 16-4 16 0" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div className="perspective-[1200px]">
+                      <AnimatePresence mode="wait" initial={false}>
+                        {!aboutFlipped ? (
+                          <motion.div
+                            key="about-front"
+                            initial={{ rotateY: 90, opacity: 0 }}
+                            animate={{ rotateY: 0, opacity: 1 }}
+                            exit={{ rotateY: -90, opacity: 0 }}
+                            transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                            className="rounded-2xl p-6 shadow-lg border text-gray-200 min-h-[200px] bg-gradient-to-r from-[#232323] to-[#1ABCFE11] border-[#1ABCFE]"
+                            style={{ boxShadow: '0 2px 24px 0 #1ABCFE22', backfaceVisibility: 'hidden', position: 'absolute', width: '100%' }}
+                          >
+                            <span className="text-2xl mr-2 align-middle">👋</span>
+                            <span className="text-lg font-bold text-white">Hi, I'm Saksham Budhiraja</span>
+                            <div className="mt-2 text-base text-gray-300">
+                              A UI/UX designer and frontend developer who thinks in frames and builds in pixels. I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
+                            </div>
+                            <div className="mt-3 text-sm text-gray-400">
+                              From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and <span className="font-semibold text-[#38BDF8]">Tailwind</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                            </div>
+                            <div className="mt-3 text-sm text-gray-400">
+                              Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
+                            </div>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="about-back"
+                            initial={{ rotateY: -90, opacity: 0 }}
+                            animate={{ rotateY: 0, opacity: 1 }}
+                            exit={{ rotateY: 90, opacity: 0 }}
+                            transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                            className="rounded-2xl p-6 shadow-lg border text-gray-200 min-h-[200px] bg-gradient-to-r from-[#232323] to-[#A259FF11] border-[#A259FF] flex flex-col gap-2"
+                            style={{ boxShadow: '0 2px 24px 0 #A259FF22', backfaceVisibility: 'hidden', position: 'absolute', width: '100%' }}
+                          >
+                            <div className="text-lg font-bold text-white mb-2">Component Name: <span className="font-semibold text-[#1ABCFE]">Saksham Budhiraja</span></div>
+                            <div className="text-base font-semibold text-[#A259FF] mb-2">Role: UI/UX Designer + Developer Handoff</div>
+                            <div className="text-base font-semibold text-[#1ABCFE] mb-1">Skills:</div>
+                            <ul className="list-disc list-inside text-gray-300 ml-2">
+                              <li>Design Systems</li>
+                              <li>Interactive Prototypes</li>
+                              <li>Web Accessibility</li>
+                              <li>React + UI Engineering</li>
+                            </ul>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex flex-wrap gap-4 mb-6">
@@ -354,13 +477,6 @@ Currently pursuing a B.Tech in CSE, I believe in learning by building — and it
                     ))}
                   </div>
                 )}
-                {/* Inspect Section */}
-                <div className="text-lg font-semibold mb-2" style={{ color: figmaColors[2] }}>Inspect</div>
-                <div className="rounded-lg p-4 text-xs text-gray-400" style={{ background: '#262626' }}>
-                  <div>Spacing: <span style={{ color: figmaColors[2] }}>24px</span></div>
-                  <div>Color: <span style={{ color: figmaColors[2] }}>#A259FF</span></div>
-                  <div>Padding: <span style={{ color: figmaColors[2] }}>16px</span></div>
-                </div>
               </>
             ) : (
               // Project view: tech stack and color codes
@@ -400,6 +516,6 @@ Currently pursuing a B.Tech in CSE, I believe in learning by building — and it
           <span className="text-base">Socials</span>
         </a>
       </div>
-    </div>
+      </div>
   );
 }
