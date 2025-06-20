@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "@fontsource/inter";
-import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools } from "react-icons/fa";
+import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft } from "react-icons/fa";
 
 const figmaColors = [
   "#F24E1E", // orange
@@ -17,6 +17,8 @@ const projects = [
     description: "A cool project about web design.",
     tech: ["React", "Tailwind", "Figma"],
     details: "This project demonstrates my ability to design and build modern web apps.",
+    x: 100,
+    y: 100,
   },
   {
     title: "Project Two",
@@ -24,6 +26,26 @@ const projects = [
     description: "A creative mobile app.",
     tech: ["React Native", "Expo"],
     details: "A mobile app built for both iOS and Android.",
+    x: 500,
+    y: 100,
+  },
+  {
+    title: "Project Three",
+    thumbnail: "https://via.placeholder.com/200x120?text=Project+3",
+    description: "A data visualization dashboard.",
+    tech: ["D3.js", "React", "CSS"],
+    details: "A dashboard for visualizing complex data interactively.",
+    x: 100,
+    y: 400,
+  },
+  {
+    title: "Project Four",
+    thumbnail: "https://via.placeholder.com/200x120?text=Project+4",
+    description: "A productivity tool for teams.",
+    tech: ["Node.js", "MongoDB", "Express"],
+    details: "A collaborative tool to boost team productivity.",
+    x: 500,
+    y: 400,
   },
 ];
 
@@ -37,40 +59,69 @@ const skills = [
   { name: "Git", icon: <FaGitAlt className="text-orange-400" /> },
 ];
 
-// Figma-style cursor SVG as a data URL
+// Figma-style black arrow cursor with white outline SVG as a data URL
 const figmaCursorSVG =
-  "data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 2L26 16L17 18L15 27L6 2Z' fill='white' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 2L28 16L18 18L16 28L4 2Z' fill='black' stroke='white' stroke-width='3'/%3E%3C/svg%3E";
 
-function ProjectsTabBar() {
+function ProjectsTabBar({ selectedProject, onBack }) {
   return (
     <div className="w-full flex items-center gap-2 px-2 py-0.5 mb-8" style={{ background: '#232323', borderBottom: '1px solid #262626', height: 44 }}>
-      {/* Vector logo (Figma-style, orange) */}
-      {/*<svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="ml-2" style={{ display: 'inline-block' }}>
-        <circle cx="12" cy="12" r="10" fill="#F24E1E" />
-        <path d="M12 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" fill="#fff" />
-      </svg>*/}
-      <span className="text-base font-medium text-white px-3 py-1 rounded flex items-center gap-2" style={{ background: 'FFFFFFF', color: '#FFFFFF', fontWeight: 600 }}>
-        Projects
-      </span>
+      {selectedProject !== null ? (
+        <button onClick={onBack} className="flex items-center gap-2 text-white px-3 py-1 rounded hover:bg-[#262626] transition font-semibold" style={{ fontWeight: 600 }}>
+          Projects
+        </button>
+      ) : (
+        <span
+          className="text-base font-medium text-white px-3 py-1 rounded flex items-center gap-2 transition-all duration-300"
+          style={{ background: '#262626', color: '#FFFFFF', fontWeight: 600, borderBottom: '2px solid #fff' }}
+        >
+          Projects
+        </span>
+      )}
     </div>
   );
 }
 
-export default function App() {
-  const [selected, setSelected] = useState(0);
-  const [tab, setTab] = useState("about");
+/* Hide scrollbars utility */
+const style = document.createElement('style');
+style.innerHTML = `.hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`;
+document.head.appendChild(style);
 
-  // Set Figma-style cursor globally
+export default function App() {
+  const [selected, setSelected] = useState(null); // null means grid, number means project index
+  const [tab, setTab] = useState("about");
+  const [zoom, setZoom] = useState(1);
+  const workspaceRef = useRef(null);
+
+  // Only set Figma cursor for workspace
   useEffect(() => {
-    const prev = document.body.style.cursor;
-    document.body.style.cursor = `url(${figmaCursorSVG}) 0 0, auto`;
+    const workspace = workspaceRef.current;
+    if (workspace) {
+      workspace.style.cursor = `url('/path/to/figma-cursor.png') 4 4, auto`;
+    }
     return () => {
-      document.body.style.cursor = prev;
+      if (workspace) workspace.style.cursor = "auto";
     };
   }, []);
 
+  // Handle zoom with ctrl+wheel or pinch
+  useEffect(() => {
+    const workspace = workspaceRef.current;
+    if (!workspace) return;
+    function handleWheel(e) {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        let nextZoom = zoom - e.deltaY * 0.001;
+        nextZoom = Math.max(0.3, Math.min(2.5, nextZoom));
+        setZoom(nextZoom);
+      }
+    }
+    workspace.addEventListener("wheel", handleWheel, { passive: false });
+    return () => workspace.removeEventListener("wheel", handleWheel);
+  }, [zoom]);
+
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: 'Inter, sans-serif', background: '#1e1e1e' }}>
+    <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: 'Inter, sans-serif', background: '#232323' }}>
       <div className="flex flex-1 min-h-0">
         {/* Left Panel: Name, Page, Layers */}
         <aside className="w-64" style={{ background: '#232323', borderRight: '1px solid #262626' }}>
@@ -101,27 +152,66 @@ export default function App() {
         </aside>
 
         {/* Center Canvas: Projects */}
-        <main className="flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative overflow-hidden" style={{ background: '#1e1e1e' }}>
-          <ProjectsTabBar />
-          <div className="flex flex-wrap gap-8 relative z-10 px-8 py-12">
-            {projects.map((project, idx) => (
+        <main className="flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative overflow-hidden" style={{ background: '#1e1e1e', height: '100%' }}>
+          <ProjectsTabBar selectedProject={selected} onBack={() => setSelected(null)} />
+          {selected === null ? (
+            <div
+              ref={workspaceRef}
+              className="relative w-full flex-1 min-h-0 overflow-scroll rounded-xl border border-[#232323] hide-scrollbar"
+              style={{ background: '#1e1e1e', scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: `url(${figmaCursorSVG}) 4 4, auto`, height: '100%' }}
+            >
               <div
-                key={project.title}
-                className={`group w-64 rounded-2xl shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 cursor-pointer flex flex-col items-center p-4 ${selected === idx ? 'ring-2 ring-white' : ''}`}
-                style={{ background: '#232323' }}
-                onClick={() => setSelected(idx)}
+                style={{
+                  width: 1200,
+                  height: 800,
+                  position: 'relative',
+                  transform: `scale(${zoom})`,
+                  transformOrigin: '0 0',
+                  transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)',
+                }}
               >
-                <img src={project.thumbnail} alt={project.title} className="rounded-xl mb-4 w-full h-32 object-cover" style={{ background: '#262626' }} />
-                <div className="font-semibold text-lg text-white mb-2">{project.title}</div>
-                <div className="text-gray-400 text-sm text-center mb-2">{project.description}</div>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tech.map((t, i) => (
+                {projects.map((project, idx) => (
+                  <div
+                    key={project.title}
+                    className={`absolute group w-[320px] h-[220px] rounded-xl shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 cursor-pointer flex flex-col items-stretch p-0 bg-[#232323]`}
+                    style={{
+                      left: project.x,
+                      top: project.y,
+                    }}
+                    onClick={() => setSelected(idx)}
+                  >
+                    {/* Main thumbnail area */}
+                    <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[#262626]">
+                      <img src={project.thumbnail} alt={project.title} className="object-contain max-h-[120px] max-w-[90%]" />
+                    </div>
+                    {/* Bottom bar */}
+                    <div className="flex items-center gap-2 px-4 py-3 bg-[#232323] rounded-b-xl border-t border-[#262626]">
+                      <div className="w-7 h-7 rounded-full bg-[#262626] flex items-center justify-center text-xs font-bold text-white">{project.title[0]}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="truncate text-white font-medium text-base">{project.title}</div>
+                        <div className="truncate text-xs text-gray-400">{project.description}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full flex flex-col items-center justify-center px-8 py-12">
+              <div className="max-w-xl w-full bg-[#232323] rounded-2xl shadow-2xl p-8 border border-[#262626]">
+                <button onClick={() => setSelected(null)} className="flex items-center gap-2 mb-6 text-white hover:text-orange-400 transition">Projects</button>
+                <img src={projects[selected].thumbnail} alt={projects[selected].title} className="rounded-xl mb-4 w-full h-40 object-cover" style={{ background: '#262626' }} />
+                <div className="font-bold text-2xl text-white mb-2">{projects[selected].title}</div>
+                <div className="text-gray-400 text-base mb-4">{projects[selected].description}</div>
+                <div className="mb-4 text-gray-300">{projects[selected].details}</div>
+                <div className="flex flex-wrap gap-2">
+                  {projects[selected].tech.map((t, i) => (
                     <span key={t} className="px-2 py-1 rounded text-xs" style={{ background: figmaColors[i % figmaColors.length], color: '#fff' }}>{t}</span>
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </main>
 
         {/* Right Panel: Header, Tabs, About/Tools */}
@@ -130,7 +220,7 @@ export default function App() {
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold" style={{ background: figmaColors[0] }}>S</div>
-              <div>
+      <div>
                 <div className="text-xl font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
                 <div className="text-sm text-gray-400">UI UX Designer</div>
               </div>
@@ -166,18 +256,18 @@ export default function App() {
         </aside>
       </div>
       {/* Floating Toolbar */}
-      <div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex gap-8 border rounded-2xl shadow-2xl px-8 py-3 items-center" style={{ background: '#232323', border: '1px solid #262626', boxShadow: '0 4px 32px 0 #A259FF22' }}>
-        <a href="/portfolio" className="flex flex-col items-center" style={{ color: figmaColors[3] }}>
+      <div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex gap-12 border rounded-2xl shadow-2xl px-16 py-3 items-center" style={{ background: '#232323', border: '1px solid #262626', boxShadow: '0 4px 24px 0 #0004', minWidth: 520 }}>
+        <a href="/portfolio" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: figmaColors[3], background: '#232323' }}>
           <FaUser size={22} />
-          <span className="text-xs mt-1">Portfolio</span>
+          <span className="text-base">Portfolio</span>
         </a>
-        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center" style={{ color: figmaColors[0] }}>
+        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: '#fff', background: '#232323' }}>
           <FaFileAlt size={22} />
-          <span className="text-xs mt-1">Resume</span>
+          <span className="text-base">Resume</span>
         </a>
-        <a href="https://example.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center" style={{ color: figmaColors[1] }}>
+        <a href="https://example.com" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: '#fff', background: '#232323' }}>
           <FaLink size={22} />
-          <span className="text-xs mt-1">Socials</span>
+          <span className="text-base">Socials</span>
         </a>
       </div>
     </div>
