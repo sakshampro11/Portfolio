@@ -34,7 +34,7 @@ export default function FigmaWorkflowAnimation() {
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+        transition={{ delay: 0.5, duration: 0.8, ease: [0.69, -0.01, 0.49, 1] }}
         className="w-full h-[360px] bg-[#2C2C2C] rounded-xl shadow-2xl border border-gray-700/50 relative flex items-center justify-center p-6"
       >
         {/* The grid of project cards */}
@@ -46,9 +46,8 @@ export default function FigmaWorkflowAnimation() {
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 delay: 1.5 + i * 0.2,
-                type: "spring",
-                stiffness: 200,
-                damping: 15,
+                duration: 0.7,
+                ease: [0.69, -0.01, 0.49, 1],
               }}
               className="w-full h-full rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-600/30 shadow-lg relative overflow-hidden"
             >
@@ -90,9 +89,9 @@ export default function FigmaWorkflowAnimation() {
           y: [-240, -150, -150, 30, 30],
         }}
         transition={{
-          scale: { duration: 0.5, type: "spring" },
-          x: { duration: 3, delay: 1, times: [0, 0.4, 0.6, 0.8, 1] },
-          y: { duration: 3, delay: 1, times: [0, 0.4, 0.6, 0.8, 1] },
+          scale: { duration: 0.5, ease: [0.69, -0.01, 0.49, 1] },
+          x: { duration: 3, delay: 1, times: [0, 0.4, 0.6, 0.8, 1], ease: [0.69, -0.01, 0.49, 1] },
+          y: { duration: 3, delay: 1, times: [0, 0.4, 0.6, 0.8, 1], ease: [0.69, -0.01, 0.49, 1] },
         }}
       >
         <FigmaCursor />
@@ -112,6 +111,7 @@ export default function FigmaWorkflowAnimation() {
           duration: 1,
           repeat: 1,
           repeatType: "reverse",
+          ease: [0.69, -0.01, 0.49, 1],
         }}
       ></motion.div>
 
@@ -119,7 +119,7 @@ export default function FigmaWorkflowAnimation() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 7, duration: 1 }}
+        transition={{ delay: 7, duration: 1, ease: [0.69, -0.01, 0.49, 1] }}
         className="absolute bottom-10 text-center text-gray-300 font-semibold"
       >
         <p>Ideas to Interfaces.</p>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "@fontsource/inter";
-import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft, FaMapMarkedAlt, FaTag, FaTasks, FaUniversalAccess, FaExternalLinkAlt, FaUsers, FaShoppingCart, FaStar, FaVial, FaCommentDots, FaMousePointer, FaSearchPlus, FaGithub, FaShareAlt, FaPalette, FaLinkedin, FaInstagram, FaTimes } from "react-icons/fa";
-import { SiTailwindcss, SiSketch, SiCanva, SiInkscape } from 'react-icons/si';
+import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft, FaMapMarkedAlt, FaTag, FaTasks, FaUniversalAccess, FaExternalLinkAlt, FaUsers, FaShoppingCart, FaStar, FaVial, FaCommentDots, FaMousePointer, FaSearchPlus, FaGithub, FaShareAlt, FaPalette, FaLinkedin, FaInstagram, FaTimes, FaChevronDown, FaPlus } from "react-icons/fa";
+import { SiTailwindcss, SiSketch, SiCanva, SiInkscape, SiGmail } from 'react-icons/si';
 import { VscFileCode, VscSymbolFile } from 'react-icons/vsc';
 import { GoCheck } from 'react-icons/go';
 import { BsArrowRight, BsDiagram3, BsGrid1X2, BsPuzzle } from 'react-icons/bs';
@@ -190,6 +190,28 @@ const socials = [
   { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/saksham-budhiraja-545b1028b/" },
   { name: "GitHub", icon: <FaGithub />, url: "https://github.com/sakshampro11" },
   { name: "Instagram", icon: <FaInstagram />, url: "https://www.instagram.com/saksham.pro._/?__pwa=1" },
+  { name: "Email", icon: <SiGmail />, url: "mailto:budhirajasaksham6@gmail.com" },
+];
+
+const assetComponents = [
+  {
+    name: "Case Study Artboard",
+    icon: VscSymbolFile,
+    description: "The main container for detailed project walkthroughs.",
+    variants: ["Default", "With Key Features", "With Design Process"],
+  },
+  {
+    name: "Project Card",
+    icon: BsPuzzle,
+    description: "Interactive card to select and preview a project.",
+    variants: ["Default", "Hover State", "Active"],
+  },
+  {
+    name: "Info Panel",
+    icon: BsGrid1X2,
+    description: "Context-aware side panel for details and actions.",
+    variants: ["Global About", "Project Details"],
+  },
 ];
 
 const figmaCursorSVG =
@@ -238,6 +260,7 @@ document.head.appendChild(style);
 export default function App() {
   const [selected, setSelected] = useState(null);
   const [tab, setTab] = useState("about");
+  const [leftSidebarTab, setLeftSidebarTab] = useState('file');
   const [zoom, setZoom] = useState(1);
   const workspaceRef = useRef(null);
   const [showFakeCursor, setShowFakeCursor] = useState(true);
@@ -260,7 +283,7 @@ export default function App() {
   useEffect(() => {
     const workspace = workspaceRef.current;
     if (workspace) {
-      workspace.style.cursor = `url('/path/to/figma-cursor.png') 4 4, auto`;
+      workspace.style.cursor = `url(/poof.svg) 8 8, auto`;
     }
     return () => {
       if (workspace) workspace.style.cursor = "auto";
@@ -310,29 +333,113 @@ export default function App() {
     <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: '"Space Grotesk", sans-serif', background: '#232323' }}>
       <div className="flex flex-1 min-h-0">
         <aside className="w-64 fixed top-0 left-0 h-full z-40" style={{ background: '#232323', borderRight: '1px solid #262626' }}>
-          <div className="flex flex-col py-8 px-4 gap-4 h-full">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-2xl font-bold tracking-wide text-white">Saksham</span>
-              <span className="flex gap-1 ml-2">
-                {figmaColors.map((c, i) => (
-                  <span key={i} className="w-3 h-3 rounded-full" style={{ background: c }}></span>
-                ))}
-              </span>
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-3 border-b border-gray-700/50">
+              <div className="flex items-center gap-2">
+                <BsPuzzle className="text-white w-5 h-5" />
+                <FaChevronDown className="w-4 h-4 text-gray-500" />
+              </div>
             </div>
-            <div className="text-xs text-gray-400 mb-2 uppercase tracking-widest">Page</div>
-            <div className="text-lg font-semibold mb-6 text-white">Portfolio</div>
-            <div className="text-xs text-gray-400 mb-2 uppercase tracking-widest">Layers</div>
-            <nav className="flex flex-col gap-2 text-base">
-              {projects.map((project, idx) => (
-                <button
-                  key={project.title}
-                  onClick={() => setSelected(idx)}
-                  className={`text-left px-4 py-2 rounded-lg transition font-medium ${selected === idx ? 'bg-[#262626] border-l-4 border-white text-white' : 'hover:bg-[#262626] text-gray-200'}`}
-                >
-                  {project.title}
-                </button>
-              ))}
-            </nav>
+            
+            <div className="p-4">
+                <div className="flex items-center gap-2">
+                    <h1 className="text-lg font-bold text-white">Portfolio</h1>
+                    <FaChevronDown className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                    <span className="text-sm text-gray-400">Drafts</span>
+                    <span className="px-2 py-0.5 text-xs font-semibold text-cyan-300 bg-cyan-500/20 rounded-md">Free</span>
+                </div>
+            </div>
+            
+            <div className="px-4 pb-2 border-b border-gray-700/50">
+              <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                      <button 
+                        onClick={() => setLeftSidebarTab('file')}
+                        className={`px-3 py-1 text-sm font-semibold rounded-md ${leftSidebarTab === 'file' ? 'text-white bg-[#2C2C2C]' : 'text-gray-400 hover:text-gray-200'}`}
+                      >
+                        File
+                      </button>
+                      <button 
+                        onClick={() => setLeftSidebarTab('assets')}
+                        className={`px-3 py-1 text-sm font-semibold rounded-md ${leftSidebarTab === 'assets' ? 'text-white bg-[#2C2C2C]' : 'text-gray-400 hover:text-gray-200'}`}
+                      >
+                        Assets
+                      </button>
+                  </div>
+                  <FaSearchPlus className="w-4 h-4 text-gray-400" />
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4">
+                {leftSidebarTab === 'file' && (
+                  <>
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Pages</h2>
+                        <FaPlus className="w-4 h-4 text-gray-400" />
+                    </div>
+
+                    <nav className="flex flex-col gap-1 text-base">
+                      {projects.map((project, idx) => (
+                        <button
+                          key={project.title}
+                          onClick={() => setSelected(idx)}
+                          className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === idx ? 'bg-[#3c3c3c] text-white translate-x-2' : 'text-gray-400 hover:bg-[#3c3c3c] hover:text-white hover:translate-x-2'}`}
+                        >
+                          {project.title}
+                        </button>
+                      ))}
+                    </nav>
+                  </>
+                )}
+                {leftSidebarTab === 'assets' && (
+                   <div className="flex flex-col gap-4">
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Components</h2>
+                      </div>
+                      <div className="flex flex-col gap-3">
+                        {assetComponents.map(component => (
+                          <div key={component.name} className="flex flex-col gap-2 p-3 rounded-lg bg-[#2C2C2C] border border-gray-700/50">
+                            <div className="flex items-center gap-2">
+                              <component.icon className="w-5 h-5 text-cyan-400" />
+                              <span className="font-semibold text-white">{component.name}</span>
+                            </div>
+                            <p className="text-xs text-gray-400 pl-1">{component.description}</p>
+                            <div className="flex flex-wrap gap-2 mt-1 pl-1">
+                              {component.variants.map(variant => (
+                                <span key={variant} className="px-2 py-0.5 text-xs font-medium text-gray-300 bg-[#3C3C3C] rounded-md border border-gray-600">
+                                  {variant}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                   </div>
+                )}
+            </div>
+
+            <div className="flex flex-col gap-2 p-4 border-t border-gray-700/50">
+              <div className="text-sm text-gray-300 flex items-center gap-2">
+                <span className="text-lg">🎧</span>
+                <span>
+                  Now Playing:{" "}
+                  <a
+                    href="https://www.youtube.com/watch?v=tAGnKpE4NCI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Listen on YouTube"
+                  >
+                    "Nothing Else Matters – Metallica"
+                  </a>
+                </span>
+              </div>
+              <div className="text-sm text-gray-300 flex items-center gap-2">
+                <span className="text-lg">🛠️</span>
+                <span>Currently using: Figma + React</span>
+              </div>
+            </div>
           </div>
         </aside>
 
@@ -344,7 +451,7 @@ export default function App() {
             <div
               ref={workspaceRef}
               className="relative w-full flex-1"
-              style={{ background: '#1e1e1e', cursor: `url(${figmaCursorSVG}) 4 4, auto` }}
+              style={{ background: '#1e1e1e', cursor: `url(/poof.svg) 8 8, auto` }}
             >
               <AnimatePresence>
                 {showFakeCursor && (
@@ -408,7 +515,7 @@ export default function App() {
           ) : (
             <div
               className="relative w-full flex-1 min-h-0 flex justify-center items-start"
-              style={{ background: '#1e1e1e', cursor: `url(${figmaCursorSVG}) 4 4, auto` }}
+              style={{ background: '#1e1e1e', cursor: `url(/poof.svg) 8 8, auto` }}
             >
               <div className="w-[900px] min-h-[1200px] rounded-2xl shadow-2xl my-12 flex flex-col px-12 py-10 relative" style={{ background: '#262626', boxShadow: '0 4px 32px 0 #0004' }}>
                 <button
@@ -667,7 +774,7 @@ export default function App() {
                   </button>
                 </div>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold" style={{ background: figmaColors[0] }}>S</div>
+                  <img src="/public/profile.jpg" alt="Profile" className="w-14 h-14 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
                   <div>
                     <div className="text-xl font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
                     <div className="text-sm text-gray-400">UI UX Designer</div>
@@ -712,7 +819,7 @@ export default function App() {
                               A UI/UX designer and frontend developer who thinks in frames and builds in pixels. I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
                             </div>
                             <div className="mt-3 text-sm text-gray-400">
-                              From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and <span className="font-semibold text-[#38BDF8]">Tailwind</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                              From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
                             </div>
                             <div className="mt-3 text-sm text-gray-400">
                               Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
@@ -848,7 +955,7 @@ export default function App() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-3 px-6 rounded-lg transition text-lg"
+              className="flex items-center gap-3 bg-[#1ABCFE] hover:bg-[#18a9e0] text-white font-bold py-3 px-6 rounded-lg transition text-lg"
             >
               <FaFileAlt /> View Resume PDF
             </a>

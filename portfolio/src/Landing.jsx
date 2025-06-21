@@ -81,7 +81,6 @@ export default function Landing() {
         {/* Right: Illustration */}
         <div className="flex-1 flex flex-col items-center justify-center gap-6 relative">
           <div className="absolute top-1/4 left-1/4 z-10 animate-bounce">
-            <FigmaCursor />
           </div>
           <FigmaWorkflowAnimation />
         </div>
