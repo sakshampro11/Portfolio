@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FaFigma } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import FigmaWorkflowAnimation from "./FigmaWorkflowAnimation";
 
 // SVGs for Figma-like icons
 const FrameIcon = () => (
@@ -61,35 +63,27 @@ export default function Landing() {
         <div className="flex-1 flex flex-col items-start justify-center">
           <h1 className="text-5xl 4xl:text-6xl font-extrabold text-white mb-6 leading-tight">Hi I&apos;m<br />Saksham Budhiraja</h1>
           <div className="text-xl md:text-2xl text-gray-300 mb-8">UI/UX Designer who builds with Figma, React &amp; Storytelling.</div>
-          <button
+          
+          <motion.button
             onClick={handleExplore}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#F24D1D] text-white text-lg font-semibold shadow-lg hover:bg-[#0ACF83] transition"
             disabled={loading}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0px 0px 20px rgba(242, 77, 29, 0.6), 0px 8px 24px rgba(242, 77, 29, 0.4)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#F24D1D] text-white text-lg font-semibold shadow-lg group border-2 border-transparent hover:border-[#F24D1D] transition-all duration-300"
           >
-            Explore My Workspace <span className="text-2xl">⮕</span>
-          </button>
+            Explore My Workspace <span className="inline-block group-hover:translate-x-1 transition-transform duration-200 text-2xl">➞</span>
+          </motion.button>
         </div>
         {/* Right: Illustration */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-6">
-          <div className="relative w-[320px] h-[320px] flex items-center justify-center">
-            {/* Figma cursor */}
-            <div className="absolute left-2 top-2 z-10 animate-bounce">
-              <FigmaCursor />
-            </div>
-            {/* Interaction Designer text */}
-            <div className="absolute top-10 left-24 text-[#1ABCFE] font-bold text-lg animate-pulse">Interaction Designer</div>
-            {/* UI/UX text */}
-            <div className="absolute bottom-10 right-10 text-[#A259FF] font-bold text-lg animate-pulse">UI/UX</div>
-            {/* Figma icons */}
-            <div className="absolute bottom-4 left-8 flex gap-4">
-              <FrameIcon />
-              <AutoLayoutIcon />
-              <ComponentIcon />
-              <FaFigma size={32} className="text-[#F24E1E]" />
-            </div>
-            {/* Main illustration circle */}
-            <div className="w-[220px] h-[220px] rounded-full bg-gradient-to-br from-[#1ABCFE] via-[#A259FF] to-[#F24E1E] opacity-20" />
+        <div className="flex-1 flex flex-col items-center justify-center gap-6 relative">
+          <div className="absolute top-1/4 left-1/4 z-10 animate-bounce">
+            <FigmaCursor />
           </div>
+          <FigmaWorkflowAnimation />
         </div>
       </div>
       {loading && (

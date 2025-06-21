@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "@fontsource/inter";
-import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft, FaMapMarkedAlt, FaTag, FaTasks, FaUniversalAccess, FaExternalLinkAlt, FaUsers, FaShoppingCart, FaStar, FaVial, FaCommentDots, FaMousePointer, FaSearchPlus } from "react-icons/fa";
-import { SiTailwindcss } from 'react-icons/si';
+import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft, FaMapMarkedAlt, FaTag, FaTasks, FaUniversalAccess, FaExternalLinkAlt, FaUsers, FaShoppingCart, FaStar, FaVial, FaCommentDots, FaMousePointer, FaSearchPlus, FaGithub, FaShareAlt, FaPalette, FaLinkedin, FaInstagram, FaTimes } from "react-icons/fa";
+import { SiTailwindcss, SiSketch, SiCanva, SiInkscape } from 'react-icons/si';
 import { VscFileCode, VscSymbolFile } from 'react-icons/vsc';
 import { GoCheck } from 'react-icons/go';
 import { BsArrowRight, BsDiagram3, BsGrid1X2, BsPuzzle } from 'react-icons/bs';
@@ -18,12 +18,19 @@ const figmaColors = [
 const projects = [
   {
     title: "City Issue Reporter (Lokally)",
-    thumbnail: "https://via.placeholder.com/200x120?text=Project+1",
+    thumbnail: "/public/lokallylp.png",
     description: "Web UI/UX Design · Hackathon Project.",
     tech: ["Figma", "React", "Tailwind CSS"],
     tags: ["UI", "Web"],
     colors: ["#2D89DA", "#202020", "#D9D9D9", "#F6554F"],
     caseStudy: {
+      heroImage: "/public/locallyhome.png",
+      showcaseImages: [
+        "/public/lokallylp.png",
+        "/public/locallyhome.png",
+        "/public/lokally3.png",
+        "/public/lokally4.png",
+      ],
       overview: `Lokally is a civic-tech web platform that enables citizens to report local issues like potholes, broken streetlights, or garbage dumps directly to the municipal body. Designed during a civic innovation hackathon, Lokally simplifies the process of submitting, tracking, and prioritizing public problems — bringing accountability and transparency to urban governance.
 <br />
 <br />
@@ -38,7 +45,7 @@ const projects = [
   },
   {
     title: "FarmEazyy",
-    thumbnail: "https://via.placeholder.com/200x120?text=Project+2",
+    thumbnail: "/public/Farmeazyy1.png",
     description: "Web Platform for Farmers and Buyers",
     tech: ["React Native", "Figma"],
     tags: ["AgriTech", "UI", "Web", "live"],
@@ -49,6 +56,13 @@ const projects = [
       prototype: "https://www.figma.com/proto/Xl1lCZFt1kezELiIUX9VgE/project-1?page-id=0%3A1&node-id=0-400&viewport=129%2C37%2C0.13&t=XrLoaYaw2QQZsJax-1&scaling=min-zoom&content-scaling=fixed"
     },
     caseStudy: {
+      heroImage: "/public/Farmeazyy2.png",
+      showcaseImages: [
+        "/public/Farmeazyy11.png",
+        "/public/Farmeazyy2.png",
+        "/public/Farmeazyy12.png",
+        "/public/Farmeazyy3.png",
+      ],
       overview: "FarmEazyy is a farmer-focused digital platform that bridges the gap between local farmers and industrial buyers or market vendors. Designed during Smart India Hackathon, the platform empowers small-scale farmers by providing a transparent and accessible way to list their produce, get real-time pricing, and connect directly with buyers — reducing middlemen and ensuring fair trade.<br /><br /> 🛠 Tools: Figma, React, Tailwind CSS  <br />🎨 Roles: UI/UX Design, Visual Branding",
       goal: "To build a transparent marketplace that empowers farmers with direct market access through a user-friendly web platform.",
       designProcess: "A 6-step funnel approach was used to guide the design from user journey mapping to final user testing.",
@@ -59,7 +73,7 @@ const projects = [
   },
   {
     title: "Lokally–Hyperlocal Delivery App",
-    thumbnail: "https://via.placeholder.com/200x120?text=Project+3",
+    thumbnail: "/public/a1.png",
     description: "Mobile-first local delivery solution",
     tech: ["Figma", "Prototyping", "Components"],
     tags: ["Figma", "Designathon"],
@@ -69,6 +83,13 @@ const projects = [
       prototype: "https://www.figma.com/proto/JRtnmIT0Pz1t8E13fZ1i6s/Lokally?page-id=1%3A2&node-id=265-3700&viewport=231%2C-70%2C0.11&t=JaBuuXzfkLN6HoYk-1&scaling=min-zoom&content-scaling=fixed"
     },
     caseStudy: {
+      heroImage: "/public/a2.png",
+      showcaseImages: [
+        "/public/a3.png",
+        "/public/a4.png",
+        "/public/a5.png",
+        "/public/a6.png",
+      ],
       overview: "Lokally is a hyperlocal delivery app designed to help neighborhood sellers reach buyers within their vicinity. Created during a 48 hour Designathon, Lokally focuses on simplifying local commerce by making seller discovery, order placement, and delivery coordination seamless — with a mobile-first approach tailored for urban users.<br /><br />🛠 Tools: Figma<br />🎨 Roles: UI/UX Design, Research, Prototyping",
       goal: "To streamline hyperlocal deliveries by bridging buyers and neighborhood sellers through a fast, reliable mobile platform.",
       designProcess: "A 7-step user-centric design process was implemented, starting from identifying user pain points to iterative prototyping and feedback.",
@@ -79,7 +100,7 @@ const projects = [
   },
   {
     title: "My Design Portfolio",
-    thumbnail: "https://via.placeholder.com/200x120?text=Project+4",
+    thumbnail: "/public/p1.png",
     description: "Figma-style interactive portfolio site",
     tech: ["Figma", "Tailwind CSS", "React", "Framer Motion"],
     tags: ["Workspace", "Inception"],
@@ -87,6 +108,13 @@ const projects = [
       figma: "https://figma.com/@saksham15"
     },
     caseStudy: {
+      heroImage: "/public/p2.png",
+      showcaseImages: [
+        "/public/p3.png",
+        "/public/p4.png",
+        "/public/p5.png",
+        "/public/p6.png",
+      ],
       overview: "This portfolio isn't just a site — it's a playground of my design personality. Inspired by Figma's layout, I built it as an interactive design system to showcase not just what I've made, but how I think. Every scroll, card, and hover is intentional — from cursor interactions to section-based storytelling. <br /><br /> I'm Saksham Budhiraja — a UI/UX designer and frontend developer who thinks in frames and builds in pixels",
       goal: "To create a seamless, scrollable experience that reflects my style, skills, and storytelling.",
       designProcess: "The portfolio was built with a process that balanced structure, inspiration, and technical execution to create a unique, personal experience.",
@@ -97,14 +125,21 @@ const projects = [
   },
 ];
 
-const skills = [
-  { name: "React", icon: <FaReact className="text-sky-400" /> },
-  { name: "Tailwind CSS", icon: <FaTools className="text-cyan-300" /> },
+const CursorAiIcon = () => (
+  <span className="font-bold tracking-tighter text-2xl text-gray-300">
+    C<span style={{color: '#1ABCFE'}}>A</span>
+  </span>
+);
+
+const tools = [
   { name: "Figma", icon: <FaFigma className="text-pink-400" /> },
-  { name: "JavaScript", icon: <FaJs className="text-yellow-300" /> },
-  { name: "Node.js", icon: <FaNodeJs className="text-green-400" /> },
-  { name: "MongoDB", icon: <FaDatabase className="text-green-700" /> },
-  { name: "Git", icon: <FaGitAlt className="text-orange-400" /> },
+  { name: "React", icon: <FaReact className="text-sky-400" /> },
+  { name: "GitHub", icon: <FaGithub className="text-white" /> },
+  { name: "Cursor AI", icon: <CursorAiIcon /> },
+  { name: "Sketch", icon: <SiSketch className="text-yellow-500" /> },
+  { name: "Canva", icon: <SiCanva className="text-cyan-400" /> },
+  { name: "Inkscape", icon: <SiInkscape className="text-white" /> },
+  { name: "Tailwind CSS", icon: <FaTools className="text-cyan-300" /> },
 ];
 
 const designProcessSteps = [
@@ -151,23 +186,28 @@ const portfolioKeyFeatures = [
     { title: "Custom Cursor", description: "A custom Figma-style cursor enhances the thematic experience of the workspace.", icon: FaMousePointer },
 ];
 
+const socials = [
+  { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/saksham-budhiraja-545b1028b/" },
+  { name: "GitHub", icon: <FaGithub />, url: "https://github.com/sakshampro11" },
+  { name: "Instagram", icon: <FaInstagram />, url: "https://www.instagram.com/saksham.pro._/?__pwa=1" },
+];
+
 const figmaCursorSVG =
   "data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 2L28 16L18 18L16 28L4 2Z' fill='black' stroke='white' stroke-width='3'/%3E%3C/svg%3E";
 
 const customScrollbarStyle = document.createElement('style');
 customScrollbarStyle.innerHTML = `
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  background: #232323;
+  width: 6px;
+  background: #1e1e1e;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #111;
-  border-radius: 6px;
-  border: 1.5px solid #444;
+  background: #444;
+  border-radius: 3px;
 }
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #111 ;
+  scrollbar-color: #444 #1e1e1e;
 }
 `;
 document.head.appendChild(customScrollbarStyle);
@@ -203,6 +243,19 @@ export default function App() {
   const [showFakeCursor, setShowFakeCursor] = useState(true);
   const [cursorPos, setCursorPos] = useState({ x: 80, y: 80 });
   const [aboutFlipped, setAboutFlipped] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [workspaceBg, setWorkspaceBg] = useState('#1e1e1e');
+  const [isSocialsOpen, setIsSocialsOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  };
 
   useEffect(() => {
     const workspace = workspaceRef.current;
@@ -283,13 +336,15 @@ export default function App() {
           </div>
         </aside>
 
-        <main className="flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative overflow-hidden ml-64 mr-64" style={{ background: '#1e1e1e', height: '100%' }}>
-          <ProjectsTabBar selectedProject={selected} onBack={() => setSelected(null)} />
+        <main className="flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative ml-64 mr-64 h-screen overflow-y-auto overflow-x-hidden custom-scrollbar" style={{ background: '#1e1e1e' }}>
+          <div className="w-full sticky top-0 z-30 bg-[#1e1e1e]/80 backdrop-blur-sm">
+            <ProjectsTabBar selectedProject={selected} onBack={() => setSelected(null)} />
+          </div>
           {selected === null ? (
             <div
               ref={workspaceRef}
-              className="relative w-full flex-1 min-h-0 overflow-scroll rounded-xl border border-[#232323] custom-scrollbar"
-              style={{ background: '#1e1e1e', scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: `url(${figmaCursorSVG}) 4 4, auto`, height: '100%' }}
+              className="relative w-full flex-1"
+              style={{ background: '#1e1e1e', cursor: `url(${figmaCursorSVG}) 4 4, auto` }}
             >
               <AnimatePresence>
                 {showFakeCursor && (
@@ -305,7 +360,7 @@ export default function App() {
                 )}
               </AnimatePresence>
               <motion.div
-                style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
+                style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
                 initial="hidden"
                 animate="visible"
                 variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
@@ -313,16 +368,25 @@ export default function App() {
                 {projects.map((project, idx) => (
                   <motion.div
                     key={project.title}
-                    className={`absolute group w-[320px] h-[240px] rounded-xl shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 cursor-pointer flex flex-col items-stretch p-0 bg-[#232323]`}
-                    style={{ left: project.x, top: project.y }}
+                    className={`absolute group w-[320px] h-[240px] rounded-xl shadow-2xl border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[#232323]`}
+                    style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
                     onClick={() => setSelected(idx)}
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 32, delay: idx * 0.18 }}
+                    whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'rgba(255, 255, 255, 0.7)' }}
+                    whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(255, 255, 255, 0.5)' }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
                   >
                     <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[#262626]">
-                      <img src={project.thumbnail} alt={project.title} className="object-contain max-h-[120px] max-w-[90%]" />
+                      <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
                     </div>
+                     <motion.div 
+                      className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
+                      initial={{opacity: 0}}
+                      whileHover={{opacity: 1}}
+                    >
+                      <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
+                    </motion.div>
                     <div className="flex flex-col gap-1 px-4 py-3 bg-[#232323] rounded-b-xl border-t border-[#262626]">
                       <div className="flex items-center gap-2">
                         <div className="w-7 h-7 rounded-full bg-[#262626] flex items-center justify-center text-xs font-bold text-white">{project.title[0]}</div>
@@ -343,9 +407,8 @@ export default function App() {
             </div>
           ) : (
             <div
-              ref={workspaceRef}
-              className="relative w-full flex-1 min-h-0 overflow-scroll rounded-xl border border-[#232323] custom-scrollbar flex justify-center items-start"
-              style={{ background: '#1e1e1e', scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: `url(${figmaCursorSVG}) 4 4, auto`, height: '100%' }}
+              className="relative w-full flex-1 min-h-0 flex justify-center items-start"
+              style={{ background: '#1e1e1e', cursor: `url(${figmaCursorSVG}) 4 4, auto` }}
             >
               <div className="w-[900px] min-h-[1200px] rounded-2xl shadow-2xl my-12 flex flex-col px-12 py-10 relative" style={{ background: '#262626', boxShadow: '0 4px 32px 0 #0004' }}>
                 <button
@@ -365,7 +428,11 @@ export default function App() {
                     <div className="text-sm text-gray-400">{projects[selected].caseStudy.goal}</div>
                   </div>
                   <div className="w-1/3">
-                    <div className="bg-gray-700 w-full h-64 rounded-lg"></div>
+                    {projects[selected].caseStudy.heroImage ? (
+                      <img src={projects[selected].caseStudy.heroImage} alt={projects[selected].title} className="w-full h-auto object-cover rounded-lg shadow-lg" />
+                    ) : (
+                      <div className="bg-gray-700 w-full h-64 rounded-lg"></div>
+                    )}
                   </div>
                 </div>
 
@@ -486,12 +553,22 @@ export default function App() {
 
                 <div className="my-12 pt-12">
                    <div className="text-2xl font-bold text-white mb-4">UI SHOWCASE</div>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 1</div></div>
-                     <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 2</div></div>
-                     <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 3</div></div>
-                     <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 4</div></div>
-                   </div>
+                   {projects[selected].caseStudy.showcaseImages && projects[selected].caseStudy.showcaseImages.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {projects[selected].caseStudy.showcaseImages.map((imgSrc, index) => (
+                          <div key={index} className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700">
+                            <img src={imgSrc} alt={`Showcase ${index + 1}`} className="w-full h-full object-cover rounded-md"/>
+                          </div>
+                        ))}
+                      </div>
+                   ) : (
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                       <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 1</div></div>
+                       <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 2</div></div>
+                       <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 3</div></div>
+                       <div className="bg-[#2C2C2C] aspect-video rounded-lg p-2 border border-gray-700"><div className="w-full h-full bg-gray-900 rounded-md flex items-center justify-center text-gray-500">Image 4</div></div>
+                     </div>
+                   )}
                  </div>
 
                 <div className="w-full h-px bg-gray-700 opacity-40 mb-10"></div>
@@ -569,9 +646,26 @@ export default function App() {
           className={selected === null ? "w-[440px] fixed top-0 right-0 h-full z-40 border-l" : "w-64 fixed top-0 right-0 h-full z-40 border-l"}
           style={{ background: '#232323', borderLeft: '1px solid #262626' }}
         >
-          <div className="flex flex-col py-8 px-8 h-full">
+          <div className="flex flex-col py-8 px-8 h-full relative">
             {selected === null ? (
               <>
+                <div className="absolute top-9 right-8">
+                  <button onClick={handleShare} className="relative group p-2 rounded-full hover:bg-[#262626] transition-colors">
+                    <FaShareAlt className="text-gray-400 group-hover:text-white transition-colors" />
+                    <AnimatePresence>
+                      {linkCopied && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className="absolute top-full mt-2 right-0 w-max px-3 py-1.5 bg-black text-white text-xs rounded-md shadow-lg"
+                        >
+                          Link Copied!
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </button>
+                </div>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold" style={{ background: figmaColors[0] }}>S</div>
                   <div>
@@ -649,12 +743,17 @@ export default function App() {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-wrap gap-4 mb-6">
-                    {skills.map(skill => (
-                      <div key={skill.name} className="flex flex-col items-center gap-1 w-16">
-                        <div className="text-2xl">{skill.icon}</div>
-                        <span className="text-xs text-gray-400 text-center">{skill.name}</span>
-                      </div>
+                  <div className="grid grid-cols-3 gap-4 mb-6 p-1">
+                    {tools.map(tool => (
+                      <motion.div 
+                        key={tool.name} 
+                        className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[#262626] border border-transparent hover:border-cyan-400 cursor-pointer"
+                        whileHover={{ scale: 1.08, y: -5 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+                      >
+                        <div className="text-3xl h-8 flex items-center">{tool.icon}</div>
+                        <span className="text-xs text-gray-300 text-center font-medium h-4">{tool.name}</span>
+                      </motion.div>
                     ))}
                   </div>
                 )}
@@ -726,15 +825,75 @@ export default function App() {
           <FaUser size={22} />
           <span className="text-base">Portfolio</span>
         </a>
-        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: '#fff', background: '#232323' }}>
+        <button onClick={() => setIsResumeOpen(true)} className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: '#fff', background: '#232323' }}>
           <FaFileAlt size={22} />
           <span className="text-base">Resume</span>
-        </a>
-        <a href="https://example.com" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: '#fff', background: '#232323' }}>
+        </button>
+        <button onClick={() => setIsSocialsOpen(true)} className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: '#fff', background: '#232323' }}>
           <FaLink size={22} />
           <span className="text-base">Socials</span>
-        </a>
+        </button>
       </div>
+
+      <AnimatePresence>
+        {isResumeOpen && (
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="fixed bottom-0 left-0 right-0 h-24 bg-[#181818] border-t border-[#262626] z-50 flex items-center justify-center"
+          >
+            <a 
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-3 px-6 rounded-lg transition text-lg"
+            >
+              <FaFileAlt /> View Resume PDF
+            </a>
+            <button 
+              onClick={() => setIsResumeOpen(false)}
+              className="absolute top-1/2 -translate-y-1/2 right-8 text-gray-400 hover:text-white transition-colors text-2xl"
+            >
+              <FaTimes />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isSocialsOpen && (
+          <motion.div 
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="fixed bottom-0 left-0 right-0 h-24 bg-[#181818] border-t border-[#262626] z-50 flex items-center justify-center"
+          >
+            <div className="flex gap-12 items-center">
+              {socials.map(social => (
+                <a 
+                  key={social.name}
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110 text-3xl"
+                  title={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+            <button 
+              onClick={() => setIsSocialsOpen(false)}
+              className="absolute top-1/2 -translate-y-1/2 right-8 text-gray-400 hover:text-white transition-colors text-2xl"
+            >
+              <FaTimes />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
