@@ -992,7 +992,7 @@ export default function App() {
           </div>
         </div>
         <div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex gap-12 border rounded-2xl shadow-2xl px-16 py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: 520 }}>
-          <a href="/portfolio" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: figmaColors[3], background: 'transparent' }}>
+          <a href="/" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: figmaColors[3], background: 'transparent' }}>
             <FaUser size={22} />
             <span className="text-base">Portfolio</span>
           </a>
@@ -1015,14 +1015,12 @@ export default function App() {
               transition={{ type: 'spring', stiffness: 400, damping: 40 }}
               className="fixed bottom-0 left-0 right-0 h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
             >
-              <a 
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-[#1ABCFE] hover:bg-[#18a9e0] text-white font-bold py-3 px-6 rounded-lg transition text-lg"
+              <button
+                disabled
+                className="flex items-center gap-3 bg-gray-500 text-white font-bold py-3 px-6 rounded-lg transition text-lg cursor-not-allowed"
               >
-                <FaFileAlt /> View Resume PDF
-              </a>
+                <FaFileAlt /> Resume (Coming Soon)
+              </button>
               <button 
                 onClick={() => setIsResumeOpen(false)}
                 className="absolute top-1/2 -translate-y-1/2 right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-2xl"
