@@ -337,7 +337,7 @@ export default function App() {
           onClick={() => setIsRightSidebarOpen(true)}
           className="fixed top-4 right-4 z-50 md:hidden p-2 bg-[var(--surface)] rounded-full border border-[var(--border)]"
         >
-          <img src="/profile.jpg" alt="Profile" className="w-6 h-6 rounded-full object-cover" />
+          <img src="/profile.JPG" alt="Profile" className="w-6 h-6 rounded-full object-cover" />
         </button>
 
         {/* Mobile Overlay for Left Sidebar */}
