@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: theme('colors.light-bg');
+    --surface: theme('colors.light-surface');
+    --text-primary: theme('colors.light-text-primary');
+    --text-secondary: theme('colors.light-text-secondary');
+    --border: theme('colors.light-border');
+    --scrollbar-thumb: #E5E7EB;
+    --scrollbar-track: theme('colors.light-bg');
+  }
+
+  .dark {
+    --background: theme('colors.dark-bg');
+    --surface: theme('colors.dark-surface');
+    --text-primary: theme('colors.dark-text-primary');
+    --text-secondary: theme('colors.dark-text-secondary');
+    --border: theme('colors.dark-border');
+    --scrollbar-thumb: #4B5563;
+    --scrollbar-track: theme('colors.dark-bg');
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}

@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -43,6 +44,16 @@ export default {
             green: "#00E272",
           },
         },
+        'light-bg': '#F9F9F9',
+        'light-surface': '#FFFFFF',
+        'light-text-primary': '#111827',
+        'light-text-secondary': '#6B7280',
+        'light-border': '#E5E7EB',
+        'dark-bg': '#1e1e1e',
+        'dark-surface': '#2C2C2C',
+        'dark-text-primary': '#FFFFFF',
+        'dark-text-secondary': '#A9A9A9',
+        'dark-border': '#424242',
       },
     },
   },
