@@ -20,18 +20,18 @@ const figmaColors = [
 const projects = [
   {
     title: "City Issue Reporter (Lokally)",
-    thumbnail: "/public/lokallylp.png",
+    thumbnail: "/lokallylp.png",
     description: "Web UI/UX Design · Hackathon Project.",
     tech: ["Figma", "React", "Tailwind CSS"],
     tags: ["UI", "Web"],
     colors: ["#2D89DA", "#202020", "#D9D9D9", "#F6554F"],
     caseStudy: {
-      heroImage: "/public/locallyhome.png",
+      heroImage: "/locallyhome.png",
       showcaseImages: [
-        "/public/lokallylp.png",
-        "/public/locallyhome.png",
-        "/public/lokally3.png",
-        "/public/lokally4.png",
+        "/lokallylp.png",
+        "/locallyhome.png",
+        "/lokally3.png",
+        "/lokally4.png",
       ],
       overview: `Lokally is a civic-tech web platform that enables citizens to report local issues like potholes, broken streetlights, or garbage dumps directly to the municipal body. Designed during a civic innovation hackathon, Lokally simplifies the process of submitting, tracking, and prioritizing public problems — bringing accountability and transparency to urban governance.
 <br />
@@ -47,7 +47,7 @@ const projects = [
   },
   {
     title: "FarmEazyy",
-    thumbnail: "/public/Farmeazyy1.png",
+    thumbnail: "/Farmeazyy1.png",
     description: "Web Platform for Farmers and Buyers",
     tech: ["React Native", "Figma"],
     tags: ["AgriTech", "UI", "Web", "live"],
@@ -58,12 +58,12 @@ const projects = [
       prototype: "https://www.figma.com/proto/Xl1lCZFt1kezELiIUX9VgE/project-1?page-id=0%3A1&node-id=0-400&viewport=129%2C37%2C0.13&t=XrLoaYaw2QQZsJax-1&scaling=min-zoom&content-scaling=fixed"
     },
     caseStudy: {
-      heroImage: "/public/Farmeazyy2.png",
+      heroImage: "/Farmeazyy2.png",
       showcaseImages: [
-        "/public/Farmeazyy11.png",
-        "/public/Farmeazyy2.png",
-        "/public/Farmeazyy12.png",
-        "/public/Farmeazyy3.png",
+        "/Farmeazyy11.png",
+        "/Farmeazyy2.png",
+        "/Farmeazyy12.png",
+        "/Farmeazyy3.png",
       ],
       overview: "FarmEazyy is a farmer-focused digital platform that bridges the gap between local farmers and industrial buyers or market vendors. Designed during Smart India Hackathon, the platform empowers small-scale farmers by providing a transparent and accessible way to list their produce, get real-time pricing, and connect directly with buyers — reducing middlemen and ensuring fair trade.<br /><br /> 🛠 Tools: Figma, React, Tailwind CSS  <br />🎨 Roles: UI/UX Design, Visual Branding",
       goal: "To build a transparent marketplace that empowers farmers with direct market access through a user-friendly web platform.",
@@ -75,7 +75,7 @@ const projects = [
   },
   {
     title: "Lokally–Hyperlocal Delivery App",
-    thumbnail: "/public/af.png",
+    thumbnail: "/af.png",
     description: "Mobile-first local delivery solution",
     tech: ["Figma", "Prototyping", "Components"],
     tags: ["Figma", "Designathon"],
@@ -85,12 +85,12 @@ const projects = [
       prototype: "https://www.figma.com/proto/JRtnmIT0Pz1t8E13fZ1i6s/Lokally?page-id=1%3A2&node-id=265-3700&viewport=231%2C-70%2C0.11&t=JaBuuXzfkLN6HoYk-1&scaling=min-zoom&content-scaling=fixed"
     },
     caseStudy: {
-      heroImage: "/public/a2.png",
+      heroImage: "/a2.png",
       showcaseImages: [
-        "/public/a3.png",
-        "/public/a4.png",
-        "/public/a5.png",
-        "/public/a6.png",
+        "/a3.png",
+        "/a4.png",
+        "/a5.png",
+        "/a6.png",
       ],
       overview: "Lokally is a hyperlocal delivery app designed to help neighborhood sellers reach buyers within their vicinity. Created during a 48 hour Designathon, Lokally focuses on simplifying local commerce by making seller discovery, order placement, and delivery coordination seamless — with a mobile-first approach tailored for urban users.<br /><br />🛠 Tools: Figma<br />🎨 Roles: UI/UX Design, Research, Prototyping",
       goal: "To streamline hyperlocal deliveries by bridging buyers and neighborhood sellers through a fast, reliable mobile platform.",
@@ -102,7 +102,7 @@ const projects = [
   },
   {
     title: "My Design Portfolio",
-    thumbnail: "/public/p1.png",
+    thumbnail: "/p1.png",
     description: "Figma-style interactive portfolio site",
     tech: ["Figma", "Tailwind CSS", "React", "Framer Motion"],
     tags: ["Workspace", "Inception"],
@@ -110,12 +110,12 @@ const projects = [
       figma: "https://figma.com/@saksham15"
     },
     caseStudy: {
-      heroImage: "/public/p2.png",
+      heroImage: "/p2.png",
       showcaseImages: [
-        "/public/p3.png",
-        "/public/p7.png",
-        "/public/p8.png",
-        "/public/p5.png",
+        "/p3.png",
+        "/p7.png",
+        "/p8.png",
+        "/p5.png",
       ],
       overview: "This portfolio isn't just a site — it's a playground of my design personality. Inspired by Figma's layout, I built it as an interactive design system to showcase not just what I've made, but how I think. Every scroll, card, and hover is intentional — from cursor interactions to section-based storytelling. <br /><br /> I'm Saksham Budhiraja — a UI/UX designer and frontend developer who thinks in frames and builds in pixels",
       goal: "To create a seamless, scrollable experience that reflects my style, skills, and storytelling.",
@@ -337,7 +337,7 @@ export default function App() {
           onClick={() => setIsRightSidebarOpen(true)}
           className="fixed top-4 right-4 z-50 md:hidden p-2 bg-[var(--surface)] rounded-full border border-[var(--border)]"
         >
-          <img src="/public/profile.jpg" alt="Profile" className="w-6 h-6 rounded-full object-cover" />
+          <img src="/profile.jpg" alt="Profile" className="w-6 h-6 rounded-full object-cover" />
         </button>
 
         {/* Mobile Overlay for Left Sidebar */}
@@ -837,7 +837,7 @@ export default function App() {
                       </button>
                     </div>
                     <div className="flex items-center gap-4 mb-6">
-                      <img src="/public/profile.jpg" alt="Profile" className="w-14 h-14 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
+                      <img src="/profile.jpg" alt="Profile" className="w-14 h-14 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
                       <div>
                         <div className="text-xl font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
                         <div className="text-sm text-[var(--text-secondary)]">UI UX Designer</div>
