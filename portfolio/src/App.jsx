@@ -262,6 +262,7 @@ export default function App() {
   const [workspaceBg, setWorkspaceBg] = useState('#1e1e1e');
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -325,39 +326,23 @@ export default function App() {
     <>
       <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: '"Space Grotesk", sans-serif', background: '#232323' }}>
         {/* Mobile Hamburger Menu Button */}
-        <button 
-          onClick={() => setIsLeftSidebarOpen(true)}
-          className="fixed top-4 left-4 z-50 md:hidden p-2 bg-[var(--surface)] rounded-lg border border-[var(--border)]"
-        >
-          <FaBars className="w-5 h-5 text-[var(--text-primary)]" />
-        </button>
+          <button 
+            onClick={() => setIsMobileMenuOpen(true)}
+          className={`fixed top-4 left-4 z-50 md:hidden p-2 bg-[var(--surface)] rounded-lg border border-[var(--border)] transition-opacity ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          >
+            <FaBars className="w-5 h-5 text-[var(--text-primary)]" />
+          </button>
 
-        {/* Mobile Profile Button */}
-        <button
-          onClick={() => setIsRightSidebarOpen(true)}
-          className="fixed top-4 right-4 z-50 md:hidden p-2 bg-[var(--surface)] rounded-full border border-[var(--border)]"
-        >
-          <img src="/profile.JPG" alt="Profile" className="w-6 h-6 rounded-full object-cover" />
-        </button>
-
-        {/* Mobile Overlay for Left Sidebar */}
-        {isLeftSidebarOpen && (
+        {/* Mobile Overlay */}
+        {isMobileMenuOpen && (
           <div 
-            onClick={() => setIsLeftSidebarOpen(false)} 
-            className="fixed inset-0 bg-black/30 z-40 md:hidden"
-          />
-        )}
-
-        {/* Mobile Overlay for Right Sidebar */}
-        {isRightSidebarOpen && (
-          <div 
-            onClick={() => setIsRightSidebarOpen(false)} 
+            onClick={() => setIsMobileMenuOpen(false)} 
             className="fixed inset-0 bg-black/30 z-40 md:hidden"
           />
         )}
 
         <div className="flex flex-1 min-h-0">
-          <aside className={`w-64 fixed top-0 left-0 h-full z-40 bg-[var(--surface)] border-r border-[var(--border)] transition-transform duration-300 ease-in-out ${isLeftSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+          <aside className={`w-64 fixed top-0 left-0 h-full z-40 bg-[var(--surface)] border-r border-[var(--border)] transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
             <div className="flex flex-col h-full">
               <div className="relative flex items-center justify-between p-3 border-b border-[var(--border)]">
                 <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex items-center gap-2">
@@ -443,7 +428,10 @@ export default function App() {
                          {projects.map((project, idx) => (
                            <button
                              key={project.title}
-                             onClick={() => setSelected(idx)}
+                             onClick={() => {
+                               setSelected(idx);
+                               setIsMobileMenuOpen(false);
+                             }}
                              className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === idx ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-2' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-2'}`}
                            >
                              {project.title}
@@ -502,122 +490,262 @@ export default function App() {
              </div>
            </aside>
 
-           <main className={`flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative h-screen overflow-y-auto overflow-x-hidden custom-scrollbar bg-[var(--background)] ${isLeftSidebarOpen ? 'ml-0' : 'md:ml-64'} ${selected === null ? 'md:mr-[440px]' : 'md:mr-64'}`}>
-             <div className="w-full sticky top-0 z-30 bg-[var(--background)]/80 backdrop-blur-sm border-b border-[var(--border)]">
+           <main className={`flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative h-screen overflow-y-auto overflow-x-hidden custom-scrollbar bg-[var(--background)] ${isMobileMenuOpen ? 'ml-0' : 'md:ml-64'} ${selected === null ? 'md:mr-[440px]' : 'md:mr-64'}`}>
+             <div className="w-full sticky top-0 z-30 bg-[var(--background)]/80 backdrop-blur-sm border-b border-[var(--border)] md:block hidden">
                <ProjectsTabBar selectedProject={selected} onBack={() => setSelected(null)} />
              </div>
              {selected === null ? (
-               <div
-                 ref={workspaceRef}
-                 className="relative w-full flex-1"
-                 style={{ cursor: `url(/poof.svg) 8 8, auto` }}
-               >
-                 <AnimatePresence>
-                   {showFakeCursor && (
-                     <motion.div
-                       initial={{ opacity: 0 }}
-                       animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
-                       exit={{ opacity: 0 }}
-                       transition={{ duration: 0.3 }}
-                       style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
-                     >
-                       <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="var(--surface)" strokeWidth="3"/></svg>
-                     </motion.div>
-                   )}
-                 </AnimatePresence>
-                 <motion.div
-                   style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
-                   initial="hidden"
-                   animate="visible"
-                   variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
-                 >
-                   {projects.map((project, idx) => (
-                     <motion.div
-                       key={project.title}
-                       className={`absolute group w-[320px] h-[240px] rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[var(--surface)]`}
-                       style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
-                       onClick={() => setSelected(idx)}
-                       initial={{ y: 40, opacity: 0 }}
-                       animate={{ y: 0, opacity: 1 }}
-                       whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'var(--border)' }}
-                       whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(128, 128, 128, 0.5)' }}
-                       transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
-                     >
-                       <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[var(--background)]">
-                         <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+               <>
+                 {/* Mobile Layout - About Me and Tools sections */}
+                 <div className="w-full md:hidden px-4 py-6">
+                   {/* Profile Info - Top Right Corner */}
+                   <div className="absolute top-4 right-4 z-40 flex items-center gap-3">
+                     <div className="text-right">
+                       <div className="text-sm font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
+                       <div className="text-xs text-[var(--text-secondary)]">UI UX Designer</div>
+                     </div>
+                     <img src="/profile.JPG" alt="Profile" className="w-10 h-10 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
+                   </div>
+
+                   {/* About Me Section */}
+                   <div className="mb-12">
+                     <div className="relative mb-8 min-h-[220px]">
+                       <div className="absolute top-3 right-4 z-10">
+                         <button
+                           onClick={() => setAboutFlipped(f => !f)}
+                           className="rounded-full bg-[var(--surface)] hover:bg-[#1ABCFE] text-[#1ABCFE] hover:text-white p-2 shadow-md border border-[#1ABCFE] transition-transform active:scale-90"
+                           title="Flip Card"
+                           style={{ outline: 'none' }}
+                         >
+                           <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
+                             <rect x="4" y="6" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="2" fill="var(--surface)" />
+                             <path d="M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                             <path d="M12 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                             <path d="M4 12c0-4 16-4 16 0" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2"/>
+                           </svg>
+                         </button>
                        </div>
-                        <motion.div 
-                          className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
-                          initial={{opacity: 0}}
-                          whileHover={{opacity: 1}}
-                        >
-                          <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
-                        </motion.div>
-                        <div className="flex flex-col gap-1 px-4 py-3 bg-[var(--surface)] rounded-b-xl border-t border-[var(--border)]">
-                          <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-full bg-[var(--background)] flex items-center justify-center text-xs font-bold text-[var(--text-primary)]">{project.title[0]}</div>
-                            <div className="flex-1 min-w-0">
-                              <div className="truncate text-[var(--text-primary)] font-medium text-base">{project.title}</div>
-                              <div className="truncate text-xs text-[var(--text-secondary)]">{project.description}</div>
+                       <div className="perspective-[1200px]">
+                         <AnimatePresence mode="wait" initial={false}>
+                           {!aboutFlipped ? (
+                             <motion.div
+                               key="about-front"
+                               initial={{ rotateY: 90, opacity: 0 }}
+                               animate={{ rotateY: 0, opacity: 1 }}
+                               exit={{ rotateY: -90, opacity: 0 }}
+                               transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                               className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] min-h-[220px] bg-gradient-to-r from-[var(--surface)] to-[#1ABCFE11] border-[#1ABCFE]"
+                               style={{ boxShadow: '0 2px 24px 0 #1ABCFE22', backfaceVisibility: 'hidden', position: 'absolute', width: '100%' }}
+                             >
+                               <span className="text-2xl mr-2 align-middle">👋</span>
+                               <span className="text-lg font-bold text-[var(--text-primary)]">Hi, I'm Saksham Budhiraja</span>
+                               <div className="mt-2 text-base text-[var(--text-secondary)]">
+                                 A UI/UX designer and frontend developer who thinks in frames and builds in pixels. I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
+                               </div>
+                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
+                                 From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                               </div>
+                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
+                                 Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
+                               </div>
+                             </motion.div>
+                           ) : (
+                             <motion.div
+                               key="about-back"
+                               initial={{ rotateY: -90, opacity: 0 }}
+                               animate={{ rotateY: 0, opacity: 1 }}
+                               exit={{ rotateY: 90, opacity: 0 }}
+                               transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                               className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] min-h-[220px] bg-gradient-to-r from-[var(--surface)] to-[#A259FF11] border-[#A259FF] flex flex-col gap-2"
+                               style={{ boxShadow: '0 2px 24px 0 #A259FF22', backfaceVisibility: 'hidden', position: 'absolute', width: '100%' }}
+                             >
+                               <div className="text-lg font-bold text-[var(--text-primary)] mb-2">Component Name: <span className="font-semibold text-[#1ABCFE]">Saksham Budhiraja</span></div>
+                               <div className="text-base font-semibold text-[#A259FF] mb-2">Role: UI/UX Designer + Developer Handoff</div>
+                               <div className="text-base font-semibold text-[#1ABCFE] mb-1">Skills:</div>
+                               <ul className="list-disc list-inside text-[var(--text-secondary)] ml-2">
+                                 <li>Design Systems</li>
+                                 <li>Interactive Prototypes</li>
+                                 <li>Web Accessibility</li>
+                                 <li>React + UI Engineering</li>
+                               </ul>
+                             </motion.div>
+                           )}
+                         </AnimatePresence>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* Tools Section */}
+                   <div className="mb-8">
+                     <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Tools</h2>
+                     <div className="grid grid-cols-3 gap-4">
+                       {tools.map(tool => (
+                         <motion.div 
+                           key={tool.name} 
+                           className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
+                           whileHover={{ scale: 1.05 }}
+                           transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+                         >
+                           <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
+                           <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
+                         </motion.div>
+                       ))}
+                     </div>
+                   </div>
+
+                   {/* Mobile Project Cards */}
+                   <div className="mb-8">
+                     <div className="space-y-4">
+                       {projects.map((project, idx) => (
+                         <motion.div
+                           key={project.title}
+                           className="w-full rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
+                           onClick={() => {
+                             setSelected(idx);
+                             setIsMobileMenuOpen(false);
+                           }}
+                           whileHover={{ scale: 1.02, borderColor: 'var(--border)' }}
+                           whileTap={{ scale: 0.98 }}
+                           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                         >
+                           <div className="aspect-video overflow-hidden bg-[var(--background)]">
+                             <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+                           </div>
+                           <div className="flex flex-col gap-2 px-4 py-3 bg-[var(--surface)] border-t border-[var(--border)]">
+                             <div className="flex items-center gap-2">
+                               <div className="w-8 h-8 rounded-full bg-[var(--background)] flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">{project.title[0]}</div>
+                               <div className="flex-1 min-w-0">
+                                 <div className="text-[var(--text-primary)] font-medium text-base">{project.title}</div>
+                                 <div className="text-sm text-[var(--text-secondary)]">{project.description}</div>
+                               </div>
+                             </div>
+                             <div className="flex flex-wrap gap-2">
+                               {project.tags && project.tags.map((tag, i) => (
+                                 <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                               ))}
+                             </div>
+                           </div>
+                         </motion.div>
+                       ))}
+                     </div>
+                   </div>
+                 </div>
+
+                 {/* Desktop Layout - Keep existing workspace */}
+                 <div className="hidden md:block w-full">
+                   <div
+                     ref={workspaceRef}
+                     className="relative w-full flex-1"
+                     style={{ cursor: `url(/poof.svg) 8 8, auto` }}
+                   >
+                     <AnimatePresence>
+                       {showFakeCursor && (
+                         <motion.div
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
+                           exit={{ opacity: 0 }}
+                           transition={{ duration: 0.3 }}
+                           style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
+                         >
+                           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="var(--surface)" strokeWidth="3"/></svg>
+                         </motion.div>
+                       )}
+                     </AnimatePresence>
+                     <motion.div
+                       style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
+                       initial="hidden"
+                       animate="visible"
+                       variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
+                     >
+                       {projects.map((project, idx) => (
+                         <motion.div
+                           key={project.title}
+                           className={`absolute group w-[320px] h-[240px] rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[var(--surface)]`}
+                           style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
+                           onClick={() => setSelected(idx)}
+                           initial={{ y: 40, opacity: 0 }}
+                           animate={{ y: 0, opacity: 1 }}
+                           whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'var(--border)' }}
+                           whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(128, 128, 128, 0.5)' }}
+                           transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
+                         >
+                           <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[var(--background)]">
+                             <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+                           </div>
+                            <motion.div 
+                              className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
+                              initial={{opacity: 0}}
+                              whileHover={{opacity: 1}}
+                            >
+                              <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
+                            </motion.div>
+                            <div className="flex flex-col gap-1 px-4 py-3 bg-[var(--surface)] rounded-b-xl border-t border-[var(--border)]">
+                              <div className="flex items-center gap-2">
+                                <div className="w-7 h-7 rounded-full bg-[var(--background)] flex items-center justify-center text-xs font-bold text-[var(--text-primary)]">{project.title[0]}</div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="truncate text-[var(--text-primary)] font-medium text-base">{project.title}</div>
+                                  <div className="truncate text-xs text-[var(--text-secondary)]">{project.description}</div>
+                                </div>
+                              </div>
+                              <div className="flex flex-wrap gap-2 mt-2">
+                                {project.tags && project.tags.map((tag, i) => (
+                                  <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            {project.tags && project.tags.map((tag, i) => (
-                              <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
-                            ))}
-                          </div>
-                        </div>
+                         </motion.div>
+                       ))}
                      </motion.div>
-                   ))}
-                 </motion.div>
-               </div>
+                   </div>
+                 </div>
+               </>
              ) : (
                <div
                  className="relative w-full flex-1 min-h-0 flex justify-center items-start custom-scrollbar"
                  style={{ cursor: `url(/poof.svg) 8 8, auto` }}
                >
-                 <div className="w-[900px] min-h-[1200px] rounded-2xl shadow-lg my-12 flex flex-col px-12 py-10 relative bg-[var(--surface)]">
+                 <div className="w-full md:w-[900px] min-h-[1200px] rounded-2xl shadow-lg my-6 md:my-12 flex flex-col px-4 md:px-12 py-6 md:py-10 relative bg-[var(--surface)] mx-4 md:mx-0">
                    <button
                      onClick={() => setSelected(null)}
-                     className="absolute top-6 left-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[var(--background)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-orange-400 hover:bg-[var(--surface)] transition shadow-lg"
+                     className="absolute top-4 md:top-6 left-4 md:left-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[var(--background)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-orange-400 hover:bg-[var(--surface)] transition shadow-lg"
                      title="Back to Projects"
                    >
                      <FaArrowLeft size={20} />
                    </button>
-                   <div className="flex flex-row gap-10 mb-10 mt-16">
-                     <div className="flex-1 flex flex-col gap-4">
-                       <div className="text-5xl font-extrabold text-[var(--text-primary)]">{projects[selected].title}</div>
-                       <div className="text-xl text-[var(--text-primary)] font-semibold">{projects[selected].description}</div>
-                       <div className="text-base text-[var(--text-primary)] font-bold mt-4">ABOUT</div>
+                   <div className="flex flex-col md:flex-row gap-6 md:gap-10 mb-6 md:mb-10 mt-12 md:mt-16">
+                     <div className="flex-1 flex flex-col gap-3 md:gap-4">
+                       <div className="text-3xl md:text-5xl font-extrabold text-[var(--text-primary)]">{projects[selected].title}</div>
+                       <div className="text-lg md:text-xl text-[var(--text-primary)] font-semibold">{projects[selected].description}</div>
+                       <div className="text-base text-[var(--text-primary)] font-bold mt-3 md:mt-4">ABOUT</div>
                        <div className="text-sm text-[var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: projects[selected].caseStudy.overview }}></div>
-                       <div className="text-base text-[var(--text-primary)] font-bold mt-4">GOAL</div>
+                       <div className="text-base text-[var(--text-primary)] font-bold mt-3 md:mt-4">GOAL</div>
                        <div className="text-sm text-[var(--text-secondary)]">{projects[selected].caseStudy.goal}</div>
                      </div>
-                     <div className="w-1/3">
+                     <div className="w-full md:w-1/3">
                        {projects[selected].caseStudy.heroImage ? (
                          <img src={projects[selected].caseStudy.heroImage} alt={projects[selected].title} className="w-full h-auto object-cover rounded-lg shadow-lg" />
                        ) : (
-                         <div className="bg-[var(--background)] w-full h-64 rounded-lg"></div>
+                         <div className="bg-[var(--background)] w-full h-48 md:h-64 rounded-lg"></div>
                        )}
                      </div>
                    </div>
 
-                   <div className="mb-10">
-                     <div className="text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN PROCESS</div>
-                     <div className="text-sm text-[var(--text-secondary)] mb-6">{projects[selected].caseStudy.designProcess}</div>
+                   <div className="mb-6 md:mb-10">
+                     <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN PROCESS</div>
+                     <div className="text-sm text-[var(--text-secondary)] mb-4 md:mb-6">{projects[selected].caseStudy.designProcess}</div>
                      {projects[selected].title === "City Issue Reporter (Lokally)" ? (
                        <div className="relative">
-                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
                            {designProcessSteps.map((item, index) => (
-                             <div key={item.step} className={`flex items-start p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
-                               <div className="flex-shrink-0 mr-4">
-                                 <div className={`w-12 h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
-                                   <item.icon className={`w-6 h-6 ${item.iconColor}`} />
+                             <div key={item.step} className={`flex items-start p-3 md:p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
+                               <div className="flex-shrink-0 mr-3 md:mr-4">
+                                 <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
+                                   <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.iconColor}`} />
                                  </div>
                                </div>
                                <div>
-                                 <p className={`text-lg font-bold ${item.color}`}>{item.title}</p>
-                                 <p className="text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                                 <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                 <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
                                </div>
                              </div>
                            ))}
@@ -625,60 +753,60 @@ export default function App() {
                        </div>
                      ) : projects[selected].title === "FarmEazyy" ? (
                        <div className="relative">
-                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
                            {farmEazyyDesignProcessSteps.map((item, index) => (
-                             <div key={item.step} className={`flex items-start p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
-                               <div className="flex-shrink-0 mr-4">
-                                 <div className={`w-12 h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
-                                   <item.icon className={`w-6 h-6 ${item.iconColor}`} />
+                             <div key={item.step} className={`flex items-start p-3 md:p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
+                               <div className="flex-shrink-0 mr-3 md:mr-4">
+                                 <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
+                                   <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.iconColor}`} />
                                  </div>
                                </div>
                                <div>
-                                 <p className={`text-lg font-bold ${item.color}`}>{item.title}</p>
-                                 <p className="text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                                 <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                 <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
                                </div>
                              </div>
                            ))}
                          </div>
                        </div>
                      ) : projects[selected].title === "Lokally–Hyperlocal Delivery App" ? (
-                       <div className="relative pl-8">
+                       <div className="relative pl-4 md:pl-8">
                          {lokallyDesignProcessSteps.map((item, index) => (
-                           <div key={item.title} className="flex items-start mb-8">
+                           <div key={item.title} className="flex items-start mb-6 md:mb-8">
                              <div className="absolute left-0 flex flex-col items-center">
-                               <div className={`w-16 h-16 rounded-full flex items-center justify-center ${item.color.replace('text-', 'bg-')} bg-opacity-20`}>
-                                 <div className={`w-12 h-12 rounded-full flex items-center justify-center ${item.color.replace('text-', 'bg-')} bg-opacity-30`}>
-                                   <item.icon className={`w-6 h-6 ${item.color}`} />
+                               <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center ${item.color.replace('text-', 'bg-')} bg-opacity-20`}>
+                                 <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center ${item.color.replace('text-', 'bg-')} bg-opacity-30`}>
+                                   <item.icon className={`w-4 h-4 md:w-6 md:h-6 ${item.color}`} />
                                  </div>
                                </div>
-                               {index < lokallyDesignProcessSteps.length - 1 && <div className="w-0.5 h-12 bg-[var(--border)]" />}
+                               {index < lokallyDesignProcessSteps.length - 1 && <div className="w-0.5 h-8 md:h-12 bg-[var(--border)]" />}
                              </div>
-                             <div className="ml-12 pl-8">
-                               <p className={`text-lg font-bold ${item.color}`}>{item.title}</p>
-                               <p className="text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                             <div className="ml-8 md:ml-12 pl-4 md:pl-8">
+                               <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                               <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
                              </div>
                            </div>
                          ))}
                        </div>
                      ) : projects[selected].title === "My Design Portfolio" ? (
-                       <div className="relative py-8">
+                       <div className="relative py-4 md:py-8">
                          <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-[var(--border)]" />
-                           <div className="space-y-12">
+                           <div className="space-y-8 md:space-y-12">
                              {portfolioDesignProcessSteps.map((item, index) => (
                                <div key={index} className="relative flex items-center">
                                  {item.side === 'left' && (
-                                   <div className="w-1/2 pr-16 text-right">
-                                     <p className={`text-lg font-bold ${item.color}`}>{item.title}</p>
-                                     <p className="text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                                   <div className="w-1/2 pr-8 md:pr-16 text-right">
+                                     <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                     <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
                                    </div>
                                  )}
-                                 <div className="absolute left-1/2 -translate-x-1/2 w-12 h-12 bg-[var(--surface)] rounded-full border-2 border-[var(--border)] flex items-center justify-center z-10">
-                                   <item.icon className={`w-6 h-6 ${item.color}`} />
+                                 <div className="absolute left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 bg-[var(--surface)] rounded-full border-2 border-[var(--border)] flex items-center justify-center z-10">
+                                   <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.color}`} />
                                  </div>
                                  {item.side === 'right' && (
-                                   <div className="w-1/2 pl-16 ml-auto text-left">
-                                     <p className={`text-lg font-bold ${item.color}`}>{item.title}</p>
-                                     <p className="text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                                   <div className="w-1/2 pl-8 md:pl-16 ml-auto text-left">
+                                     <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                     <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
                                    </div>
                                  )}
                                </div>
@@ -686,29 +814,29 @@ export default function App() {
                            </div>
                        </div>
                      ) : (
-                       <div className="w-full h-[180px] bg-[var(--background)] rounded-lg flex items-center justify-center border border-[var(--border)] text-[var(--text-secondary)]">Design Process Placeholder</div>
+                       <div className="w-full h-[120px] md:h-[180px] bg-[var(--background)] rounded-lg flex items-center justify-center border border-[var(--border)] text-[var(--text-secondary)]">Design Process Placeholder</div>
                      )}
                    </div>
 
                    {projects[selected].title === 'My Design Portfolio' && (
-                     <div className="my-12 pt-12">
-                       <div className="text-2xl font-bold text-[var(--text-primary)] mb-8">KEY FEATURES</div>
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div className="my-8 md:my-12 pt-8 md:pt-12">
+                       <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-6 md:mb-8">KEY FEATURES</div>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                          {portfolioKeyFeatures.map((feature, index) => (
                              <motion.div 
                                key={feature.title} 
-                               className="bg-[var(--background)] p-6 rounded-lg border border-[var(--border)]"
+                               className="bg-[var(--background)] p-4 md:p-6 rounded-lg border border-[var(--border)]"
                                initial={{ opacity: 0, y: 20 }}
                                animate={{ opacity: 1, y: 0 }}
                                transition={{ delay: index * 0.1 }}
                              >
-                               <div className="flex items-center gap-4">
-                                 <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-lg bg-[var(--surface)]">
-                                   <feature.icon className="w-6 h-6 text-cyan-400" />
+                               <div className="flex items-center gap-3 md:gap-4">
+                                 <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-lg bg-[var(--surface)]">
+                                   <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
                                  </div>
                                  <div>
-                                   <h3 className="text-lg font-bold text-[var(--text-primary)]">{feature.title}</h3>
-                                   <p className="text-sm text-[var(--text-secondary)]">{feature.description}</p>
+                                   <h3 className="text-base md:text-lg font-bold text-[var(--text-primary)]">{feature.title}</h3>
+                                   <p className="text-xs md:text-sm text-[var(--text-secondary)]">{feature.description}</p>
                                  </div>
                                </div>
                              </motion.div>
@@ -717,10 +845,10 @@ export default function App() {
                      </div>
                    )}
 
-                   <div className="my-12 pt-12">
-                      <div className="text-2xl font-bold text-[var(--text-primary)] mb-4">UI SHOWCASE</div>
+                   <div className="my-8 md:my-12 pt-8 md:pt-12">
+                      <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-4">UI SHOWCASE</div>
                       {projects[selected].caseStudy.showcaseImages && projects[selected].caseStudy.showcaseImages.length > 0 ? (
-                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                            {projects[selected].caseStudy.showcaseImages.map((imgSrc, index) => (
                              <div key={index} className="bg-[var(--background)] aspect-video rounded-lg p-2 border border-[var(--border)]">
                                <img src={imgSrc} alt={`Showcase ${index + 1}`} className="w-full h-full object-cover rounded-md"/>
@@ -728,7 +856,7 @@ export default function App() {
                            ))}
                          </div>
                       ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                           <div className="bg-[var(--background)] aspect-video rounded-lg p-2 border border-[var(--border)]"><div className="w-full h-full bg-[var(--surface)] rounded-md flex items-center justify-center text-[var(--text-secondary)]">Image 1</div></div>
                           <div className="bg-[var(--background)] aspect-video rounded-lg p-2 border border-[var(--border)]"><div className="w-full h-full bg-[var(--surface)] rounded-md flex items-center justify-center text-[var(--text-secondary)]">Image 2</div></div>
                           <div className="bg-[var(--background)] aspect-video rounded-lg p-2 border border-[var(--border)]"><div className="w-full h-full bg-[var(--surface)] rounded-md flex items-center justify-center text-[var(--text-secondary)]">Image 3</div></div>
@@ -737,16 +865,16 @@ export default function App() {
                       )}
                     </div>
 
-                    <div className="w-full h-px bg-[var(--border)] opacity-40 mb-10"></div>
+                    <div className="w-full h-px bg-[var(--border)] opacity-40 mb-6 md:mb-10"></div>
                     
                     <div className="mb-4">
-                      <div className="text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN SYSTEM</div>
-                      <div className="flex flex-row gap-8">
+                      <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN SYSTEM</div>
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
                         <div className="flex flex-col gap-2">
                           <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">COLOR PALETTE</div>
                           <div className="flex flex-row gap-2 mb-2">
                             {(projects[selected].colors || figmaColors).map((c, i) => (
-                              <span key={i} className="w-8 h-8 rounded-lg border border-[var(--border)]" style={{ background: c }}></span>
+                              <span key={i} className="w-6 h-6 md:w-8 md:h-8 rounded-lg border border-[var(--border)]" style={{ background: c }}></span>
                             ))}
                           </div>
                           <div className="text-xs text-[var(--text-secondary)]">{(projects[selected].colors || figmaColors).join(' ')}</div>
@@ -769,7 +897,7 @@ export default function App() {
                           ) : (
                             <div className="flex flex-row gap-4">
                               <div className="flex flex-col items-start">
-                                <span className="text-2xl font-bold text-[var(--text-primary)]">Aa</span>
+                                <span className="text-xl md:text-2xl font-bold text-[var(--text-primary)]">Aa</span>
                                 <span className="text-xs font-semibold text-[var(--text-primary)]">Typeface</span>
                                 <span className="text-xs text-[var(--text-secondary)]">Space Grotesk</span>
                               </div>
@@ -780,14 +908,14 @@ export default function App() {
                           {projects[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Delivery Systems</div>
-                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[60px] p-2">
+                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
                                 Quick, Same Day and 24 hours
                               </div>
                             </>
                           ) : projects[selected].title === 'FarmEazyy' ? null : (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Card Layout (complaints)</div>
-                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[60px] p-2">
+                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
                                 Reusable container with padding, corner radius and + NEW COMPLAINT Button
                               </div>
                             </>
@@ -795,7 +923,7 @@ export default function App() {
                           {projects[selected].title === 'My Design Portfolio' && (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Core Components</div>
-                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[60px] p-2">
+                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
                                 3-Panel Layout, Case Study Artboards, Interactive Workspace
                               </div>
                             </>
@@ -808,7 +936,7 @@ export default function App() {
               )}
             </main>
 
-            <aside className={`${selected === null ? "w-[440px]" : "w-64"} fixed top-0 right-0 h-full z-40 border-l bg-[var(--surface)] border-[var(--border)] transition-transform duration-300 ease-in-out ${isRightSidebarOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0`}>
+            <aside className={`${selected === null ? "w-[440px]" : "w-64"} fixed top-0 right-0 h-full z-40 border-l bg-[var(--surface)] border-[var(--border)] transition-transform duration-300 ease-in-out hidden md:block`}>
               <div className="flex flex-col py-8 px-8 h-full relative">
                 {/* Mobile Close Button */}
                 <button 
@@ -848,7 +976,7 @@ export default function App() {
                       <button onClick={() => setTab('tools')} className={`px-4 py-2 rounded-t-lg font-semibold text-sm transition ${tab === 'tools' ? 'bg-[var(--background)] text-[var(--text-primary)]' : 'bg-transparent text-[var(--text-secondary)] hover:bg-[var(--background)]'}`}>Tools</button>
                     </div>
                     {tab === 'about' ? (
-                      <div className="relative mb-6 min-h-[120px]">
+                      <div className="relative mb-6 min-h-[200px]">
                         <div className="absolute top-3 right-4 z-10">
                           <button
                             onClick={() => setAboutFlipped(f => !f)}
@@ -917,12 +1045,12 @@ export default function App() {
                         {tools.map(tool => (
                           <motion.div 
                             key={tool.name} 
-                            className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--background)] border border-transparent hover:border-cyan-400 cursor-pointer"
-                            whileHover={{ scale: 1.08, y: -5 }}
+                            className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
+                            whileHover={{ scale: 1.05 }}
                             transition={{ type: 'spring', stiffness: 300, damping: 10 }}
                           >
-                            <div className="text-3xl h-8 flex items-center">{tool.icon}</div>
-                            <span className="text-xs text-[var(--text-secondary)] text-center font-medium h-4">{tool.name}</span>
+                            <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
+                            <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -991,18 +1119,18 @@ export default function App() {
             </aside>
           </div>
         </div>
-        <div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex gap-12 border rounded-2xl shadow-2xl px-16 py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: 520 }}>
-          <a href="/" className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition" style={{ color: figmaColors[3], background: 'transparent' }}>
-            <FaUser size={22} />
-            <span className="text-base">Portfolio</span>
+        <div className="fixed left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 z-50 flex gap-6 md:gap-12 border rounded-2xl shadow-2xl px-8 md:px-16 py-2 md:py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: '280px', maxWidth: '90vw' }}>
+          <a href="/" className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-sm md:text-base" style={{ color: figmaColors[3], background: 'transparent' }}>
+            <FaUser size={18} className="md:w-[22px] md:h-[22px]" />
+            <span className="text-sm md:text-base">Portfolio</span>
           </a>
-          <button onClick={() => setIsResumeOpen(true)} className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition text-[var(--text-primary)]" style={{ background: 'transparent' }}>
-            <FaFileAlt size={22} />
-            <span className="text-base">Resume</span>
+          <button onClick={() => setIsResumeOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
+            <FaFileAlt size={18} className="md:w-[22px] md:h-[22px]" />
+            <span className="text-sm md:text-base">Resume</span>
           </button>
-          <button onClick={() => setIsSocialsOpen(true)} className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg font-medium transition text-[var(--text-primary)]" style={{ background: 'transparent' }}>
-            <FaLink size={22} />
-            <span className="text-base">Socials</span>
+          <button onClick={() => setIsSocialsOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
+            <FaLink size={18} className="md:w-[22px] md:h-[22px]" />
+            <span className="text-sm md:text-base">Socials</span>
           </button>
         </div>
 
@@ -1013,17 +1141,17 @@ export default function App() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-              className="fixed bottom-0 left-0 right-0 h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
+              className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
             >
               <button
                 disabled
-                className="flex items-center gap-3 bg-gray-500 text-white font-bold py-3 px-6 rounded-lg transition text-lg cursor-not-allowed"
+                className="flex items-center gap-2 md:gap-3 bg-gray-500 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg transition text-base md:text-lg cursor-not-allowed"
               >
                 <FaFileAlt /> Resume (Coming Soon)
               </button>
               <button 
                 onClick={() => setIsResumeOpen(false)}
-                className="absolute top-1/2 -translate-y-1/2 right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-2xl"
+                className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
               >
                 <FaTimes />
               </button>
@@ -1038,16 +1166,16 @@ export default function App() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-              className="fixed bottom-0 left-0 right-0 h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
+              className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
             >
-              <div className="flex gap-12 items-center">
+              <div className="flex gap-6 md:gap-12 items-center">
                 {socials.map(social => (
                   <a 
                     key={social.name}
                     href={social.url} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-transform duration-300 hover:scale-110 text-3xl"
+                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-transform duration-300 hover:scale-110 text-2xl md:text-3xl"
                     title={social.name}
                   >
                     {social.icon}
@@ -1056,7 +1184,7 @@ export default function App() {
               </div>
               <button 
                 onClick={() => setIsSocialsOpen(false)}
-                className="absolute top-1/2 -translate-y-1/2 right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-2xl"
+                className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
               >
                 <FaTimes />
               </button>
