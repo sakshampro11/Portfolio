@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "@fontsource/inter";
-import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft, FaMapMarkedAlt, FaTag, FaTasks, FaUniversalAccess, FaExternalLinkAlt, FaUsers, FaShoppingCart, FaStar, FaVial, FaCommentDots, FaMousePointer, FaSearchPlus, FaGithub, FaShareAlt, FaPalette, FaLinkedin, FaInstagram, FaTimes, FaChevronDown, FaPlus, FaBars } from "react-icons/fa";
+import { FaUser, FaFileAlt, FaLink, FaReact, FaFigma, FaNodeJs, FaJs, FaGitAlt, FaDatabase, FaTools, FaArrowLeft, FaMapMarkedAlt, FaTag, FaTasks, FaUniversalAccess, FaExternalLinkAlt, FaUsers, FaShoppingCart, FaStar, FaVial, FaCommentDots, FaMousePointer, FaSearchPlus, FaGithub, FaShareAlt, FaPalette, FaLinkedin, FaInstagram, FaTimes, FaChevronDown, FaPlus, FaBars, FaEnvelope } from "react-icons/fa";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { SiTailwindcss, SiSketch, SiCanva, SiInkscape, SiGmail } from 'react-icons/si';
 import { VscFileCode, VscSymbolFile } from 'react-icons/vsc';
@@ -263,6 +263,8 @@ export default function App() {
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef(null);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -322,6 +324,18 @@ export default function App() {
     };
   }, [showFakeCursor]);
 
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    if (!isProfileMenuOpen) return;
+    function handleClick(e) {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target)) {
+        setIsProfileMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [isProfileMenuOpen]);
+
   return (
     <>
       <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: '"Space Grotesk", sans-serif', background: '#232323' }}>
@@ -336,17 +350,32 @@ export default function App() {
            <FaBars className="w-5 h-5 text-[var(--text-primary)] hover:text-[#F24D1D] transition" />
          </button>
 
-         {/* Profile Info */}
-         <div className="flex items-center gap-3">
+         {/* Profile Info with Dropdown */}
+         <div className="relative flex items-center gap-3">
            <div className="text-right leading-tight">
              <div className="text-sm font-semibold text-white">Saksham Budhiraja</div>
              <div className="text-xs text-gray-400">UI/UX Designer</div>
            </div>
-           <img 
-              src="/profile.JPG" 
-             alt="Profile" 
-              className="w-9 h-9 rounded-full border-2 border-[#A259FF] shadow-lg object-cover hover:scale-105 transition-transform duration-200" 
-            />
+           <button
+             onClick={() => setIsProfileMenuOpen(open => !open)}
+             className="focus:outline-none"
+           >
+             <img 
+               src="/profile.JPG" 
+               alt="Profile" 
+               className="w-9 h-9 rounded-full border-2 border-[#A259FF] shadow-lg object-cover hover:scale-105 transition-transform duration-200" 
+             />
+           </button>
+           {/* Dropdown Menu */}
+           {isProfileMenuOpen && (
+             <div ref={profileMenuRef} className="absolute right-0 top-12 mt-2 w-48 bg-[#232323] border border-[var(--border)] rounded-xl shadow-xl z-50 flex flex-col">
+               <a href="#" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaFileAlt /> Resume (Coming Soon)</a>
+               <a href="https://www.linkedin.com/in/saksham-budhiraja-545b1028b/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaLinkedin /> LinkedIn</a>
+               <a href="mailto:budhirajasaksham6@gmail.com" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaEnvelope /> Gmail</a>
+               <a href="https://github.com/sakshampro11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaGithub /> Github</a>
+               <a href="https://www.instagram.com/saksham.pro._/?__pwa=1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaInstagram /> Instagram</a>
+             </div>
+           )}
          </div>
         </div>
 
@@ -486,13 +515,6 @@ export default function App() {
             </>
           ) : (
             <div className="w-full">
-              {/* Mobile Case Study View */}
-              <button
-                onClick={() => setSelected(null)}
-                className="mb-6 mt-2 flex items-center gap-2 text-[var(--text-primary)] font-semibold"
-              >
-                <FaArrowLeft /> Back
-              </button>
               {/* ...Case Study Content (reuse desktop content, but mobile-styled)... */}
             </div>
           )}
@@ -1145,7 +1167,7 @@ export default function App() {
           </div>
         
       </div>
-      <div className="fixed left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 z-50 flex gap-6 md:gap-12 border rounded-2xl shadow-2xl px-8 md:px-16 py-2 md:py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: '280px', maxWidth: '90vw' }}>
+      <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-6 z-50 gap-12 border rounded-2xl shadow-2xl px-16 py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: '280px', maxWidth: '90vw' }}>
         <a href="/" className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-sm md:text-base" style={{ color: figmaColors[3], background: 'transparent' }}>
           <FaUser size={18} className="md:w-[22px] md:h-[22px]" />
           <span className="text-sm md:text-base">Portfolio</span>
