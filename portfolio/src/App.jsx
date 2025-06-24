@@ -325,21 +325,178 @@ export default function App() {
   return (
     <>
       <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: '"Space Grotesk", sans-serif', background: '#232323' }}>
-        {/* Mobile Hamburger Menu Button */}
-          <button 
-            onClick={() => setIsMobileMenuOpen(true)}
-          className={`fixed top-4 left-4 z-50 md:hidden p-2 bg-[var(--surface)] rounded-lg border border-[var(--border)] transition-opacity ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          >
-            <FaBars className="w-5 h-5 text-[var(--text-primary)]" />
-          </button>
+       {/* Mobile Fixed Top Header */}
+        <div className="md:hidden fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-[#1f1f1f]/80 border-b border-white/10 px-4 py-2 flex items-center justify-between shadow-md shadow-black/20">
+  
+       {/* Hamburger Menu Button */}
+         <button 
+           onClick={() => setIsMobileMenuOpen(open => !open)}
+           className="p-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:bg-[#2a2a2a] transition-colors"
+         >
+           <FaBars className="w-5 h-5 text-[var(--text-primary)] hover:text-[#F24D1D] transition" />
+         </button>
 
-        {/* Mobile Overlay */}
-        {isMobileMenuOpen && (
-          <div 
-            onClick={() => setIsMobileMenuOpen(false)} 
-            className="fixed inset-0 bg-black/30 z-40 md:hidden"
-          />
-        )}
+         {/* Profile Info */}
+         <div className="flex items-center gap-3">
+           <div className="text-right leading-tight">
+             <div className="text-sm font-semibold text-white">Saksham Budhiraja</div>
+             <div className="text-xs text-gray-400">UI/UX Designer</div>
+           </div>
+           <img 
+              src="/profile.JPG" 
+             alt="Profile" 
+              className="w-9 h-9 rounded-full border-2 border-[#A259FF] shadow-lg object-cover hover:scale-105 transition-transform duration-200" 
+            />
+         </div>
+        </div>
+
+        {/* Mobile Main Content with top padding for header */}
+        <div className="w-full md:hidden px-4 pt-20 pb-6">
+          {selected === null ? (
+            <>
+              {/* About Me Section */}
+        <div className="mb-12">
+          <div className="relative min-h-[240px]">
+            <div className="absolute top-3 right-4 z-10">
+              <button
+                onClick={() => setAboutFlipped(f => !f)}
+                className="rounded-full bg-[var(--surface)] hover:bg-[#1ABCFE] text-[#1ABCFE] hover:text-white p-2 shadow-md border border-[#1ABCFE] transition-transform active:scale-90"
+                title="Flip Card"
+                style={{ outline: 'none' }}
+              >
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
+                  <rect x="4" y="6" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="2" fill="var(--surface)" />
+                  <path d="M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M12 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M4 12c0-4 16-4 16 0" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2"/>
+                </svg>
+              </button>
+            </div>
+                  
+            {/* Flipping Card Container */}
+            <div className="perspective-[1200px] min-h-[360px] relative">
+              <AnimatePresence mode="wait" initial={false}>
+                {!aboutFlipped ? (
+                  <motion.div
+                    key="about-front"
+                    initial={{ rotateY: 90, opacity: 0 }}
+                    animate={{ rotateY: 0, opacity: 1 }}
+                    exit={{ rotateY: -90, opacity: 0 }}
+                    transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                    className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] bg-gradient-to-r from-[var(--surface)] to-[#1ABCFE11] border-[#1ABCFE]"
+                    style={{ boxShadow: '0 2px 24px 0 #1ABCFE22', backfaceVisibility: 'hidden' }}
+                  >
+                    <span className="text-2xl mr-2 align-middle">👋</span>
+                    <span className="text-lg font-bold text-[var(--text-primary)]">Hi, I'm Saksham Budhiraja</span>
+                    <div className="mt-2 text-base text-[var(--text-secondary)]">
+                      A UI/UX designer and frontend developer who thinks in frames and builds in pixels.I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
+                
+                    </div>
+                    <div className="mt-3 text-sm text-[var(--text-secondary)]">
+                    From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                    </div>
+                    <div className="mt-3 text-sm text-[var(--text-secondary)]">
+                      Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="about-back"
+                    initial={{ rotateY: -90, opacity: 0 }}
+                    animate={{ rotateY: 0, opacity: 1 }}
+                    exit={{ rotateY: 90, opacity: 0 }}
+                    transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                    className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] bg-gradient-to-r from-[var(--surface)] to-[#A259FF11] border-[#A259FF] flex flex-col gap-2"
+                    style={{ boxShadow: '0 2px 24px 0 #A259FF22', backfaceVisibility: 'hidden' }}
+                  >
+                    <div className="text-lg font-bold text-[var(--text-primary)] mb-2">Component Name: <span className="font-semibold text-[#1ABCFE]">Saksham Budhiraja</span></div>
+                    <div className="text-base font-semibold text-[#A259FF] mb-2">Role: UI/UX Designer + Developer Handoff</div>
+                    <div className="text-base font-semibold text-[#1ABCFE] mb-1">Skills:</div>
+                    <ul className="list-disc list-inside text-[var(--text-secondary)] ml-2">
+                      <li>Design Systems</li>
+                      <li>Interactive Prototypes</li>
+                      <li>Web Accessibility</li>
+                      <li>React + UI Engineering</li>
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+              
+        {/* Tools Section */}
+        <div className="mb-8 mt-10">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Tools</h2>
+          <div className="grid grid-cols-3 gap-4">
+            {tools.map(tool => (
+              <motion.div 
+                key={tool.name} 
+                className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+              >
+                <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
+                <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+              {/* Projects Section Header */}
+              <div className="mt-8 mb-4">
+                <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-wide">Projects</h2>
+              </div>
+              {/* Project Cards */}
+              <div className="mb-8">
+                <div className="space-y-4">
+                  {projects.map((project, idx) => (
+                    <motion.div
+                      key={project.title}
+                      className="w-full rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
+                      onClick={() => {
+                        setSelected(idx);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      whileHover={{ scale: 1.02, borderColor: 'var(--border)' }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    >
+                      <div className="aspect-video overflow-hidden bg-[var(--background)]">
+                        <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+                      </div>
+                      <div className="flex flex-col gap-2 px-4 py-3 bg-[var(--surface)] border-t border-[var(--border)]">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-[var(--background)] flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">{project.title[0]}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[var(--text-primary)] font-medium text-base">{project.title}</div>
+                            <div className="text-sm text-[var(--text-secondary)]">{project.description}</div>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags && project.tags.map((tag, i) => (
+                            <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="w-full">
+              {/* Mobile Case Study View */}
+              <button
+                onClick={() => setSelected(null)}
+                className="mb-6 mt-2 flex items-center gap-2 text-[var(--text-primary)] font-semibold"
+              >
+                <FaArrowLeft /> Back
+              </button>
+              {/* ...Case Study Content (reuse desktop content, but mobile-styled)... */}
+            </div>
+          )}
+        </div>
 
         <div className="flex flex-1 min-h-0">
           <aside className={`w-64 fixed top-0 left-0 h-full z-40 bg-[var(--surface)] border-r border-[var(--border)] transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
@@ -425,6 +582,12 @@ export default function App() {
                        </div>
 
                        <nav className="flex flex-col gap-1 text-base">
+                         <button
+                           onClick={() => setSelected(null)}
+                           className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === null ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-2' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-2'}`}
+                         >
+                           All Projects
+                         </button>
                          {projects.map((project, idx) => (
                            <button
                              key={project.title}
@@ -495,210 +658,72 @@ export default function App() {
                <ProjectsTabBar selectedProject={selected} onBack={() => setSelected(null)} />
              </div>
              {selected === null ? (
-               <>
-                 {/* Mobile Layout - About Me and Tools sections */}
-                 <div className="w-full md:hidden px-4 py-6">
-                   {/* Profile Info - Top Right Corner */}
-                   <div className="absolute top-4 right-4 z-40 flex items-center gap-3">
-                     <div className="text-right">
-                       <div className="text-sm font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
-                       <div className="text-xs text-[var(--text-secondary)]">UI UX Designer</div>
-                     </div>
-                     <img src="/profile.JPG" alt="Profile" className="w-10 h-10 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
-                   </div>
-
-                   {/* About Me Section */}
-                   <div className="mb-12">
-                     <div className="relative mb-8 min-h-[220px]">
-                       <div className="absolute top-3 right-4 z-10">
-                         <button
-                           onClick={() => setAboutFlipped(f => !f)}
-                           className="rounded-full bg-[var(--surface)] hover:bg-[#1ABCFE] text-[#1ABCFE] hover:text-white p-2 shadow-md border border-[#1ABCFE] transition-transform active:scale-90"
-                           title="Flip Card"
-                           style={{ outline: 'none' }}
-                         >
-                           <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
-                             <rect x="4" y="6" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="2" fill="var(--surface)" />
-                             <path d="M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                             <path d="M12 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                             <path d="M4 12c0-4 16-4 16 0" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2"/>
-                           </svg>
-                         </button>
-                       </div>
-                       <div className="perspective-[1200px]">
-                         <AnimatePresence mode="wait" initial={false}>
-                           {!aboutFlipped ? (
-                             <motion.div
-                               key="about-front"
-                               initial={{ rotateY: 90, opacity: 0 }}
-                               animate={{ rotateY: 0, opacity: 1 }}
-                               exit={{ rotateY: -90, opacity: 0 }}
-                               transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
-                               className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] min-h-[220px] bg-gradient-to-r from-[var(--surface)] to-[#1ABCFE11] border-[#1ABCFE]"
-                               style={{ boxShadow: '0 2px 24px 0 #1ABCFE22', backfaceVisibility: 'hidden', position: 'absolute', width: '100%' }}
-                             >
-                               <span className="text-2xl mr-2 align-middle">👋</span>
-                               <span className="text-lg font-bold text-[var(--text-primary)]">Hi, I'm Saksham Budhiraja</span>
-                               <div className="mt-2 text-base text-[var(--text-secondary)]">
-                                 A UI/UX designer and frontend developer who thinks in frames and builds in pixels. I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
-                               </div>
-                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
-                                 From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
-                               </div>
-                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
-                                 Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
-                               </div>
-                             </motion.div>
-                           ) : (
-                             <motion.div
-                               key="about-back"
-                               initial={{ rotateY: -90, opacity: 0 }}
-                               animate={{ rotateY: 0, opacity: 1 }}
-                               exit={{ rotateY: 90, opacity: 0 }}
-                               transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
-                               className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] min-h-[220px] bg-gradient-to-r from-[var(--surface)] to-[#A259FF11] border-[#A259FF] flex flex-col gap-2"
-                               style={{ boxShadow: '0 2px 24px 0 #A259FF22', backfaceVisibility: 'hidden', position: 'absolute', width: '100%' }}
-                             >
-                               <div className="text-lg font-bold text-[var(--text-primary)] mb-2">Component Name: <span className="font-semibold text-[#1ABCFE]">Saksham Budhiraja</span></div>
-                               <div className="text-base font-semibold text-[#A259FF] mb-2">Role: UI/UX Designer + Developer Handoff</div>
-                               <div className="text-base font-semibold text-[#1ABCFE] mb-1">Skills:</div>
-                               <ul className="list-disc list-inside text-[var(--text-secondary)] ml-2">
-                                 <li>Design Systems</li>
-                                 <li>Interactive Prototypes</li>
-                                 <li>Web Accessibility</li>
-                                 <li>React + UI Engineering</li>
-                               </ul>
-                             </motion.div>
-                           )}
-                         </AnimatePresence>
-                       </div>
-                     </div>
-                   </div>
-
-                   {/* Tools Section */}
-                   <div className="mb-8">
-                     <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Tools</h2>
-                     <div className="grid grid-cols-3 gap-4">
-                       {tools.map(tool => (
-                         <motion.div 
-                           key={tool.name} 
-                           className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
-                           whileHover={{ scale: 1.05 }}
-                           transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-                         >
-                           <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
-                           <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
-                         </motion.div>
-                       ))}
-                     </div>
-                   </div>
-
-                   {/* Mobile Project Cards */}
-                   <div className="mb-8">
-                     <div className="space-y-4">
-                       {projects.map((project, idx) => (
-                         <motion.div
-                           key={project.title}
-                           className="w-full rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
-                           onClick={() => {
-                             setSelected(idx);
-                             setIsMobileMenuOpen(false);
-                           }}
-                           whileHover={{ scale: 1.02, borderColor: 'var(--border)' }}
-                           whileTap={{ scale: 0.98 }}
-                           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                         >
-                           <div className="aspect-video overflow-hidden bg-[var(--background)]">
-                             <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
-                           </div>
-                           <div className="flex flex-col gap-2 px-4 py-3 bg-[var(--surface)] border-t border-[var(--border)]">
-                             <div className="flex items-center gap-2">
-                               <div className="w-8 h-8 rounded-full bg-[var(--background)] flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">{project.title[0]}</div>
-                               <div className="flex-1 min-w-0">
-                                 <div className="text-[var(--text-primary)] font-medium text-base">{project.title}</div>
-                                 <div className="text-sm text-[var(--text-secondary)]">{project.description}</div>
-                               </div>
-                             </div>
-                             <div className="flex flex-wrap gap-2">
-                               {project.tags && project.tags.map((tag, i) => (
-                                 <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
-                               ))}
-                             </div>
-                           </div>
-                         </motion.div>
-                       ))}
-                     </div>
-                   </div>
-                 </div>
-
-                 {/* Desktop Layout - Keep existing workspace */}
-                 <div className="hidden md:block w-full">
-                   <div
-                     ref={workspaceRef}
-                     className="relative w-full flex-1"
-                     style={{ cursor: `url(/poof.svg) 8 8, auto` }}
+               <div className="hidden md:block w-full">
+                 <div
+                   ref={workspaceRef}
+                   className="relative w-full flex-1"
+                   style={{ cursor: `url(/poof.svg) 8 8, auto` }}
+                 >
+                   <AnimatePresence>
+                     {showFakeCursor && (
+                       <motion.div
+                         initial={{ opacity: 0 }}
+                         animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
+                         exit={{ opacity: 0 }}
+                         transition={{ duration: 0.3 }}
+                         style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
+                       >
+                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="var(--surface)" strokeWidth="3"/></svg>
+                       </motion.div>
+                     )}
+                   </AnimatePresence>
+                   <motion.div
+                     style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
+                     initial="hidden"
+                     animate="visible"
+                     variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
                    >
-                     <AnimatePresence>
-                       {showFakeCursor && (
-                         <motion.div
-                           initial={{ opacity: 0 }}
-                           animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
-                           exit={{ opacity: 0 }}
-                           transition={{ duration: 0.3 }}
-                           style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
-                         >
-                           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="var(--surface)" strokeWidth="3"/></svg>
-                         </motion.div>
-                       )}
-                     </AnimatePresence>
-                     <motion.div
-                       style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
-                       initial="hidden"
-                       animate="visible"
-                       variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
-                     >
-                       {projects.map((project, idx) => (
-                         <motion.div
-                           key={project.title}
-                           className={`absolute group w-[320px] h-[240px] rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[var(--surface)]`}
-                           style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
-                           onClick={() => setSelected(idx)}
-                           initial={{ y: 40, opacity: 0 }}
-                           animate={{ y: 0, opacity: 1 }}
-                           whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'var(--border)' }}
-                           whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(128, 128, 128, 0.5)' }}
-                           transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
-                         >
-                           <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[var(--background)]">
-                             <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
-                           </div>
-                            <motion.div 
-                              className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
-                              initial={{opacity: 0}}
-                              whileHover={{opacity: 1}}
-                            >
-                              <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
-                            </motion.div>
-                            <div className="flex flex-col gap-1 px-4 py-3 bg-[var(--surface)] rounded-b-xl border-t border-[var(--border)]">
-                              <div className="flex items-center gap-2">
-                                <div className="w-7 h-7 rounded-full bg-[var(--background)] flex items-center justify-center text-xs font-bold text-[var(--text-primary)]">{project.title[0]}</div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="truncate text-[var(--text-primary)] font-medium text-base">{project.title}</div>
-                                  <div className="truncate text-xs text-[var(--text-secondary)]">{project.description}</div>
-                                </div>
-                              </div>
-                              <div className="flex flex-wrap gap-2 mt-2">
-                                {project.tags && project.tags.map((tag, i) => (
-                                  <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
-                                ))}
+                     {projects.map((project, idx) => (
+                       <motion.div
+                         key={project.title}
+                         className={`absolute group w-[320px] h-[240px] rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[var(--surface)]`}
+                         style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
+                         onClick={() => setSelected(idx)}
+                         initial={{ y: 40, opacity: 0 }}
+                         animate={{ y: 0, opacity: 1 }}
+                         whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'var(--border)' }}
+                         whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(128, 128, 128, 0.5)' }}
+                         transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
+                       >
+                         <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[var(--background)]">
+                           <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+                         </div>
+                          <motion.div 
+                            className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
+                            initial={{opacity: 0}}
+                            whileHover={{opacity: 1}}
+                          >
+                            <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
+                          </motion.div>
+                          <div className="flex flex-col gap-1 px-4 py-3 bg-[var(--surface)] rounded-b-xl border-t border-[var(--border)]">
+                            <div className="flex items-center gap-2">
+                              <div className="w-7 h-7 rounded-full bg-[var(--background)] flex items-center justify-center text-xs font-bold text-[var(--text-primary)]">{project.title[0]}</div>
+                              <div className="flex-1 min-w-0">
+                                <div className="truncate text-[var(--text-primary)] font-medium text-base">{project.title}</div>
+                                <div className="truncate text-xs text-[var(--text-secondary)]">{project.description}</div>
                               </div>
                             </div>
-                         </motion.div>
-                       ))}
-                     </motion.div>
-                   </div>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {project.tags && project.tags.map((tag, i) => (
+                                <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                              ))}
+                            </div>
+                          </div>
+                       </motion.div>
+                     ))}
+                   </motion.div>
                  </div>
-               </>
+               </div>
              ) : (
                <div
                  className="relative w-full flex-1 min-h-0 flex justify-center items-start custom-scrollbar"
@@ -1118,79 +1143,80 @@ export default function App() {
               </div>
             </aside>
           </div>
-        </div>
-        <div className="fixed left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 z-50 flex gap-6 md:gap-12 border rounded-2xl shadow-2xl px-8 md:px-16 py-2 md:py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: '280px', maxWidth: '90vw' }}>
-          <a href="/" className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-sm md:text-base" style={{ color: figmaColors[3], background: 'transparent' }}>
-            <FaUser size={18} className="md:w-[22px] md:h-[22px]" />
-            <span className="text-sm md:text-base">Portfolio</span>
-          </a>
-          <button onClick={() => setIsResumeOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
-            <FaFileAlt size={18} className="md:w-[22px] md:h-[22px]" />
-            <span className="text-sm md:text-base">Resume</span>
-          </button>
-          <button onClick={() => setIsSocialsOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
-            <FaLink size={18} className="md:w-[22px] md:h-[22px]" />
-            <span className="text-sm md:text-base">Socials</span>
-          </button>
-        </div>
+        
+      </div>
+      <div className="fixed left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 z-50 flex gap-6 md:gap-12 border rounded-2xl shadow-2xl px-8 md:px-16 py-2 md:py-3 items-center bg-[var(--surface)] border-[var(--border)]" style={{ minWidth: '280px', maxWidth: '90vw' }}>
+        <a href="/" className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-sm md:text-base" style={{ color: figmaColors[3], background: 'transparent' }}>
+          <FaUser size={18} className="md:w-[22px] md:h-[22px]" />
+          <span className="text-sm md:text-base">Portfolio</span>
+        </a>
+        <button onClick={() => setIsResumeOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
+          <FaFileAlt size={18} className="md:w-[22px] md:h-[22px]" />
+          <span className="text-sm md:text-base">Resume</span>
+        </button>
+        <button onClick={() => setIsSocialsOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
+          <FaLink size={18} className="md:w-[22px] md:h-[22px]" />
+          <span className="text-sm md:text-base">Socials</span>
+        </button>
+      </div>
 
-        <AnimatePresence>
-          {isResumeOpen && (
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-              className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
+      <AnimatePresence>
+        {isResumeOpen && (
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
+          >
+            <button
+              disabled
+              className="flex items-center gap-2 md:gap-3 bg-gray-500 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg transition text-base md:text-lg cursor-not-allowed"
             >
-              <button
-                disabled
-                className="flex items-center gap-2 md:gap-3 bg-gray-500 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg transition text-base md:text-lg cursor-not-allowed"
-              >
-                <FaFileAlt /> Resume (Coming Soon)
-              </button>
-              <button 
-                onClick={() => setIsResumeOpen(false)}
-                className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
-              >
-                <FaTimes />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <FaFileAlt /> Resume (Coming Soon)
+            </button>
+            <button 
+              onClick={() => setIsResumeOpen(false)}
+              className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
+            >
+              <FaTimes />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        <AnimatePresence>
-          {isSocialsOpen && (
-            <motion.div 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-              className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
+      <AnimatePresence>
+        {isSocialsOpen && (
+          <motion.div 
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
+          >
+            <div className="flex gap-6 md:gap-12 items-center">
+              {socials.map(social => (
+                <a 
+                  key={social.name}
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-transform duration-300 hover:scale-110 text-2xl md:text-3xl"
+                  title={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+            <button 
+              onClick={() => setIsSocialsOpen(false)}
+              className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
             >
-              <div className="flex gap-6 md:gap-12 items-center">
-                {socials.map(social => (
-                  <a 
-                    key={social.name}
-                    href={social.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-transform duration-300 hover:scale-110 text-2xl md:text-3xl"
-                    title={social.name}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-              <button 
-                onClick={() => setIsSocialsOpen(false)}
-                className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
-              >
-                <FaTimes />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <FaTimes />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
