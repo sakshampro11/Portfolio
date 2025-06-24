@@ -265,6 +265,7 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
+  const [hoveredTool, setHoveredTool] = useState(null);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -338,9 +339,9 @@ export default function App() {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: '"Space Grotesk", sans-serif', background: '#232323' }}>
+      <div className="min-h-screen flex flex-col font-sans" style={{ fontFamily: '"Space Grotesk", sans-serif', background: 'var(--background)' }}>
        {/* Mobile Fixed Top Header */}
-        <div className="md:hidden fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-[#1f1f1f]/80 border-b border-white/10 px-4 py-2 flex items-center justify-between shadow-md shadow-black/20">
+        <div className="md:hidden fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-[var(--surface)]/80 border-b border-[var(--border)] px-4 py-2 flex items-center justify-between shadow-md shadow-black/20">
   
        {/* Hamburger Menu Button */}
          <button 
@@ -367,20 +368,64 @@ export default function App() {
              />
            </button>
            {/* Dropdown Menu */}
-           {isProfileMenuOpen && (
-             <div ref={profileMenuRef} className="absolute right-0 top-12 mt-2 w-48 bg-[#232323] border border-[var(--border)] rounded-xl shadow-xl z-50 flex flex-col">
-               <a href="#" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaFileAlt /> Resume (Coming Soon)</a>
-               <a href="https://www.linkedin.com/in/saksham-budhiraja-545b1028b/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaLinkedin /> LinkedIn</a>
-               <a href="mailto:budhirajasaksham6@gmail.com" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaEnvelope /> Gmail</a>
-               <a href="https://github.com/sakshampro11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaGithub /> Github</a>
-               <a href="https://www.instagram.com/saksham.pro._/?__pwa=1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-[#18181b] transition"><FaInstagram /> Instagram</a>
-             </div>
-           )}
+           <AnimatePresence>
+             {isProfileMenuOpen && (
+               <motion.div
+                 ref={profileMenuRef}
+                 initial={{ opacity: 0, y: -10 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 exit={{ opacity: 0, y: -10 }}
+                 transition={{ duration: 0.25, ease: 'easeOut' }}
+                 className="absolute top-full mt-2 right-0 w-56 rounded-xl bg-[var(--surface)] bg-opacity-90 backdrop-blur-md shadow-xl px-5 py-3 space-y-2 z-50"
+                 style={{ boxShadow: '0 8px 32px 0 #0002' }}
+                 onClick={(e) => e.stopPropagation()}
+               >
+                 {/* Arrow above dropdown */}
+                 <div className="absolute -top-2 right-8 text-[var(--surface)] text-lg select-none pointer-events-none">▾</div>
+                 {/* Theme Switcher */}
+                 <div className="flex items-center justify-between mb-2">
+                   <span className="text-xs font-semibold text-[var(--text-secondary)]">Theme</span>
+                   <div className="flex gap-2">
+                     <button
+                       onClick={() => { setTheme('light'); setIsProfileMenuOpen(false); }}
+                       className={`px-2 py-1 rounded-md text-xs font-medium transition-colors ${theme === 'light' ? 'bg-[var(--background)] text-[var(--text-primary)]' : 'text-[var(--text-secondary)] hover:bg-[var(--surface-secondary)]'}`}
+                     >
+                       Light
+                     </button>
+                     <button
+                       onClick={() => { setTheme('dark'); setIsProfileMenuOpen(false); }}
+                       className={`px-2 py-1 rounded-md text-xs font-medium transition-colors ${theme === 'dark' ? 'bg-[var(--background)] text-[var(--text-primary)]' : 'text-[var(--text-secondary)] hover:bg-[var(--surface-secondary)]'}`}
+                     >
+                       Dark
+                     </button>
+                   </div>
+                 </div>
+                 <div className="h-px bg-[var(--border)] opacity-30 my-1" />
+                 <div className="flex flex-col space-y-2">
+                   <div className="flex items-center gap-2 px-2 py-2 rounded-lg opacity-50 italic cursor-not-allowed">
+                     <FaFileAlt /> Resume (Coming Soon)
+                   </div>
+                   <a href="https://www.linkedin.com/in/saksham-budhiraja-545b1028b/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-[var(--surface-secondary)] transition-colors">
+                     <FaLinkedin /> LinkedIn
+                   </a>
+                   <a href="mailto:budhirajasaksham6@gmail.com" className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-[var(--surface-secondary)] transition-colors">
+                     <FaEnvelope /> Gmail
+                   </a>
+                   <a href="https://github.com/sakshampro11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-[var(--surface-secondary)] transition-colors">
+                     <FaGithub /> Github
+                   </a>
+                   <a href="https://www.instagram.com/saksham.pro._/?__pwa=1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-[var(--surface-secondary)] transition-colors">
+                     <FaInstagram /> Instagram
+                   </a>
+                 </div>
+               </motion.div>
+             )}
+           </AnimatePresence>
          </div>
         </div>
 
         {/* Mobile Main Content with top padding for header */}
-        <div className="w-full md:hidden px-4 pt-20 pb-6">
+        <div className="w-full md:hidden px-4 pt-20 pb-6 bg-[var(--background)]">
           {selected === null ? (
             <>
               {/* About Me Section */}
@@ -482,7 +527,7 @@ export default function App() {
                   {projects.map((project, idx) => (
                     <motion.div
                       key={project.title}
-                      className="w-full rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
+                      className="w-full rounded-xl shadow-lg border-2 border-[var(--border)] cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
                       onClick={() => {
                         setSelected(idx);
                         setIsMobileMenuOpen(false);
@@ -1089,15 +1134,28 @@ export default function App() {
                       </div>
                     ) : (
                       <div className="grid grid-cols-3 gap-4 mb-6 p-1">
-                        {tools.map(tool => (
+                        {tools.map((tool, i) => (
                           <motion.div 
-                            key={tool.name} 
-                            className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+                            key={tool.name}
+                            className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--background)] border-2 border-transparent cursor-pointer transition-all duration-300 shadow-sm`}
+                            whileHover={{
+                              scale: 1.10,
+                            }}
+                            style={{
+                              borderColor:
+                                tool.name === 'Figma' ? (hoveredTool === i ? '#F24E1E' : 'transparent') :
+                                tool.name === 'React' ? (hoveredTool === i ? '#61DAFB' : 'transparent') :
+                                tool.name === 'GitHub' ? (hoveredTool === i ? '#333333' : 'transparent') :
+                                tool.name === 'Cursor AI' ? (hoveredTool === i ? '#1ABCFE' : 'transparent') :
+                                hoveredTool === i ? '#3B82F6' : 'transparent',
+                              transition: 'border-color 0.25s',
+                            }}
+                            onMouseEnter={() => setHoveredTool(i)}
+                            onMouseLeave={() => setHoveredTool(null)}
+                            transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                           >
-                            <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
-                            <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
+                            <div className="text-3xl h-8 flex items-center">{tool.icon}</div>
+                            <span className="text-xs text-[var(--text-secondary)] text-center font-medium h-4">{tool.name}</span>
                           </motion.div>
                         ))}
                       </div>
