@@ -8,6 +8,7 @@ import { GoCheck } from 'react-icons/go';
 import { BsArrowRight, BsDiagram3, BsGrid1X2, BsPuzzle } from 'react-icons/bs';
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useTheme } from "./hooks/useTheme";
+import { Analytics } from '@vercel/analytics/react';
 
 const figmaColors = [
   "#F24E1E", // orange
@@ -1297,6 +1298,7 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Analytics />
     </>
   );
 }
