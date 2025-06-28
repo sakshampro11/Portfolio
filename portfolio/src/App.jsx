@@ -704,12 +704,12 @@ export default function App() {
                    <span>
                      Now Playing:{" "}
                      <a
-                       href="https://www.youtube.com/watch?v=tAGnKpE4NCI"
+                       href="https://youtu.be/E0ozmU9cJDg?si=25ebQUO9Nm_FajoI"
                        target="_blank"
                        rel="noopener noreferrer"
                        title="Listen on YouTube"
                      >
-                       "Nothing Else Matters – Metallica"
+                       "Master of Puppets – Metallica"
                      </a>
                    </span>
                  </div>
@@ -1058,7 +1058,7 @@ export default function App() {
                       </button>
                     </div>
                     <div className="flex items-center gap-4 mb-6">
-                      <img src="/profile.jpg" alt="Profile" className="w-14 h-14 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
+                      <img src="/profile.JPG" alt="Profile" className="w-14 h-14 rounded-full border-2 border-[#A259FF] shadow-lg object-cover" />
                       <div>
                         <div className="text-xl font-bold" style={{ color: figmaColors[0] }}>Saksham Budhiraja</div>
                         <div className="text-sm text-[var(--text-secondary)]">UI UX Designer</div>
