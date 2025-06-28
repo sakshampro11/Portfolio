@@ -704,7 +704,7 @@ export default function App() {
                    <span>
                      Now Playing:{" "}
                      <a
-                       href="https://youtu.be/E0ozmU9cJDg?si=25ebQUO9Nm_FajoI"
+                       href="https://youtu.be/E4ScPro8YcI?si=EckOVsDdPA0o3dpZ"
                        target="_blank"
                        rel="noopener noreferrer"
                        title="Listen on YouTube"
