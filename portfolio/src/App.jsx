@@ -20,12 +20,50 @@ const figmaColors = [
 
 const projects = [
   {
+    
+    title: "Club Duelz",
+    thumbnail: "/cb1.png",
+    description: "Designathon - Mobile App",
+    tech: ["Figma", "Ui UX", "Prototyping"],
+    tags: ["UI", "Interative"],
+    colors: ["#261D71", "#4E57A7", "#20195A", "#AFAFAF"],
+    links: {
+      figma: "https://www.figma.com/design/4L6frlnTUTgkBGk3saidaq/CLUB-DUELZ---Design-Fusion?node-id=538-30583&t=SlXUY0bKLRjFAgA0-1",
+      prototype: "https://www.figma.com/proto/4L6frlnTUTgkBGk3saidaq/CLUB-DUELZ---Design-Fusion?node-id=515-56931&t=1HRWU3iIHBZRlG5C-1&scaling=scale-down&content-scaling=fixed&page-id=282%3A614&starting-point-node-id=298%3A1801&show-proto-sidebar=1"
+    },
+    caseStudy: {
+      heroImage: "/cb2.png",
+      showcaseImages: [
+        "/cb3.png",
+        "/cb4.png",
+        "/cb5.png",
+        "/cb6.png",
+      ],
+      overview: `Club Duelz is a sports-tech platform on a mission to transform grassroots football in India. It helps local players, organizers, and scouts come together through one digital ecosystem — tracking match stats, building player profiles, and uncovering hidden talent.
+        From casual turf games to competitive leagues, Club Duelz captures every goal, assist, and defensive play, turning raw passion into data that opens doors to bigger opportunities. It’s more than just match scoring — it’s a pathway from local grounds to professional recognition.
+        <br />
+<br />
+🛠 Tools: Figma, Prototyping, UI UX <br />
+🎨 Roles: UI/UX Design, Ideation.`,
+      goal: "To spotlight grassroots football talent by turning every local match into a stepping stone toward professional discovery.",
+      designProcess: `A 7-step process was followed to take the project from ideation to a functional prototype, focusing on user needs and rapid iteration.`,
+      designSystem: "Comprehensive design system with color palette, typography, and components."
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    
     title: "City Issue Reporter (Lokally)",
     thumbnail: "/lokallylp.png",
     description: "Web UI/UX Design · Hackathon Project.",
     tech: ["Figma", "React", "Tailwind CSS"],
     tags: ["UI", "Web"],
     colors: ["#2D89DA", "#202020", "#D9D9D9", "#F6554F"],
+    links: {
+      figma: "https://www.figma.com/design/RYlbktSxeGz0bgSXHV20iB/Nirvana---Hack2Hustle?node-id=0-1&t=YIJ4RnwQ4Pw52JKP-1",
+      prototype: "https://www.figma.com/design/RYlbktSxeGz0bgSXHV20iB/Nirvana---Hack2Hustle?node-id=0-1&t=YIJ4RnwQ4Pw52JKP-1",
+    },
     caseStudy: {
       heroImage: "/locallyhome.png",
       showcaseImages: [
@@ -43,8 +81,8 @@ const projects = [
       designProcess: `A 7-step process was followed to take the project from ideation to a functional prototype, focusing on user needs and rapid iteration.`,
       designSystem: "Comprehensive design system with color palette, typography, and components."
     },
-    x: 100,
-    y: 100,
+    x: 400,
+    y: 50,
   },
   {
     title: "FarmEazyy",
@@ -71,8 +109,8 @@ const projects = [
       designProcess: "A 6-step funnel approach was used to guide the design from user journey mapping to final user testing.",
       designSystem: "A clean and modern design system focusing on clarity and ease-of-use. Typography features Post No Bills Colombo ExtraBold for headings and Poppins for body text."
     },
-    x: 500,
-    y: 100,
+    x: 50,
+    y: 350,
   },
   {
     title: "Lokally–Hyperlocal Delivery App",
@@ -98,8 +136,8 @@ const projects = [
       designProcess: "A 7-step user-centric design process was implemented, starting from identifying user pain points to iterative prototyping and feedback.",
       designSystem: "A comprehensive design system featuring a vibrant color palette and Helvetica typography to ensure a clean, user-friendly interface."
     },
-    x: 100,
-    y: 400,
+    x: 400,
+    y: 350,
   },
   {
     title: "My Design Portfolio",
@@ -108,6 +146,7 @@ const projects = [
     tech: ["Figma", "Tailwind CSS", "React", "Framer Motion"],
     tags: ["Workspace", "Inception"],
     links: {
+      live: "https://sakshambudhirajaportfolio.vercel.app/",
       figma: "https://figma.com/@saksham15"
     },
     caseStudy: {
@@ -123,9 +162,10 @@ const projects = [
       designProcess: "The portfolio was built with a process that balanced structure, inspiration, and technical execution to create a unique, personal experience.",
       designSystem: "The entire site acts as its own design system, featuring Figma's color palette, Inter typeface, and a component-based architecture including the 3-panel layout and case study artboards."
     },
-    x: 500,
-    y: 400,
+    x: 50,
+    y: 650,
   },
+  
 ];
 
 const CursorAiIcon = () => (
@@ -143,6 +183,16 @@ const tools = [
   { name: "Canva", icon: <SiCanva className="text-cyan-400" /> },
   { name: "Inkscape", icon: <SiInkscape className="text-white" /> },
   { name: "Tailwind CSS", icon: <FaTools className="text-cyan-300" /> },
+];
+
+const clubDuelzDesignProcessSteps = [
+  { step: 1, title: "Research Pain Points", description: "Identifying challenges in existing sports apps", icon: FaMapMarkedAlt, color: "text-blue-300", iconColor: "text-blue-300" },
+  { step: 2, title: "Define User Flow", description: "Mapping out the user journey", icon: BsDiagram3, color: "text-cyan-300", iconColor: "text-cyan-300" },
+  { step: 3, title: "Design UI", description: "Creating a clean, card-based interface", icon: BsGrid1X2, color: "text-green-300", iconColor: "text-green-300" },
+  { step: 4, title: "Build Components", description: "Developing responsive components", icon: BsPuzzle, color: "text-lime-300", iconColor: "text-lime-300" }, 
+  { step: 5, title: "Focus on Accessibility", description: "Ensuring the app is usable for everyone", icon: FaUniversalAccess, color: "text-yellow-300", iconColor: "text-yellow-300" },
+  { step: 6, title: "Implement Urgency Tagging", description: "Adding tags to prioritize urgent issues", icon: FaTag, color: "text-orange-300", iconColor: "text-orange-300" },
+  { step: 7, title: "Smooth Complaint Tracking", description: "Streamlining the process for tracking", icon: FaTasks, color: "text-red-300", iconColor: "text-red-300" },
 ];
 
 const designProcessSteps = [
@@ -704,12 +754,12 @@ export default function App() {
                    <span>
                      Now Playing:{" "}
                      <a
-                       href="https://youtu.be/E4ScPro8YcI?si=EckOVsDdPA0o3dpZ"
+                       href="https://youtu.be/L-iepu3EtyE?si=elFgNXIH3lu4QNTL"
                        target="_blank"
                        rel="noopener noreferrer"
                        title="Listen on YouTube"
                      >
-                       "Master of Puppets – Metallica"
+                       "System Of A Down - Aerials "
                      </a>
                    </span>
                  </div>
@@ -746,7 +796,7 @@ export default function App() {
                      )}
                    </AnimatePresence>
                    <motion.div
-                     style={{ width: 1200, height: 800, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
+                     style={{ width: 1400, height: 1200, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
                      initial="hidden"
                      animate="visible"
                      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
@@ -826,7 +876,26 @@ export default function App() {
                    <div className="mb-6 md:mb-10">
                      <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN PROCESS</div>
                      <div className="text-sm text-[var(--text-secondary)] mb-4 md:mb-6">{projects[selected].caseStudy.designProcess}</div>
-                     {projects[selected].title === "City Issue Reporter (Lokally)" ? (
+                     {
+                     projects[selected].title === "Club Duelz" ? (
+                      <div className="relative">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
+                          {designProcessSteps.map((item, index) => (
+                            <div key={item.step} className={`flex items-start p-3 md:p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
+                              <div className="flex-shrink-0 mr-3 md:mr-4">
+                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
+                                  <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.iconColor}`} />
+                                </div>
+                              </div>
+                              <div>
+                                <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : projects[selected].title === "City Issue Reporter (Lokally)" ? (
                        <div className="relative">
                          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
                            {designProcessSteps.map((item, index) => (
@@ -974,7 +1043,18 @@ export default function App() {
                         </div>
                         <div className="flex flex-col gap-2 flex-1">
                           <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">TYPOGRAPHY</div>
-                          {projects[selected].title === 'FarmEazyy' ? (
+                          {projects[selected].title === 'Club Duelz' ? (
+                            <div className="text-xs text-[var(--text-secondary)]">
+                              <div><span className="font-semibold text-[var(--text-primary)]">Space Grotesk</span></div>
+                              
+                            </div>
+                          ) :
+                          projects[selected].title === 'City Issue Reporter (Lokally)' ? (
+                            <div className="text-xs text-[var(--text-secondary)]">
+                              <div><span className="font-semibold text-[var(--text-primary)]">Space Grotesk</span></div>
+                              
+                            </div>
+                          ) : projects[selected].title === 'FarmEazyy' ? (
                             <div className="text-xs text-[var(--text-secondary)]">
                               <div><span className="font-semibold text-[var(--text-primary)]">Headings:</span> Post No Bills Colombo ExtraBold</div>
                               <div><span className="font-semibold text-[var(--text-primary)]">Body:</span> Poppins</div>
@@ -998,7 +1078,15 @@ export default function App() {
                           )}
                         </div>
                         <div className="flex flex-col gap-2 flex-1">
-                          {projects[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
+                          {
+                          projects[selected].title === 'Club Duelz' ? (
+                            <>
+                              <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Scorer options</div>
+                              <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
+                                Live match scoring and viewing
+                              </div>
+                            </>
+                          ) :projects[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Delivery Systems</div>
                               <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
