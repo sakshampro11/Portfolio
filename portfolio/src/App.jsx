@@ -84,7 +84,7 @@ const visualDesignProjects = [
     thumbnail: "/poster5.jpg",
     description: "Visual Design",
     tech: ["Photoshop", "Illustrator"],
-    tags: ["Poster"],
+    tags: ["Insta Grid (1*3)"],
     colors: ["#E91E63", "#9C27B0", "#673AB7", "#3F51B5"],
     links: {
       behance: "https://behance.net/saksham",
@@ -98,7 +98,7 @@ const visualDesignProjects = [
     thumbnail: "/poster6.jpg",
     description: "Visual Design",
     tech: ["Photoshop", "Illustrator"],
-    tags: ["Poster"],
+    tags: ["Insta Grid (1*3)"],
     colors: ["#FF5722", "#FF9800", "#FFC107", "#4CAF50"],
     links: {
       behance: "https://behance.net/saksham",
@@ -112,7 +112,7 @@ const visualDesignProjects = [
     thumbnail: "/poster7.png",
     description: "Visual Design",
     tech: ["Photoshop", "Illustrator"],
-    tags: ["Poster"],
+    tags: ["Insta Grid (3*3)"],
     colors: ["#795548", "#607D8B", "#009688", "#00BCD4"],
     links: {
       behance: "https://behance.net/saksham",
@@ -126,7 +126,7 @@ const visualDesignProjects = [
     thumbnail: "/poster8.png",
     description: "Visual Design",
     tech: ["Photoshop", "Illustrator"],
-    tags: ["Poster"],
+    tags: ["Insta Grid (1*3)"],
     colors: ["#CDDC39", "#8BC34A", "#4CAF50", "#009688"],
     links: {
       behance: "https://behance.net/saksham",
@@ -137,7 +137,7 @@ const visualDesignProjects = [
   },
   {
     title: "Poster 9",
-    thumbnail: "/poster9.jpg",
+    thumbnail: "/poster9.png",
     description: "Visual Design",
     tech: ["Photoshop", "Illustrator"],
     tags: ["Poster"],
