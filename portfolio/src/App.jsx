@@ -18,6 +18,153 @@ const figmaColors = [
   "#0ACF83", // green
 ];
 
+const posterPlaceholder =
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1000' viewBox='0 0 800 1000' fill='none'><rect width='800' height='1000' rx='24' fill='%231e1e1e'/><rect x='40' y='40' width='720' height='920' rx='16' fill='%23282828'/><text x='400' y='520' text-anchor='middle' fill='%23A6A6A6' font-family='Inter, sans-serif' font-size='36' font-weight='600'>Poster Placeholder</text></svg>";
+
+// Visual Design Projects - 10 Poster Placeholders
+const visualDesignProjects = [
+  {
+    title: "Poster 1",
+    thumbnail: "/poster1.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 100,
+    y: 100,
+  },
+  {
+    title: "Poster 2",
+    thumbnail: "/poster2.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#2C3E50", "#E74C3C", "#F39C12", "#27AE60"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 3",
+    thumbnail: "/poster3.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#FF9FF3", "#54A0FF", "#5F27CD", "#00D2D3"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 4",
+    thumbnail: "/poster4.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#8E44AD", "#3498DB", "#E67E22", "#2ECC71"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 5",
+    thumbnail: "/poster5.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#E91E63", "#9C27B0", "#673AB7", "#3F51B5"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 6",
+    thumbnail: "/poster6.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#FF5722", "#FF9800", "#FFC107", "#4CAF50"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 7",
+    thumbnail: "/poster7.png",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#795548", "#607D8B", "#009688", "#00BCD4"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 8",
+    thumbnail: "/poster8.png",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#CDDC39", "#8BC34A", "#4CAF50", "#009688"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 9",
+    thumbnail: "/poster9.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#FFEB3B", "#FFC107", "#FF9800", "#FF5722"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+  {
+    title: "Poster 10",
+    thumbnail: "/poster10.jpg",
+    description: "Visual Design",
+    tech: ["Photoshop", "Illustrator"],
+    tags: ["Poster"],
+    colors: ["#9E9E9E", "#607D8B", "#455A64", "#263238"],
+    links: {
+      behance: "https://behance.net/saksham",
+      dribbble: "https://dribbble.com/saksham"
+    },
+    x: 50,
+    y: 50,
+  },
+];
+
 const projects = [
   {
     
@@ -53,6 +200,40 @@ const projects = [
     y: 50,
   },
   {
+    title: "Beyond Moksha",
+    thumbnail: "/bm1.png",
+    description: "Freelance - Web Design",
+    tech: ["Figma", "Ui UX", "Prototyping"],
+    tags: ["UI", "Interface"],
+    colors: ["#ffffff", "#BC911B", "#1867AE", "#1C1F3B"],
+     links: {
+       figma: "https://www.figma.com/design/ZnFxVTXYmkanLMhyVnTlbq/Beyond-Moksha-Design-File?node-id=0-1&t=gKPH8cbQ8cdTCwXZ-1",
+       prototype: "https://www.figma.com/proto/ZnFxVTXYmkanLMhyVnTlbq/Beyond-Moksha-Design-File?page-id=0%3A1&node-id=1-2985&viewport=165%2C40%2C0.08&t=PisBbjOQOJeQqIOF-1&scaling=min-zoom&content-scaling=fixed",
+     },
+     caseStudy: {
+       heroImage: "/bm1.png",
+       showcaseImages: [
+         "/bm2.png",
+         "/bm3.png",
+         "/bm4.png",
+         "/bm5.png",
+       ],
+       overview: `Beyond Moksha is a wellness-focused brand offering alternative healing services, spiritual workshops, and personalized wellness programs.
+       My role was to translate their philosophy into a clean, calming, and trustworthy digital experience that reflects balance, clarity, and transformation.
+       
+       I redesigned their website with a modern interface, improved navigation, and a holistic aesthetic, ensuring users could easily explore services, book sessions, and understand the brand’s mission.
+       <br />
+       <br />
+       🛠 Tools: Figma, UI UX <br />
+       🎨 Roles: UI/UX Design, Interface design.`,
+       goal: "To build a serene, intuitive, and functional website that communicates Beyond Moksha’s identity — calm, clarity, and spiritual growth — while improving service discoverability and booking conversion.",
+       designProcess: `A 7-step process capturing research, IA, wireframes, visual direction, high-fidelity UI, prototyping, and client delivery.`,
+       designSystem: "Comprehensive design system with color palette, typography, and components."
+     },
+    x: 400,
+    y: 50,
+  },
+  {
     
     title: "City Issue Reporter (Lokally)",
     thumbnail: "/lokallylp.png",
@@ -81,8 +262,8 @@ const projects = [
       designProcess: `A 7-step process was followed to take the project from ideation to a functional prototype, focusing on user needs and rapid iteration.`,
       designSystem: "Comprehensive design system with color palette, typography, and components."
     },
-    x: 400,
-    y: 50,
+    x: 50,
+    y: 350,
   },
   {
     title: "FarmEazyy",
@@ -109,7 +290,7 @@ const projects = [
       designProcess: "A 6-step funnel approach was used to guide the design from user journey mapping to final user testing.",
       designSystem: "A clean and modern design system focusing on clarity and ease-of-use. Typography features Post No Bills Colombo ExtraBold for headings and Poppins for body text."
     },
-    x: 50,
+    x: 400,
     y: 350,
   },
   {
@@ -136,8 +317,8 @@ const projects = [
       designProcess: "A 7-step user-centric design process was implemented, starting from identifying user pain points to iterative prototyping and feedback.",
       designSystem: "A comprehensive design system featuring a vibrant color palette and Helvetica typography to ensure a clean, user-friendly interface."
     },
-    x: 400,
-    y: 350,
+    x: 50,
+    y: 650,
   },
   {
     title: "My Design Portfolio",
@@ -162,7 +343,7 @@ const projects = [
       designProcess: "The portfolio was built with a process that balanced structure, inspiration, and technical execution to create a unique, personal experience.",
       designSystem: "The entire site acts as its own design system, featuring Figma's color palette, Inter typeface, and a component-based architecture including the 3-panel layout and case study artboards."
     },
-    x: 50,
+    x: 400,
     y: 650,
   },
   
@@ -237,6 +418,16 @@ const portfolioKeyFeatures = [
     { title: "Interactive Canvas", description: "The workspace is pannable and zoomable, mimicking an infinite design canvas.", icon: FaSearchPlus },
     { title: "Dynamic Side Panels", description: "Side panels adjust based on the selected content, providing context-aware information.", icon: BsGrid1X2 },
     { title: "Custom Cursor", description: "A custom Figma-style cursor enhances the thematic experience of the workspace.", icon: FaMousePointer },
+];
+
+const beyondMokshaDesignProcessSteps = [
+  { step: 1, title: "Research & Understanding", description: "Study brand values, user expectations, competitors, and personas.", icon: FaSearchPlus, color: "text-blue-300", iconColor: "text-blue-300" },
+  { step: 2, title: "Information Architecture", description: "Structure services, simplify booking, and create a calming layout.", icon: BsGrid1X2, color: "text-cyan-300", iconColor: "text-cyan-300" },
+  { step: 3, title: "Wireframes", description: "Low-fi sketches for homepage, services, and booking with clear hierarchy.", icon: VscFileCode, color: "text-green-300", iconColor: "text-green-300" },
+  { step: 4, title: "Visual Direction", description: "Soft nature-inspired palette, minimal type, rounded shapes, fluid forms.", icon: FaPalette, color: "text-yellow-300", iconColor: "text-yellow-300" },
+  { step: 5, title: "High-Fidelity UI", description: "Gradient heroes, service cards with icons, about/philosophy, reviews, clean footer.", icon: FaReact, color: "text-orange-300", iconColor: "text-orange-300" },
+  { step: 6, title: "Prototyping", description: "Smooth interactions, scroll animations, clickable desktop/mobile flows.", icon: FaTasks, color: "text-red-300", iconColor: "text-red-300" },
+  { step: 7, title: "Client Review", description: "Refinements and delivery of design files plus basic brand kit.", icon: FaUsers, color: "text-purple-300", iconColor: "text-purple-300" },
 ];
 
 const socials = [
@@ -317,6 +508,8 @@ export default function App() {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
   const [hoveredTool, setHoveredTool] = useState(null);
+  const [currentSection, setCurrentSection] = useState('uiux'); // 'uiux' or 'visual'
+  const [floatingImage, setFloatingImage] = useState(null); // { src, title }
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -479,135 +672,190 @@ export default function App() {
         <div className="w-full md:hidden px-4 pt-20 pb-6 bg-[var(--background)]">
           {selected === null ? (
             <>
-              {/* About Me Section */}
-        <div className="mb-12">
-          <div className="relative min-h-[240px]">
-            <div className="absolute top-3 right-4 z-10">
-              <button
-                onClick={() => setAboutFlipped(f => !f)}
-                className="rounded-full bg-[var(--surface)] hover:bg-[#1ABCFE] text-[#1ABCFE] hover:text-white p-2 shadow-md border border-[#1ABCFE] transition-transform active:scale-90"
-                title="Flip Card"
-                style={{ outline: 'none' }}
-              >
-                <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
-                  <rect x="4" y="6" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="2" fill="var(--surface)" />
-                  <path d="M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M12 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M4 12c0-4 16-4 16 0" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2"/>
-                </svg>
-              </button>
-            </div>
-                  
-            {/* Flipping Card Container */}
-            <div className="perspective-[1200px] min-h-[360px] relative">
-              <AnimatePresence mode="wait" initial={false}>
-                {!aboutFlipped ? (
-                  <motion.div
-                    key="about-front"
-                    initial={{ rotateY: 90, opacity: 0 }}
-                    animate={{ rotateY: 0, opacity: 1 }}
-                    exit={{ rotateY: -90, opacity: 0 }}
-                    transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
-                    className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] bg-gradient-to-r from-[var(--surface)] to-[#1ABCFE11] border-[#1ABCFE]"
-                    style={{ boxShadow: '0 2px 24px 0 #1ABCFE22', backfaceVisibility: 'hidden' }}
-                  >
-                    <span className="text-2xl mr-2 align-middle">👋</span>
-                    <span className="text-lg font-bold text-[var(--text-primary)]">Hi, I'm Saksham Budhiraja</span>
-                    <div className="mt-2 text-base text-[var(--text-secondary)]">
-                      A UI/UX designer and frontend developer who thinks in frames and builds in pixels.I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
-                
-                    </div>
-                    <div className="mt-3 text-sm text-[var(--text-secondary)]">
-                    From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
-                    </div>
-                    <div className="mt-3 text-sm text-[var(--text-secondary)]">
-                      Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="about-back"
-                    initial={{ rotateY: -90, opacity: 0 }}
-                    animate={{ rotateY: 0, opacity: 1 }}
-                    exit={{ rotateY: 90, opacity: 0 }}
-                    transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
-                    className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] bg-gradient-to-r from-[var(--surface)] to-[#A259FF11] border-[#A259FF] flex flex-col gap-2"
-                    style={{ boxShadow: '0 2px 24px 0 #A259FF22', backfaceVisibility: 'hidden' }}
-                  >
-                    <div className="text-lg font-bold text-[var(--text-primary)] mb-2">Component Name: <span className="font-semibold text-[#1ABCFE]">Saksham Budhiraja</span></div>
-                    <div className="text-base font-semibold text-[#A259FF] mb-2">Role: UI/UX Designer + Developer Handoff</div>
-                    <div className="text-base font-semibold text-[#1ABCFE] mb-1">Skills:</div>
-                    <ul className="list-disc list-inside text-[var(--text-secondary)] ml-2">
-                      <li>Design Systems</li>
-                      <li>Interactive Prototypes</li>
-                      <li>Web Accessibility</li>
-                      <li>React + UI Engineering</li>
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-              
-        {/* Tools Section */}
-        <div className="mb-8 mt-10">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Tools</h2>
-          <div className="grid grid-cols-3 gap-4">
-            {tools.map(tool => (
-              <motion.div 
-                key={tool.name} 
-                className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-              >
-                <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
-                <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-              {/* Projects Section Header */}
-              <div className="mt-8 mb-4">
-                <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-wide">Projects</h2>
-              </div>
-              {/* Project Cards */}
-              <div className="mb-8">
-                <div className="space-y-4">
-                  {projects.map((project, idx) => (
-                    <motion.div
-                      key={project.title}
-                      className="w-full rounded-xl shadow-lg border-2 border-[var(--border)] cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
-                      onClick={() => {
-                        setSelected(idx);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      whileHover={{ scale: 1.02, borderColor: 'var(--border)' }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    >
-                      <div className="aspect-video overflow-hidden bg-[var(--background)]">
-                        <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
-                      </div>
-                      <div className="flex flex-col gap-2 px-4 py-3 bg-[var(--surface)] border-t border-[var(--border)]">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-[var(--background)] flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">{project.title[0]}</div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-[var(--text-primary)] font-medium text-base">{project.title}</div>
-                            <div className="text-sm text-[var(--text-secondary)]">{project.description}</div>
+              {currentSection === 'visual' ? (
+                // Mobile Design Wall for Visual Design
+                <div className="w-full">
+                  <div className="mb-8">
+                    <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Visual Design</h1>
+                    <p className="text-[var(--text-secondary)]">A collection of creative visual work</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {visualDesignProjects.map((project, idx) => (
+                      <motion.div
+                        key={project.title}
+                        className="group cursor-pointer"
+                        onClick={() => {
+                          setFloatingImage({ src: project.thumbnail || posterPlaceholder, title: project.title });
+                          setIsMobileMenuOpen(false);
+                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        whileHover={{ y: -2 }}
+                      >
+                        <div className="aspect-square rounded-xl overflow-hidden bg-[var(--background)] border border-[var(--border)] mb-3 flex items-center justify-center">
+                          <img 
+                            src={project.thumbnail || posterPlaceholder} 
+                            alt={project.title} 
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = posterPlaceholder;
+                            }}
+                          />
+                          <div className="w-full h-full flex flex-col items-center justify-center text-[var(--text-secondary)] hidden">
+                            <div className="w-12 h-12 rounded-full bg-[var(--surface)] flex items-center justify-center mb-2">
+                              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium">Add Image</span>
+                            <span className="text-xs opacity-70">{project.title}</span>
                           </div>
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex justify-center gap-1">
                           {project.tags && project.tags.map((tag, i) => (
-                            <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                            <span key={tag} className="px-1.5 py-0.5 rounded-full text-xs font-medium" style={{ background: figmaColors[i % figmaColors.length], color: '#fff' }}>{tag}</span>
                           ))}
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                // Mobile UI/UX Layout
+                <>
+                  {/* About Me Section */}
+                  <div className="mb-12">
+                    <div className="relative min-h-[240px]">
+                      <div className="absolute top-3 right-4 z-10">
+                        <button
+                          onClick={() => setAboutFlipped(f => !f)}
+                          className="rounded-full bg-[var(--surface)] hover:bg-[#1ABCFE] text-[#1ABCFE] hover:text-white p-2 shadow-md border border-[#1ABCFE] transition-transform active:scale-90"
+                          title="Flip Card"
+                          style={{ outline: 'none' }}
+                        >
+                          <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
+                            <rect x="4" y="6" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="2" fill="var(--surface)" />
+                            <path d="M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                            <path d="M12 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                            <path d="M4 12c0-4 16-4 16 0" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2"/>
+                          </svg>
+                        </button>
+                      </div>
+                            
+                      {/* Flipping Card Container */}
+                      <div className="perspective-[1200px] min-h-[360px] relative">
+                        <AnimatePresence mode="wait" initial={false}>
+                          {!aboutFlipped ? (
+                            <motion.div
+                              key="about-front"
+                              initial={{ rotateY: 90, opacity: 0 }}
+                              animate={{ rotateY: 0, opacity: 1 }}
+                              exit={{ rotateY: -90, opacity: 0 }}
+                              transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                              className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] bg-gradient-to-r from-[var(--surface)] to-[#1ABCFE11] border-[#1ABCFE]"
+                              style={{ boxShadow: '0 2px 24px 0 #1ABCFE22', backfaceVisibility: 'hidden' }}
+                            >
+                              <span className="text-2xl mr-2 align-middle">👋</span>
+                              <span className="text-lg font-bold text-[var(--text-primary)]">Hi, I'm Saksham Budhiraja</span>
+                              <div className="mt-2 text-base text-[var(--text-secondary)]">
+                                A UI/UX designer and frontend developer who thinks in frames and builds in pixels.I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
+                          
+                              </div>
+                              <div className="mt-3 text-sm text-[var(--text-secondary)]">
+                              From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                              </div>
+                              <div className="mt-3 text-sm text-[var(--text-secondary)]">
+                                Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
+                              </div>
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="about-back"
+                              initial={{ rotateY: -90, opacity: 0 }}
+                              animate={{ rotateY: 0, opacity: 1 }}
+                              exit={{ rotateY: 90, opacity: 0 }}
+                              transition={{ duration: 0.6, ease: [0.4, 0.2, 0.2, 1] }}
+                              className="rounded-2xl p-6 shadow-lg border text-[var(--text-primary)] bg-gradient-to-r from-[var(--surface)] to-[#A259FF11] border-[#A259FF] flex flex-col gap-2"
+                              style={{ boxShadow: '0 2px 24px 0 #A259FF22', backfaceVisibility: 'hidden' }}
+                            >
+                              <div className="text-lg font-bold text-[var(--text-primary)] mb-2">Component Name: <span className="font-semibold text-[#1ABCFE]">Saksham Budhiraja</span></div>
+                              <div className="text-base font-semibold text-[#A259FF] mb-2">Role: UI/UX Designer + Developer Handoff</div>
+                              <div className="text-base font-semibold text-[#1ABCFE] mb-1">Skills:</div>
+                              <ul className="list-disc list-inside text-[var(--text-secondary)] ml-2">
+                                <li>Design Systems</li>
+                                <li>Interactive Prototypes</li>
+                                <li>Web Accessibility</li>
+                                <li>React + UI Engineering</li>
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </div>
+                    
+                  {/* Tools Section */}
+                  <div className="mb-8 mt-10">
+                    <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Tools</h2>
+                    <div className="grid grid-cols-3 gap-4">
+                      {tools.map(tool => (
+                        <motion.div 
+                          key={tool.name} 
+                          className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+                        >
+                          <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
+                          <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Projects Section Header */}
+                  <div className="mt-8 mb-4">
+                    <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-wide">Projects</h2>
+                  </div>
+                  {/* Project Cards */}
+                  <div className="mb-8">
+                    <div className="space-y-4">
+                      {projects.map((project, idx) => (
+                        <motion.div
+                          key={project.title}
+                          className="w-full rounded-xl shadow-lg border-2 border-[var(--border)] cursor-pointer flex flex-col bg-[var(--surface)] overflow-hidden"
+                          onClick={() => {
+                            setSelected(idx);
+                            setIsMobileMenuOpen(false);
+                          }}
+                          whileHover={{ scale: 1.02, borderColor: 'var(--border)' }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                        >
+                          <div className="aspect-video overflow-hidden bg-[var(--background)]">
+                            <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+                          </div>
+                          <div className="flex flex-col gap-2 px-4 py-3 bg-[var(--surface)] border-t border-[var(--border)]">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 rounded-full bg-[var(--background)] flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">{project.title[0]}</div>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-[var(--text-primary)] font-medium text-base">{project.title}</div>
+                                <div className="text-sm text-[var(--text-secondary)]">{project.description}</div>
+                              </div>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {project.tags && project.tags.map((tag, i) => (
+                                <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           ) : (
             <div className="w-full">
@@ -694,31 +942,57 @@ export default function App() {
                <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
                    {leftSidebarTab === 'file' && (
                      <>
+                       {/* Pages Section */}
                        <div className="flex items-center justify-between mb-2">
                            <h2 className="text-xs font-semibold tracking-wider text-[var(--text-secondary)] uppercase">Pages</h2>
                            <FaPlus className="w-4 h-4 text-[var(--text-secondary)]" />
                        </div>
 
-                       <nav className="flex flex-col gap-1 text-base">
+                       <nav className="flex flex-col gap-1 text-sm mb-4">
                          <button
-                           onClick={() => setSelected(null)}
-                           className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === null ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-2' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-2'}`}
+                           onClick={() => setCurrentSection('uiux')}
+                           className={`text-left px-2 py-1 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${currentSection === 'uiux' ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-1' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-1'}`}
                          >
-                           All Projects
+                           UI UX Design
                          </button>
-                         {projects.map((project, idx) => (
-                           <button
-                             key={project.title}
-                             onClick={() => {
-                               setSelected(idx);
-                               setIsMobileMenuOpen(false);
-                             }}
-                             className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === idx ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-2' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-2'}`}
-                           >
-                             {project.title}
-                           </button>
-                         ))}
+                         <button
+                           onClick={() => setCurrentSection('visual')}
+                           className={`text-left px-2 py-1 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${currentSection === 'visual' ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-1' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-1'}`}
+                         >
+                           Visual Design
+                         </button>
                        </nav>
+
+                       {/* Layers Section - Only show for UI/UX */}
+                       {currentSection === 'uiux' && (
+                         <>
+                           <div className="flex items-center justify-between mb-2">
+                               <h2 className="text-xs font-semibold tracking-wider text-[var(--text-secondary)] uppercase">Layers</h2>
+                               <FaPlus className="w-4 h-4 text-[var(--text-secondary)]" />
+                           </div>
+
+                           <nav className="flex flex-col gap-1 text-base">
+                             <button
+                               onClick={() => setSelected(null)}
+                               className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === null ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-2' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-2'}`}
+                             >
+                               All UI/UX Projects
+                             </button>
+                             {projects.map((project, idx) => (
+                               <button
+                                 key={project.title}
+                                 onClick={() => {
+                                   setSelected(idx);
+                                   setIsMobileMenuOpen(false);
+                                 }}
+                                 className={`text-left px-3 py-1.5 rounded-md font-medium flex items-center transition-all duration-200 ease-in-out ${selected === idx ? 'bg-[var(--background)] text-[var(--text-primary)] translate-x-2' : 'text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--text-primary)] hover:translate-x-2'}`}
+                               >
+                                 {project.title}
+                               </button>
+                             ))}
+                           </nav>
+                         </>
+                       )}
                      </>
                    )}
                    {leftSidebarTab === 'assets' && (
@@ -777,70 +1051,120 @@ export default function App() {
              </div>
              {selected === null ? (
                <div className="hidden md:block w-full">
-                 <div
-                   ref={workspaceRef}
-                   className="relative w-full flex-1"
-                   style={{ cursor: `url(/poof.svg) 8 8, auto` }}
-                 >
-                   <AnimatePresence>
-                     {showFakeCursor && (
-                       <motion.div
-                         initial={{ opacity: 0 }}
-                         animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
-                         exit={{ opacity: 0 }}
-                         transition={{ duration: 0.3 }}
-                         style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
-                       >
-                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="var(--surface)" strokeWidth="3"/></svg>
-                       </motion.div>
-                     )}
-                   </AnimatePresence>
-                   <motion.div
-                     style={{ width: 1400, height: 1200, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
-                     initial="hidden"
-                     animate="visible"
-                     variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
+                 {currentSection === 'visual' ? (
+                   // Design Wall Layout for Visual Design
+                   <div className="w-full p-8">
+                     <div className="mb-8">
+                       <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-2">Visual Design</h1>
+                       <p className="text-[var(--text-secondary)]">A collection of creative visual work</p>
+                     </div>
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                       {visualDesignProjects.map((project, idx) => (
+                         <motion.div
+                           key={project.title}
+                           className="group cursor-pointer"
+                          onClick={() => setFloatingImage({ src: project.thumbnail || posterPlaceholder, title: project.title })}
+                           initial={{ opacity: 0, y: 20 }}
+                           animate={{ opacity: 1, y: 0 }}
+                           transition={{ delay: idx * 0.1 }}
+                           whileHover={{ y: -5 }}
+                         >
+                           <div className="aspect-square rounded-xl overflow-hidden bg-[var(--background)] border border-[var(--border)] mb-3 flex items-center justify-center">
+                             <img 
+                              src={project.thumbnail || posterPlaceholder} 
+                               alt={project.title} 
+                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                               onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = posterPlaceholder;
+                               }}
+                             />
+                             <div className="w-full h-full flex flex-col items-center justify-center text-[var(--text-secondary)] hidden">
+                               <div className="w-16 h-16 rounded-full bg-[var(--surface)] flex items-center justify-center mb-3">
+                                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                                   <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                                 </svg>
+                               </div>
+                               <span className="text-sm font-medium">Add Image</span>
+                               <span className="text-xs opacity-70">{project.title}</span>
+                             </div>
+                           </div>
+                           <div className="flex justify-center gap-2">
+                             {project.tags && project.tags.map((tag, i) => (
+                               <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ background: figmaColors[i % figmaColors.length], color: '#fff' }}>{tag}</span>
+                             ))}
+                           </div>
+                         </motion.div>
+                       ))}
+                     </div>
+                   </div>
+                 ) : (
+                   // Original Workspace Layout for UI/UX
+                   <div
+                     ref={workspaceRef}
+                     className="relative w-full flex-1"
+                     style={{ cursor: `url(/poof.svg) 8 8, auto` }}
                    >
-                     {projects.map((project, idx) => (
-                       <motion.div
-                         key={project.title}
-                         className={`absolute group w-[320px] h-[240px] rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[var(--surface)]`}
-                         style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
-                         onClick={() => setSelected(idx)}
-                         initial={{ y: 40, opacity: 0 }}
-                         animate={{ y: 0, opacity: 1 }}
-                         whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'var(--border)' }}
-                         whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(128, 128, 128, 0.5)' }}
-                         transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
-                       >
-                         <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[var(--background)]">
-                           <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
-                         </div>
-                          <motion.div 
-                            className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
-                            initial={{opacity: 0}}
-                            whileHover={{opacity: 1}}
-                          >
-                            <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
-                          </motion.div>
-                          <div className="flex flex-col gap-1 px-4 py-3 bg-[var(--surface)] rounded-b-xl border-t border-[var(--border)]">
-                            <div className="flex items-center gap-2">
-                              <div className="w-7 h-7 rounded-full bg-[var(--background)] flex items-center justify-center text-xs font-bold text-[var(--text-primary)]">{project.title[0]}</div>
-                              <div className="flex-1 min-w-0">
-                                <div className="truncate text-[var(--text-primary)] font-medium text-base">{project.title}</div>
-                                <div className="truncate text-xs text-[var(--text-secondary)]">{project.description}</div>
+                     <AnimatePresence>
+                       {showFakeCursor && (
+                         <motion.div
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
+                           exit={{ opacity: 0 }}
+                           transition={{ duration: 0.3 }}
+                           style={{ position: 'absolute', zIndex: 50, pointerEvents: 'none' }}
+                         >
+                           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 2L30 18L19 20L17 33L6 2Z" fill="#18181b" stroke="var(--surface)" strokeWidth="3"/></svg>
+                         </motion.div>
+                       )}
+                     </AnimatePresence>
+                     <motion.div
+                       style={{ width: 1400, height: 1200, position: 'relative', transform: `scale(${zoom})`, transformOrigin: '0 0', perspective: 1200, transition: 'transform 0.15s cubic-bezier(.4,2,.6,1)' }}
+                       initial="hidden"
+                       animate="visible"
+                       variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
+                     >
+                       {projects.map((project, idx) => (
+                         <motion.div
+                           key={project.title}
+                           className={`absolute group w-[320px] h-[240px] rounded-xl shadow-lg border-2 border-transparent cursor-pointer flex flex-col items-stretch p-0 bg-[var(--surface)]`}
+                           style={{ left: project.x, top: project.y, transformStyle: "preserve-3d" }}
+                           onClick={() => setSelected(idx)}
+                           initial={{ y: 40, opacity: 0 }}
+                           animate={{ y: 0, opacity: 1 }}
+                           whileHover={{ y: -15, rotateX: 8, rotateY: -8, scale: 1.05, borderColor: 'var(--border)' }}
+                           whileTap={{ scale: 1.02, y: -10, rotateX: 0, rotateY: 0, boxShadow: '0px 0px 30px rgba(128, 128, 128, 0.5)' }}
+                           transition={{ type: 'spring', stiffness: 300, damping: 20, delay: idx * 0.1 }}
+                         >
+                           <div className="flex-1 rounded-t-xl overflow-hidden flex items-center justify-center bg-[var(--background)]">
+                             <img src={project.thumbnail} alt={project.title} className="object-cover w-full h-full" />
+                           </div>
+                            <motion.div 
+                              className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-xl pointer-events-none"
+                              initial={{opacity: 0}}
+                              whileHover={{opacity: 1}}
+                            >
+                              <span className="text-white font-bold text-lg border-2 border-white rounded-lg px-4 py-2">View Project</span>
+                            </motion.div>
+                            <div className="flex flex-col gap-1 px-4 py-3 bg-[var(--surface)] rounded-b-xl border-t border-[var(--border)]">
+                              <div className="flex items-center gap-2">
+                                <div className="w-7 h-7 rounded-full bg-[var(--background)] flex items-center justify-center text-xs font-bold text-[var(--text-primary)]">{project.title[0]}</div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="truncate text-[var(--text-primary)] font-medium text-base">{project.title}</div>
+                                  <div className="truncate text-xs text-[var(--text-secondary)]">{project.description}</div>
+                                </div>
+                              </div>
+                              <div className="flex flex-wrap gap-2 mt-2">
+                                {project.tags && project.tags.map((tag, i) => (
+                                  <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
+                                ))}
                               </div>
                             </div>
-                            <div className="flex flex-wrap gap-2 mt-2">
-                              {project.tags && project.tags.map((tag, i) => (
-                                <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: figmaColors[i % figmaColors.length], color: '#fff', letterSpacing: 0.5 }}>{tag}</span>
-                              ))}
-                            </div>
-                          </div>
-                       </motion.div>
-                     ))}
-                   </motion.div>
-                 </div>
+                         </motion.div>
+                       ))}
+                     </motion.div>
+                   </div>
+                 )}
                </div>
              ) : (
                <div
@@ -855,29 +1179,46 @@ export default function App() {
                    >
                      <FaArrowLeft size={20} />
                    </button>
-                   <div className="flex flex-col md:flex-row gap-6 md:gap-10 mb-6 md:mb-10 mt-12 md:mt-16">
-                     <div className="flex-1 flex flex-col gap-3 md:gap-4">
-                       <div className="text-3xl md:text-5xl font-extrabold text-[var(--text-primary)]">{projects[selected].title}</div>
-                       <div className="text-lg md:text-xl text-[var(--text-primary)] font-semibold">{projects[selected].description}</div>
-                       <div className="text-base text-[var(--text-primary)] font-bold mt-3 md:mt-4">ABOUT</div>
-                       <div className="text-sm text-[var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: projects[selected].caseStudy.overview }}></div>
-                       <div className="text-base text-[var(--text-primary)] font-bold mt-3 md:mt-4">GOAL</div>
-                       <div className="text-sm text-[var(--text-secondary)]">{projects[selected].caseStudy.goal}</div>
+                   
+                   {currentSection === 'visual' ? (
+                     // Simple visual design project view
+                     <div className="flex flex-col gap-6 md:gap-10 mb-6 md:mb-10 mt-12 md:mt-16">
+                       <div className="text-center">
+                         <div className="text-3xl md:text-5xl font-extrabold text-[var(--text-primary)] mb-4">{(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title}</div>
+                         <div className="text-lg md:text-xl text-[var(--text-primary)] font-semibold mb-6">{(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].description}</div>
+                         <div className="w-full max-w-2xl mx-auto aspect-video bg-[var(--background)] rounded-lg flex items-center justify-center border border-[var(--border)]">
+                           <div className="text-[var(--text-secondary)] text-lg">Visual Design Project</div>
+                         </div>
+                       </div>
                      </div>
-                     <div className="w-full md:w-1/3">
-                       {projects[selected].caseStudy.heroImage ? (
-                         <img src={projects[selected].caseStudy.heroImage} alt={projects[selected].title} className="w-full h-auto object-cover rounded-lg shadow-lg" />
-                       ) : (
-                         <div className="bg-[var(--background)] w-full h-48 md:h-64 rounded-lg"></div>
-                       )}
+                   ) : (
+                     // Full case study view for UI/UX projects
+                     <div className="flex flex-col md:flex-row gap-6 md:gap-10 mb-6 md:mb-10 mt-12 md:mt-16">
+                       <div className="flex-1 flex flex-col gap-3 md:gap-4">
+                         <div className="text-3xl md:text-5xl font-extrabold text-[var(--text-primary)]">{(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title}</div>
+                         <div className="text-lg md:text-xl text-[var(--text-primary)] font-semibold">{(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].description}</div>
+                         <div className="text-base text-[var(--text-primary)] font-bold mt-3 md:mt-4">ABOUT</div>
+                         <div className="text-sm text-[var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.overview }}></div>
+                         <div className="text-base text-[var(--text-primary)] font-bold mt-3 md:mt-4">GOAL</div>
+                         <div className="text-sm text-[var(--text-secondary)]">{(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.goal}</div>
+                       </div>
+                       <div className="w-full md:w-1/3">
+                         {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.heroImage ? (
+                           <img src={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.heroImage} alt={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title} className="w-full h-auto object-cover rounded-lg shadow-lg" />
+                         ) : (
+                           <div className="bg-[var(--background)] w-full h-48 md:h-64 rounded-lg"></div>
+                         )}
+                       </div>
                      </div>
-                   </div>
+                   )}
 
-                   <div className="mb-6 md:mb-10">
-                     <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN PROCESS</div>
-                     <div className="text-sm text-[var(--text-secondary)] mb-4 md:mb-6">{projects[selected].caseStudy.designProcess}</div>
+                   {currentSection === 'uiux' && (
+                     <>
+                       <div className="mb-6 md:mb-10">
+                         <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-2">DESIGN PROCESS</div>
+                         <div className="text-sm text-[var(--text-secondary)] mb-4 md:mb-6">{(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.designProcess}</div>
                      {
-                     projects[selected].title === "Club Duelz" ? (
+                    (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "Club Duelz" ? (
                       <div className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
                           {designProcessSteps.map((item, index) => (
@@ -895,7 +1236,25 @@ export default function App() {
                           ))}
                         </div>
                       </div>
-                    ) : projects[selected].title === "City Issue Reporter (Lokally)" ? (
+                    ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "Beyond Moksha" ? (
+                      <div className="relative">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
+                          {beyondMokshaDesignProcessSteps.map((item, index) => (
+                            <div key={item.step} className={`flex items-start p-3 md:p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-10' : ''}`}>
+                              <div className="flex-shrink-0 mr-3 md:mr-4">
+                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
+                                  <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.iconColor}`} />
+                                </div>
+                              </div>
+                              <div>
+                                <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "City Issue Reporter (Lokally)" ? (
                        <div className="relative">
                          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
                            {designProcessSteps.map((item, index) => (
@@ -913,7 +1272,7 @@ export default function App() {
                            ))}
                          </div>
                        </div>
-                     ) : projects[selected].title === "FarmEazyy" ? (
+                     ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "FarmEazyy" ? (
                        <div className="relative">
                          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
                            {farmEazyyDesignProcessSteps.map((item, index) => (
@@ -931,7 +1290,7 @@ export default function App() {
                            ))}
                          </div>
                        </div>
-                     ) : projects[selected].title === "Lokally–Hyperlocal Delivery App" ? (
+                     ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "Lokally–Hyperlocal Delivery App" ? (
                        <div className="relative pl-4 md:pl-8">
                          {lokallyDesignProcessSteps.map((item, index) => (
                            <div key={item.title} className="flex items-start mb-6 md:mb-8">
@@ -950,7 +1309,7 @@ export default function App() {
                            </div>
                          ))}
                        </div>
-                     ) : projects[selected].title === "My Design Portfolio" ? (
+                     ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "My Design Portfolio" ? (
                        <div className="relative py-4 md:py-8">
                          <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-[var(--border)]" />
                            <div className="space-y-8 md:space-y-12">
@@ -980,7 +1339,7 @@ export default function App() {
                      )}
                    </div>
 
-                   {projects[selected].title === 'My Design Portfolio' && (
+                   {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'My Design Portfolio' && (
                      <div className="my-8 md:my-12 pt-8 md:pt-12">
                        <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-6 md:mb-8">KEY FEATURES</div>
                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -1009,9 +1368,9 @@ export default function App() {
 
                    <div className="my-8 md:my-12 pt-8 md:pt-12">
                       <div className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-4">UI SHOWCASE</div>
-                      {projects[selected].caseStudy.showcaseImages && projects[selected].caseStudy.showcaseImages.length > 0 ? (
+                      {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.showcaseImages && (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.showcaseImages.length > 0 ? (
                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                           {projects[selected].caseStudy.showcaseImages.map((imgSrc, index) => (
+                           {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].caseStudy.showcaseImages.map((imgSrc, index) => (
                              <div key={index} className="bg-[var(--background)] aspect-video rounded-lg p-2 border border-[var(--border)]">
                                <img src={imgSrc} alt={`Showcase ${index + 1}`} className="w-full h-full object-cover rounded-md"/>
                              </div>
@@ -1035,35 +1394,35 @@ export default function App() {
                         <div className="flex flex-col gap-2">
                           <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">COLOR PALETTE</div>
                           <div className="flex flex-row gap-2 mb-2">
-                            {(projects[selected].colors || figmaColors).map((c, i) => (
+                            {((currentSection === 'uiux' ? projects : visualDesignProjects)[selected].colors || figmaColors).map((c, i) => (
                               <span key={i} className="w-6 h-6 md:w-8 md:h-8 rounded-lg border border-[var(--border)]" style={{ background: c }}></span>
                             ))}
                           </div>
-                          <div className="text-xs text-[var(--text-secondary)]">{(projects[selected].colors || figmaColors).join(' ')}</div>
+                          <div className="text-xs text-[var(--text-secondary)]">{((currentSection === 'uiux' ? projects : visualDesignProjects)[selected].colors || figmaColors).join(' ')}</div>
                         </div>
                         <div className="flex flex-col gap-2 flex-1">
                           <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">TYPOGRAPHY</div>
-                          {projects[selected].title === 'Club Duelz' ? (
+                          {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Club Duelz' ? (
                             <div className="text-xs text-[var(--text-secondary)]">
                               <div><span className="font-semibold text-[var(--text-primary)]">Space Grotesk</span></div>
                               
                             </div>
                           ) :
-                          projects[selected].title === 'City Issue Reporter (Lokally)' ? (
+                          (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'City Issue Reporter (Lokally)' ? (
                             <div className="text-xs text-[var(--text-secondary)]">
                               <div><span className="font-semibold text-[var(--text-primary)]">Space Grotesk</span></div>
                               
                             </div>
-                          ) : projects[selected].title === 'FarmEazyy' ? (
+                          ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'FarmEazyy' ? (
                             <div className="text-xs text-[var(--text-secondary)]">
                               <div><span className="font-semibold text-[var(--text-primary)]">Headings:</span> Post No Bills Colombo ExtraBold</div>
                               <div><span className="font-semibold text-[var(--text-primary)]">Body:</span> Poppins</div>
                             </div>
-                          ) : projects[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
+                          ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
                             <div className="text-xs text-[var(--text-secondary)]">
                               <div><span className="font-semibold text-[var(--text-primary)]">Font:</span> Helvetica</div>
                             </div>
-                          ) : projects[selected].title === 'My Design Portfolio' ? (
+                          ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'My Design Portfolio' ? (
                             <div className="text-xs text-[var(--text-secondary)]">
                               <div><span className="font-semibold text-[var(--text-primary)]">Font:</span> Inter</div>
                             </div>
@@ -1079,21 +1438,21 @@ export default function App() {
                         </div>
                         <div className="flex flex-col gap-2 flex-1">
                           {
-                          projects[selected].title === 'Club Duelz' ? (
+                          (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Club Duelz' ? (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Scorer options</div>
                               <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
                                 Live match scoring and viewing
                               </div>
                             </>
-                          ) :projects[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
+                          ) :(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Lokally–Hyperlocal Delivery App' ? (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Delivery Systems</div>
                               <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
                                 Quick, Same Day and 24 hours
                               </div>
                             </>
-                          ) : projects[selected].title === 'FarmEazyy' ? null : (
+                          ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'FarmEazyy' ? null : (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Card Layout (complaints)</div>
                               <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
@@ -1101,7 +1460,7 @@ export default function App() {
                               </div>
                             </>
                           )}
-                          {projects[selected].title === 'My Design Portfolio' && (
+                          {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'My Design Portfolio' && (
                             <>
                               <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Core Components</div>
                               <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
@@ -1112,6 +1471,8 @@ export default function App() {
                         </div>
                       </div>
                     </div>
+                     </>
+                   )}
                   </div>
                 </div>
               )}
@@ -1256,7 +1617,7 @@ export default function App() {
                     <div className="mb-6">
                       <div className="text-base font-semibold text-[var(--text-secondary)] mb-2">Tech Stack</div>
                       <div className="flex flex-wrap gap-2">
-                        {projects[selected].tech.map((t, i) => (
+                        {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].tech.map((t, i) => (
                           <span key={t} className="px-2 py-1 rounded text-xs" style={{ background: figmaColors[i % figmaColors.length], color: '#fff' }}>{t}</span>
                         ))}
                       </div>
@@ -1264,7 +1625,7 @@ export default function App() {
                     <div className="mb-6">
                       <div className="text-base font-semibold text-[var(--text-secondary)] mb-2">Color Palette</div>
                       <div className="flex gap-2">
-                        {(projects[selected].colors || figmaColors).map((c, i) => (
+                        {((currentSection === 'uiux' ? projects : visualDesignProjects)[selected].colors || figmaColors).map((c, i) => (
                           <span key={i} className="w-6 h-6 rounded-full border-2 border-[var(--surface)]" style={{ background: c }}></span>
                         ))}
                       </div>
@@ -1272,25 +1633,49 @@ export default function App() {
                     <div className="mt-auto pt-6 border-t border-[var(--border)]">
                       <div className="text-base font-semibold text-[var(--text-secondary)] mb-2">Links</div>
                       <div className="flex flex-col gap-2">
-                        <a 
-                          href={projects[selected].links?.figma || "#"}
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="flex items-center justify-center gap-2 w-full bg-[var(--background)] hover:bg-[var(--border)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-md transition"
-                        >
-                          <FaFigma /> Figma
-                        </a>
-                        <a 
-                          href={projects[selected].links?.prototype || "#"} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="flex items-center justify-center gap-2 w-full bg-[var(--background)] hover:bg-[var(--border)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-md transition"
-                        >
-                          <FaLink /> Prototype
-                        </a>
-                        {projects[selected].links?.live ? (
+                        {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.figma && (
+                          <a 
+                            href={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.figma || "#"}
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex items-center justify-center gap-2 w-full bg-[var(--background)] hover:bg-[var(--border)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-md transition"
+                          >
+                            <FaFigma /> Figma
+                          </a>
+                        )}
+                        {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.prototype && (
+                          <a 
+                            href={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.prototype || "#"} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex items-center justify-center gap-2 w-full bg-[var(--background)] hover:bg-[var(--border)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-md transition"
+                          >
+                            <FaLink /> Prototype
+                          </a>
+                        )}
+                        {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.behance && (
+                          <a 
+                            href={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.behance}
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex items-center justify-center gap-2 w-full bg-[#1769FF] hover:bg-[#0056CC] text-white font-bold py-2 px-4 rounded-md transition"
+                          >
+                            <FaExternalLinkAlt /> Behance
+                          </a>
+                        )}
+                        {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.dribbble && (
+                          <a 
+                            href={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.dribbble}
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex items-center justify-center gap-2 w-full bg-[#EA4C89] hover:bg-[#D73A7A] text-white font-bold py-2 px-4 rounded-md transition"
+                          >
+                            <FaExternalLinkAlt /> Dribbble
+                          </a>
+                        )}
+                        {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.live ? (
                            <a 
-                            href={projects[selected].links.live}
+                            href={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links.live}
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-md transition"
@@ -1383,6 +1768,44 @@ export default function App() {
             >
               <FaTimes />
             </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Image Modal */}
+      <AnimatePresence>
+        {floatingImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            onClick={() => setFloatingImage(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+              className="relative w-full max-w-3xl max-h-[80vh] mx-4 bg-[var(--surface)] rounded-xl border border-[var(--border)] shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={floatingImage?.src || posterPlaceholder}
+                alt={floatingImage?.title || "Enlarged view"}
+                className="w-full h-full object-contain max-h-[80vh] rounded-xl"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = posterPlaceholder;
+                }}
+              />
+              <button
+                onClick={() => setFloatingImage(null)}
+                className="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors"
+              >
+                <FaTimes size={20} />
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
