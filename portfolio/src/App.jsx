@@ -575,13 +575,13 @@ export default function App() {
   const [linkCopied, setLinkCopied] = useState(false);
   const [workspaceBg, setWorkspaceBg] = useState('#1e1e1e');
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
   const [hoveredTool, setHoveredTool] = useState(null);
   const [currentSection, setCurrentSection] = useState('uiux'); // 'uiux' or 'visual'
   const [floatingImage, setFloatingImage] = useState(null); // { src, title }
+  const resumeUrl = encodeURI('/SakshamBudhiraja_resume (1).pdf');
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -1117,7 +1117,7 @@ export default function App() {
             </div>
           </aside>
 
-          <main className={`flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative h-screen overflow-y-auto overflow-x-hidden custom-scrollbar bg-[var(--background)] ${isMobileMenuOpen ? 'ml-0' : 'md:ml-64'} ${selected === null ? 'md:mr-[374px]' : 'md:mr-64'}`}>
+          <main className={`flex-1 flex flex-col items-center justify-start py-0 px-0 min-h-0 relative h-screen overflow-y-auto overflow-x-hidden custom-scrollbar bg-[var(--background)] pb-28 md:pb-40 ${isMobileMenuOpen ? 'ml-0' : 'md:ml-64'} ${selected === null ? 'md:mr-[374px]' : 'md:mr-64'}`}>
             <div className="w-full sticky top-0 z-30 bg-[var(--background)]/80 backdrop-blur-sm border-b border-[var(--border)] md:block hidden">
               <ProjectsTabBar selectedProject={selected} onBack={() => setSelected(null)} />
             </div>
@@ -1812,40 +1812,15 @@ export default function App() {
           <FaUser size={18} className="md:w-[22px] md:h-[22px]" />
           <span className="text-sm md:text-base">Portfolio</span>
         </a>
-        <button onClick={() => setIsResumeOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
+        <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
           <FaFileAlt size={18} className="md:w-[22px] md:h-[22px]" />
           <span className="text-sm md:text-base">Resume</span>
-        </button>
+        </a>
         <button onClick={() => setIsSocialsOpen(true)} className="flex flex-row items-center gap-2 px-2 md:px-4 py-1 md:py-2 rounded-lg font-medium transition text-[var(--text-primary)] text-sm md:text-base" style={{ background: 'transparent' }}>
           <FaLink size={18} className="md:w-[22px] md:h-[22px]" />
           <span className="text-sm md:text-base">Socials</span>
         </button>
       </div>
-
-      <AnimatePresence>
-        {isResumeOpen && (
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-            className="fixed bottom-0 left-0 right-0 h-20 md:h-24 bg-[var(--surface)] border-t border-[var(--border)] z-50 flex items-center justify-center"
-          >
-            <button
-              disabled
-              className="flex items-center gap-2 md:gap-3 bg-gray-500 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg transition text-base md:text-lg cursor-not-allowed"
-            >
-              <FaFileAlt /> Resume (Coming Soon)
-            </button>
-            <button
-              onClick={() => setIsResumeOpen(false)}
-              className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xl md:text-2xl"
-            >
-              <FaTimes />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <AnimatePresence>
         {isSocialsOpen && (
