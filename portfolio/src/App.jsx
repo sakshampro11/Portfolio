@@ -380,7 +380,7 @@ const projects = [
     description: "Dark Gothic Typing Combat Game",
     tech: ["Pixel Art", "Sprite Animation"],
     tags: ["Game", "live"],
-    colors: ["#1c1c1c", "#8b0000", "#ff4500", "#4a4a4a"],
+    colors: ["#0A0A0A", "#880808", "#FF4D00", "#333333", "#DDD6CC"],
     links: {
       live: "https://xenkzu.itch.io/lexicide",
     },
@@ -526,6 +526,13 @@ const srecpDesignProcessSteps = [
   { step: 4, title: "Dashboard UI", description: "Designed a dark, neon-accented dashboard with operations panel and leaderboard", icon: BsGrid1X2, color: "text-yellow-400", iconColor: "text-yellow-400" },
   { step: 5, title: "Real-time Stats", description: "Added live participant count, median score, and engine stats display", icon: FaChartBar, color: "text-orange-400", iconColor: "text-orange-400" },
   { step: 6, title: "Deploy on Render", description: "Configured Render to compile C++ binary on deploy and serve the full stack", icon: FaCloudUploadAlt, color: "text-red-400", iconColor: "text-red-400" },
+];
+
+const lexicideDesignProcessSteps = [
+  { step: 1, title: "Character Concepts", description: "Drafted dark gothic silhouettes", icon: FaPalette, color: "text-red-400", iconColor: "text-red-400" },
+  { step: 2, title: "Sprite Animation", description: "Created multi-frame animations", icon: BsGrid1X2, color: "text-orange-400", iconColor: "text-orange-400" },
+  { step: 3, title: "Boss Mechanics", description: "Designed complex typing attack patterns", icon: FaGamepad, color: "text-yellow-400", iconColor: "text-yellow-400" },
+  { step: 4, title: "Environment", description: "Built atmospheric horror elements", icon: FaMapMarkedAlt, color: "text-gray-400", iconColor: "text-gray-400" },
 ];
 
 const socials = [
@@ -1468,6 +1475,24 @@ export default function App() {
                                 ))}
                               </div>
                             </div>
+                          ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "Lexicide" ? (
+                            <div className="relative">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
+                                {lexicideDesignProcessSteps.map((item, index) => (
+                                  <div key={item.step} className={`flex items-start p-3 md:p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
+                                    <div className="flex-shrink-0 mr-3 md:mr-4">
+                                      <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
+                                        <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.iconColor}`} />
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <p className={`text-base md:text-lg font-bold ${item.color}`}>{item.title}</p>
+                                      <p className="text-xs md:text-sm text-[var(--text-secondary)] mt-1">{item.description}</p>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
                           ) : (
                             <div className="w-full h-[120px] md:h-[180px] bg-[var(--background)] rounded-lg flex items-center justify-center border border-[var(--border)] text-[var(--text-secondary)]">Design Process Placeholder</div>
                           )}
@@ -1532,7 +1557,13 @@ export default function App() {
                                 <span key={i} className="w-6 h-6 md:w-8 md:h-8 rounded-lg border border-[var(--border)]" style={{ background: c }}></span>
                               ))}
                             </div>
-                            <div className="text-xs text-[var(--text-secondary)]">{((currentSection === 'uiux' ? projects : visualDesignProjects)[selected].colors || figmaColors).join(' ')}</div>
+                            {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Lexicide' ? (
+                              <div className="text-xs text-[var(--text-secondary)]">
+                                Abyssal Black, Crimson Gore, Hellfire, Shadow Gray, Bone Dust
+                              </div>
+                            ) : (
+                              <div className="text-xs text-[var(--text-secondary)]">{((currentSection === 'uiux' ? projects : visualDesignProjects)[selected].colors || figmaColors).join(' ')}</div>
+                            )}
                           </div>
                           <div className="flex flex-col gap-2 flex-1">
                             <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">TYPOGRAPHY</div>
@@ -1560,6 +1591,10 @@ export default function App() {
                                 <div className="text-xs text-[var(--text-secondary)]">
                                   <div><span className="font-semibold text-[var(--text-primary)]">Font:</span> Inter</div>
                                 </div>
+                              ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Lexicide' ? (
+                                <div className="text-xs text-[var(--text-secondary)]">
+                                  <div><span className="font-semibold text-[var(--text-primary)]">Typography:</span> Gothic Pixel Font</div>
+                                </div>
                               ) : (
                                 <div className="flex flex-row gap-4">
                                   <div className="flex flex-col items-start">
@@ -1586,7 +1621,14 @@ export default function App() {
                                     Quick, Same Day and 24 hours
                                   </div>
                                 </>
-                              ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'FarmEazyy' ? null : (
+                              ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'FarmEazyy' ? null : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'Lexicide' ? (
+                                <>
+                                  <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Visual Assets</div>
+                                  <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
+                                    Animated pixel art sprites matching typing speed
+                                  </div>
+                                </>
+                              ) : (
                                 <>
                                   <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Card Layout (complaints)</div>
                                   <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
