@@ -375,6 +375,32 @@ const projects = [
     y: 950,
   },
   {
+    title: "Lexicide",
+    thumbnail: "/lexicide1.png",
+    description: "Dark Gothic Typing Combat Game",
+    tech: ["Pixel Art", "Sprite Animation"],
+    tags: ["Game", "live"],
+    colors: ["#1c1c1c", "#8b0000", "#ff4500", "#4a4a4a"],
+    links: {
+      live: "https://xenkzu.itch.io/lexicide",
+    },
+    caseStudy: {
+      heroImage: "/lexicide1.png",
+      showcaseImages: [
+        "/lexicide2.png",
+        "/lexicide3.png",
+        "/lexicide4.png",
+        "/lexicide5.png",
+      ],
+      overview: "Type fast or die. Lexicide is a dark gothic typing combat game where every word you type becomes a weapon. Cast fireballs, chain combos, and survive relentless waves of monsters as speed and accuracy directly control your power; one mistake slows you down and leaves you exposed. As the intensity rises, enemies grow stronger and bosses demand precision under pressure, turning simple typing into a tense, skill-driven fight for survival.<br /><br />🛠 Roles: Sprite Animation for Main Character, Villains, and Boss Villain",
+      goal: "To craft terrifying and fluid pixel art sprites that respond perfectly to the intense speed of typing-based combat.",
+      designProcess: "We created dynamic pixel art sprites aiming for a dark gothic atmosphere. The animation process involved designing distinct stages for main characters, minions, and the climactic boss villain to match the game's escalating tension.",
+      designSystem: "A horror-fantasy pixel art style with deep reds and oppressive blacks, bringing out the bleak, gothic atmosphere of the typing arena."
+    },
+    x: 400,
+    y: 950,
+  },
+  {
     title: "My Design Portfolio",
     thumbnail: "/p1.png",
     description: "Figma-style interactive portfolio site",
@@ -397,8 +423,8 @@ const projects = [
       designProcess: "The portfolio was built with a process that balanced structure, inspiration, and technical execution to create a unique, personal experience.",
       designSystem: "The entire site acts as its own design system, featuring Figma's color palette, Inter typeface, and a component-based architecture including the 3-panel layout and case study artboards."
     },
-    x: 400,
-    y: 950,
+    x: 50,
+    y: 1250,
   },
 ];
 
