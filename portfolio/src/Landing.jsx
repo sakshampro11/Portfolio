@@ -174,8 +174,9 @@ export default function Landing() {
 
     // Adjust click coordinates by the pan offset to place elements in the right virtual canvas space
     const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = (e.clientX - rect.left) / zoom - panOffset.x / zoom;
-    const clickY = (e.clientY - rect.top) / zoom - panOffset.y / zoom;
+    const clickX = 2000 + (e.clientX - rect.left - rect.width / 2 - panOffset.x) / zoom;
+    const clickY = 1250 + (e.clientY - rect.top - rect.height / 2 - panOffset.y) / zoom;
+
 
     if (activeTool === 'sticky') {
       const newSticky = {
@@ -226,8 +227,9 @@ export default function Landing() {
   const handleMouseDown = (e) => {
     if (activeTool !== 'marker') return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / zoom - panOffset.x / zoom;
-    const y = (e.clientY - rect.top) / zoom - panOffset.y / zoom;
+    const x = 2000 + (e.clientX - rect.left - rect.width / 2 - panOffset.x) / zoom;
+    const y = 1250 + (e.clientY - rect.top - rect.height / 2 - panOffset.y) / zoom;
+
 
     setIsDrawing(true);
     setCurrentLine({
@@ -240,8 +242,9 @@ export default function Landing() {
     if (!isDrawing || activeTool !== 'marker') return;
 
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / zoom - panOffset.x / zoom;
-    const y = (e.clientY - rect.top) / zoom - panOffset.y / zoom;
+    const x = 2000 + (e.clientX - rect.left - rect.width / 2 - panOffset.x) / zoom;
+    const y = 1250 + (e.clientY - rect.top - rect.height / 2 - panOffset.y) / zoom;
+
 
     setCurrentLine(prev => ({
       ...prev,
@@ -593,7 +596,7 @@ export default function Landing() {
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute px-4 py-1.5 bg-[#FF66B2] border-2.5 border-[#121212] rounded-lg shadow-[3px_3px_0px_0px_#121212] text-[11px] font-black uppercase text-[#121212] tracking-tighter pointer-events-auto"
-              style={{ left: "2120px", top: "1350px", rotate: "8deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
+              style={{ left: "2280px", top: "1220px", rotate: "8deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
             >
               UI/UX DESIGN
             </motion.div>
@@ -603,7 +606,7 @@ export default function Landing() {
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#FFE082] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[140px] flex flex-col pointer-events-auto"
-              style={{ left: "1620px", top: "1270px", rotate: "-5deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
+              style={{ left: "1580px", top: "1270px", rotate: "-5deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
             >
               <div className="text-[8px] font-bold text-[#121212] opacity-40 tracking-wider font-mono mb-1">sticky_note</div>
               <div className="text-[11px] font-bold text-[#121212] font-mono leading-tight">Iterated layout based on live testing. ⚡</div>
@@ -614,7 +617,7 @@ export default function Landing() {
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#A5F3FC] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[140px] flex flex-col pointer-events-auto"
-              style={{ left: "2140px", top: "1250px", rotate: "6deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
+              style={{ left: "2280px", top: "1050px", rotate: "6deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
             >
               <div className="text-[8px] font-bold text-[#121212] opacity-40 tracking-wider font-mono mb-1">sticky_note</div>
               <div className="text-[11px] font-bold text-[#121212] font-mono leading-tight">Figma Orange for exploration trigger button.</div>
