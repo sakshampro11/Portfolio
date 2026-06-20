@@ -261,28 +261,29 @@ const projects = [
     y: 350,
   },
   {
-    title: "SRECP – Ranking Engine",
-    thumbnail: "/srecp2.png",
-    description: "DSA-Powered Dashboard · Personal Project",
-    tech: ["C++", "Node.js", "HTML/CSS"],
-    tags: ["Backend", "DSA", "Dashboard", "live"],
-    colors: ["#6C5CE7", "#A29BFE", "#0D0D1A", "#2ECC71"],
+    title: "FarmEazyy",
+    thumbnail: "/Farmeazyy1.png",
+    description: "Web Platform for Farmers and Buyers",
+    tech: ["React Native", "Figma"],
+    tags: ["AgriTech", "UI", "Web", "live"],
+    colors: ["#32A071", "#FFFFFF", "#A6A6A6", "#36BB11"],
     links: {
-      live: "https://srecp.onrender.com/",
-      github: "https://github.com/sakshampro11/SRECP"
+      live: "https://farmeazyy.vercel.app/",
+      figma: "https://www.figma.com/design/Xl1lCZFt1kezELiIUX9VgE/project-1?node-id=0-1&t=I9TlpHwlQbN7RyZG-1",
+      prototype: "https://www.figma.com/proto/Xl1lCZFt1kezELiIUX9VgE/project-1?page-id=0%3A1&node-id=0-400&viewport=129%2C37%2C0.13&t=XrLoaYaw2QQZsJax-1&scaling=min-zoom&content-scaling=fixed"
     },
     caseStudy: {
-      heroImage: "/srecp1.png",
+      heroImage: "/Farmeazyy2.png",
       showcaseImages: [
-        "/srecp1.png",
-        "/srecp2.png",
-        "/srecp1.png",
-        "/srecp2.png",
+        "/Farmeazyy11.png",
+        "/Farmeazyy2.png",
+        "/Farmeazyy12.png",
+        "/Farmeazyy3.png",
       ],
-      overview: `SRECP (Scalable Ranking Engine for Competitive Platforms) is a high-performance ranking system built to emphasize pure Data Structures and Algorithms over framework reliance. The core engine is written in C++ without using STL — featuring manual dynamic arrays, recursive merge sort, and binary search — compiled to a native binary that processes ranking operations.<br /><br />A Node.js backend bridges the C++ engine with a sleek, dark-themed dashboard frontend. Users can add, update, delete, and search participants, view real-time leaderboard rankings, retrieve Top-K performers, and monitor engine statistics (sort algorithm, complexity, storage type). The system computes and displays median scores in real time.<br /><br />🛠 Tools: C++, Node.js, HTML/CSS/JS<br />🎨 Roles: DSA Engineering, Backend Architecture, Dashboard UI Design`,
-      goal: "To build a scalable ranking engine that showcases DSA and systems-level thinking — proving that strong fundamentals matter more than framework knowledge.",
-      designProcess: `A 6-step engineering-driven process — from defining core algorithms in C++, to bridging with Node.js, designing the dashboard UI, and deploying on Render.`,
-      designSystem: "A dark, neon-accented dashboard design system with purple/blue tones, glowing borders, and monospace typography for a data-engineering aesthetic."
+      overview: "FarmEazyy is a farmer-focused digital platform that bridges the gap between local farmers and industrial buyers or market vendors. Designed during Smart India Hackathon, the platform empowers small-scale farmers by providing a transparent and accessible way to list their produce, get real-time pricing, and connect directly with buyers — reducing middlemen and ensuring fair trade.<br /><br /> 🛠 Tools: Figma, React, Tailwind CSS  <br />🎨 Roles: UI/UX Design, Visual Branding",
+      goal: "To build a transparent marketplace that empowers farmers with direct market access through a user-friendly web platform.",
+      designProcess: "A 6-step funnel approach was used to guide the design from user journey mapping to final user testing.",
+      designSystem: "A clean and modern design system focusing on clarity and ease-of-use. Typography features Post No Bills Colombo ExtraBold for headings and Poppins for body text."
     },
     x: 400,
     y: 350,
@@ -320,34 +321,6 @@ const projects = [
     y: 650,
   },
   {
-    title: "FarmEazyy",
-    thumbnail: "/Farmeazyy1.png",
-    description: "Web Platform for Farmers and Buyers",
-    tech: ["React Native", "Figma"],
-    tags: ["AgriTech", "UI", "Web", "live"],
-    colors: ["#32A071", "#FFFFFF", "#A6A6A6", "#36BB11"],
-    links: {
-      live: "https://farmeazyy.vercel.app/",
-      figma: "https://www.figma.com/design/Xl1lCZFt1kezELiIUX9VgE/project-1?node-id=0-1&t=I9TlpHwlQbN7RyZG-1",
-      prototype: "https://www.figma.com/proto/Xl1lCZFt1kezELiIUX9VgE/project-1?page-id=0%3A1&node-id=0-400&viewport=129%2C37%2C0.13&t=XrLoaYaw2QQZsJax-1&scaling=min-zoom&content-scaling=fixed"
-    },
-    caseStudy: {
-      heroImage: "/Farmeazyy2.png",
-      showcaseImages: [
-        "/Farmeazyy11.png",
-        "/Farmeazyy2.png",
-        "/Farmeazyy12.png",
-        "/Farmeazyy3.png",
-      ],
-      overview: "FarmEazyy is a farmer-focused digital platform that bridges the gap between local farmers and industrial buyers or market vendors. Designed during Smart India Hackathon, the platform empowers small-scale farmers by providing a transparent and accessible way to list their produce, get real-time pricing, and connect directly with buyers — reducing middlemen and ensuring fair trade.<br /><br /> 🛠 Tools: Figma, React, Tailwind CSS  <br />🎨 Roles: UI/UX Design, Visual Branding",
-      goal: "To build a transparent marketplace that empowers farmers with direct market access through a user-friendly web platform.",
-      designProcess: "A 6-step funnel approach was used to guide the design from user journey mapping to final user testing.",
-      designSystem: "A clean and modern design system focusing on clarity and ease-of-use. Typography features Post No Bills Colombo ExtraBold for headings and Poppins for body text."
-    },
-    x: 400,
-    y: 650,
-  },
-  {
     title: "Lokally–Hyperlocal Delivery App",
     thumbnail: "/af.png",
     description: "Mobile-first local delivery solution",
@@ -371,8 +344,8 @@ const projects = [
       designProcess: "A 7-step user-centric design process was implemented, starting from identifying user pain points to iterative prototyping and feedback.",
       designSystem: "A comprehensive design system featuring a vibrant color palette and Helvetica typography to ensure a clean, user-friendly interface."
     },
-    x: 50,
-    y: 950,
+    x: 400,
+    y: 650,
   },
   {
     title: "Lexicide",
@@ -396,6 +369,33 @@ const projects = [
       goal: "To craft terrifying and fluid pixel art sprites that respond perfectly to the intense speed of typing-based combat.",
       designProcess: "We created dynamic pixel art sprites aiming for a dark gothic atmosphere. The animation process involved designing distinct stages for main characters, minions, and the climactic boss villain to match the game's escalating tension.",
       designSystem: "A horror-fantasy pixel art style with deep reds and oppressive blacks, bringing out the bleak, gothic atmosphere of the typing arena."
+    },
+    x: 50,
+    y: 950,
+  },
+  {
+    title: "SRECP – Ranking Engine",
+    thumbnail: "/srecp2.png",
+    description: "DSA-Powered Dashboard · Personal Project",
+    tech: ["C++", "Node.js", "HTML/CSS"],
+    tags: ["Backend", "DSA", "Dashboard", "live"],
+    colors: ["#6C5CE7", "#A29BFE", "#0D0D1A", "#2ECC71"],
+    links: {
+      live: "https://srecp.onrender.com/",
+      github: "https://github.com/sakshampro11/SRECP"
+    },
+    caseStudy: {
+      heroImage: "/srecp1.png",
+      showcaseImages: [
+        "/srecp1.png",
+        "/srecp2.png",
+        "/srecp1.png",
+        "/srecp2.png",
+      ],
+      overview: `SRECP (Scalable Ranking Engine for Competitive Platforms) is a high-performance ranking system built to emphasize pure Data Structures and Algorithms over framework reliance. The core engine is written in C++ without using STL — featuring manual dynamic arrays, recursive merge sort, and binary search — compiled to a native binary that processes ranking operations.<br /><br />A Node.js backend bridges the C++ engine with a sleek, dark-themed dashboard frontend. Users can add, update, delete, and search participants, view real-time leaderboard rankings, retrieve Top-K performers, and monitor engine statistics (sort algorithm, complexity, storage type). The system computes and displays median scores in real time.<br /><br />🛠 Tools: C++, Node.js, HTML/CSS/JS<br />🎨 Roles: DSA Engineering, Backend Architecture, Dashboard UI Design`,
+      goal: "To build a scalable ranking engine that showcases DSA and systems-level thinking — proving that strong fundamentals matter more than framework knowledge.",
+      designProcess: `A 6-step engineering-driven process — from defining core algorithms in C++, to bridging with Node.js, designing the dashboard UI, and deploying on Render.`,
+      designSystem: "A dark, neon-accented dashboard design system with purple/blue tones, glowing borders, and monospace typography for a data-engineering aesthetic."
     },
     x: 400,
     y: 950,
@@ -428,21 +428,27 @@ const projects = [
   },
 ];
 
-const CursorAiIcon = () => (
-  <span className="font-bold tracking-tighter text-2xl text-gray-300">
-    C<span style={{ color: '#1ABCFE' }}>A</span>
-  </span>
-);
-
-const tools = [
-  { name: "Figma", icon: <FaFigma className="text-pink-400" /> },
-  { name: "React", icon: <FaReact className="text-sky-400" /> },
-  { name: "GitHub", icon: <FaGithub className="text-white" /> },
-  { name: "Cursor AI", icon: <CursorAiIcon /> },
-  { name: "Sketch", icon: <SiSketch className="text-yellow-500" /> },
-  { name: "Canva", icon: <SiCanva className="text-cyan-400" /> },
-  { name: "Inkscape", icon: <SiInkscape className="text-white" /> },
-  { name: "Tailwind CSS", icon: <FaTools className="text-cyan-300" /> },
+const skillsCategories = [
+  {
+    title: "Product & Execution",
+    color: "#F24E1E",
+    skills: ["Product Strategy", "MVP Development", "User Journey Mapping", "Agile & Scrum", "Product Discovery"]
+  },
+  {
+    title: "UI/UX Design",
+    color: "#A259FF",
+    skills: ["Wireframing & IA", "Rapid Prototyping", "Usability Testing", "Figma Design System"]
+  },
+  {
+    title: "Technical Literacy",
+    color: "#1ABCFE",
+    skills: ["API Integration", "SQL & Databases", "Node.js & C++ Systems", "React & JS Frontend"]
+  },
+  {
+    title: "Tools & Platforms",
+    color: "#0ACF83",
+    skills: ["Figma", "Git & GitHub", "Vercel & Render"]
+  }
 ];
 
 const clubDuelzDesignProcessSteps = [
@@ -597,7 +603,6 @@ export default function App() {
   const [selected, setSelected] = useState(null);
   const [tab, setTab] = useState("about");
   const [leftSidebarTab, setLeftSidebarTab] = useState('file');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
@@ -611,7 +616,6 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
-  const [hoveredTool, setHoveredTool] = useState(null);
   const [currentSection, setCurrentSection] = useState('uiux'); // 'uiux' or 'visual'
   const [floatingImage, setFloatingImage] = useState(null); // { src, title }
   const resumeUrl = encodeURI('/SakshamBudhiraja_resume (1).pdf');
@@ -901,20 +905,28 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Tools Section */}
+                  {/* Skills Section */}
                   <div className="mb-8 mt-10">
-                    <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Tools</h2>
-                    <div className="grid grid-cols-3 gap-4">
-                      {tools.map(tool => (
-                        <motion.div
-                          key={tool.name}
-                          className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]"
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-                        >
-                          <div className="text-2xl h-8 flex items-center">{tool.icon}</div>
-                          <span className="text-xs text-[var(--text-secondary)] text-center font-medium">{tool.name}</span>
-                        </motion.div>
+                    <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Skills</h2>
+                    <div className="flex flex-col gap-5">
+                      {skillsCategories.map((category) => (
+                        <div key={category.title} className="flex flex-col gap-2">
+                          <h3 className="text-xs font-bold uppercase tracking-wider" style={{ color: category.color }}>
+                            {category.title}
+                          </h3>
+                          <div className="flex flex-wrap gap-2">
+                            {category.skills.map((skill) => (
+                              <motion.div
+                                key={skill}
+                                className="px-3 py-1.5 rounded-full text-xs font-medium bg-[var(--surface)] border border-[var(--border)] text-[var(--text-secondary)] transition-all duration-200"
+                                whileHover={{ scale: 1.05, borderColor: category.color, color: 'var(--text-primary)' }}
+                                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                              >
+                                {skill}
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -972,45 +984,35 @@ export default function App() {
         <div className="flex flex-1 min-h-0">
           <aside className={`w-64 fixed top-0 left-0 h-full z-40 bg-[var(--surface)] border-r border-[var(--border)] transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
             <div className="flex flex-col h-full">
-              <div className="relative flex items-center justify-between p-3 border-b border-[var(--border)]">
-                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex items-center gap-2">
-                  <BsPuzzle className="text-[var(--text-primary)] w-5 h-5" />
-                  <FaChevronDown className="w-4 h-4 text-[var(--text-secondary)]" />
+              <div className="relative flex items-center justify-between px-3 border-b border-[var(--border)] w-full" style={{ height: 44 }}>
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="relative w-12 h-6.5 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center p-0.5 transition-all duration-300 focus:outline-none hover:border-[#1ABCFE] shadow-inner"
+                  aria-label="Toggle Theme"
+                >
+                  <div className="absolute left-1.5 flex items-center justify-center text-[var(--text-secondary)] opacity-40 pointer-events-none">
+                    <FiSun className="w-3 h-3" />
+                  </div>
+                  <div className="absolute right-1.5 flex items-center justify-center text-[var(--text-secondary)] opacity-40 pointer-events-none">
+                    <FiMoon className="w-3 h-3" />
+                  </div>
+                  <motion.div
+                    className="w-5 h-5 rounded-full flex items-center justify-center shadow-md z-10"
+                    style={{
+                      background: theme === 'dark' ? '#A259FF' : '#F24E1E',
+                    }}
+                    animate={{
+                      x: theme === 'dark' ? 20 : 0
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  >
+                    {theme === 'dark' ? (
+                      <FiMoon className="w-3 h-3 text-white" />
+                    ) : (
+                      <FiSun className="w-3 h-3 text-white" />
+                    )}
+                  </motion.div>
                 </button>
-
-                <AnimatePresence>
-                  {isMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute top-14 left-2 w-56 bg-[var(--surface)] border border-[var(--border)] rounded-lg shadow-xl z-50"
-                    >
-                      <div className="p-2">
-                        <button
-                          onClick={() => { setTheme('light'); setIsMenuOpen(false); }}
-                          className="w-full flex items-center justify-between px-3 py-2 text-sm rounded-md hover:bg-[var(--background)] text-[var(--text-primary)]"
-                        >
-                          <div className="flex items-center gap-2">
-                            <FiSun className="w-5 h-5" />
-                            <span>Light</span>
-                          </div>
-                          {theme === 'light' && <GoCheck className="w-5 h-5 text-green-500" />}
-                        </button>
-                        <button
-                          onClick={() => { setTheme('dark'); setIsMenuOpen(false); }}
-                          className="w-full flex items-center justify-between px-3 py-2 text-sm rounded-md hover:bg-[var(--background)] text-[var(--text-primary)]"
-                        >
-                          <div className="flex items-center gap-2">
-                            <FiMoon className="w-5 h-5" />
-                            <span>Dark</span>
-                          </div>
-                          {theme === 'dark' && <GoCheck className="w-5 h-5 text-green-500" />}
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
 
               <div className="p-4">
@@ -1691,7 +1693,7 @@ export default function App() {
                   </div>
                   <div className="flex gap-2 mb-4">
                     <button onClick={() => setTab('about')} className={`px-4 py-2 rounded-t-lg font-semibold text-sm transition ${tab === 'about' ? 'bg-[var(--background)] text-[var(--text-primary)]' : 'bg-transparent text-[var(--text-secondary)] hover:bg-[var(--background)]'}`}>About Me</button>
-                    <button onClick={() => setTab('tools')} className={`px-4 py-2 rounded-t-lg font-semibold text-sm transition ${tab === 'tools' ? 'bg-[var(--background)] text-[var(--text-primary)]' : 'bg-transparent text-[var(--text-secondary)] hover:bg-[var(--background)]'}`}>Tools</button>
+                    <button onClick={() => setTab('skills')} className={`px-4 py-2 rounded-t-lg font-semibold text-sm transition ${tab === 'skills' ? 'bg-[var(--background)] text-[var(--text-primary)]' : 'bg-transparent text-[var(--text-secondary)] hover:bg-[var(--background)]'}`}>Skills</button>
                   </div>
                   {tab === 'about' ? (
                     <div className="relative mb-6 min-h-[200px]">
@@ -1759,30 +1761,25 @@ export default function App() {
                       </div>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-3 gap-4 mb-6 p-1">
-                      {tools.map((tool, i) => (
-                        <motion.div
-                          key={tool.name}
-                          className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[var(--background)] border-2 border-transparent cursor-pointer transition-all duration-300 shadow-sm`}
-                          whileHover={{
-                            scale: 1.10,
-                          }}
-                          style={{
-                            borderColor:
-                              tool.name === 'Figma' ? (hoveredTool === i ? '#F24E1E' : 'transparent') :
-                                tool.name === 'React' ? (hoveredTool === i ? '#61DAFB' : 'transparent') :
-                                  tool.name === 'GitHub' ? (hoveredTool === i ? '#333333' : 'transparent') :
-                                    tool.name === 'Cursor AI' ? (hoveredTool === i ? '#1ABCFE' : 'transparent') :
-                                      hoveredTool === i ? '#3B82F6' : 'transparent',
-                            transition: 'border-color 0.25s',
-                          }}
-                          onMouseEnter={() => setHoveredTool(i)}
-                          onMouseLeave={() => setHoveredTool(null)}
-                          transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-                        >
-                          <div className="text-3xl h-8 flex items-center">{tool.icon}</div>
-                          <span className="text-xs text-[var(--text-secondary)] text-center font-medium h-4">{tool.name}</span>
-                        </motion.div>
+                    <div className="flex flex-col gap-5 mb-6 p-1">
+                      {skillsCategories.map((category) => (
+                        <div key={category.title} className="flex flex-col gap-2">
+                          <h3 className="text-xs font-bold uppercase tracking-wider" style={{ color: category.color }}>
+                            {category.title}
+                          </h3>
+                          <div className="flex flex-wrap gap-2">
+                            {category.skills.map((skill) => (
+                              <motion.div
+                                key={skill}
+                                className="px-3 py-1.5 rounded-full text-xs font-medium bg-[var(--background)] border border-[var(--border)] text-[var(--text-secondary)] transition-all duration-200 cursor-default"
+                                whileHover={{ scale: 1.05, borderColor: category.color, color: 'var(--text-primary)' }}
+                                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                              >
+                                {skill}
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   )}
