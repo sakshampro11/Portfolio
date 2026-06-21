@@ -21,6 +21,29 @@ import {
   FaExternalLinkAlt
 } from "react-icons/fa";
 
+// 3-step lightweight tutorial
+const TUTORIAL_STEPS = [
+  {
+    tool: 'hand',
+    emoji: '✋',
+    title: 'Drag the board',
+    desc: 'Use the Hand tool to pan around. Grab any card to move it!',
+  },
+  {
+    tool: 'sticky',
+    emoji: '📝',
+    title: 'Leave sticky notes',
+    desc: 'Pick the sticky note tool and click anywhere to drop a note.',
+  },
+  {
+    tool: 'select',
+    emoji: '🎉',
+    title: 'You\'re all set!',
+    desc: 'Feel free to explore the board, click projects, or hit Present Portfolio!',
+    last: true,
+  },
+];
+
 // Default initial positions and sizes for the main interactive cards on the 1920x1080 virtual canvas
 const INITIAL_POSITIONS = {
   welcome: { x: 1770, y: 1040, w: 460, h: 380 },
@@ -124,9 +147,7 @@ export default function Landing() {
 
   // Custom Zoom and Navigation
   const [zoom, setZoom] = useState(0.85); // start slightly zoomed out to see more board
-  const [loading, setLoading] = useState(false);
-  const [typed, setTyped] = useState("");
-  const [typed2, setTyped2] = useState("");
+  const [tutorialStep, setTutorialStep] = useState(-1);
 
   // Panning offset state for infinite scrolling in all directions (always active via trackpad)
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
@@ -140,6 +161,22 @@ export default function Landing() {
 
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
+
+  // Show FigBot chip on first visit (but don't auto-start steps)
+  useEffect(() => {
+    const hasSeen = sessionStorage.getItem("hasSeenFigJamTutorial");
+    if (!hasSeen) {
+      sessionStorage.setItem("hasSeenFigJamTutorial", "true");
+    }
+  }, []);
+  const [showFigBotChip, setShowFigBotChip] = useState(true);
+
+  // Update active tool when tutorial step changes
+  useEffect(() => {
+    if (tutorialStep >= 0 && tutorialStep < TUTORIAL_STEPS.length) {
+      setActiveTool(TUTORIAL_STEPS[tutorialStep].tool);
+    }
+  }, [tutorialStep]);
 
   // Custom wheel handler for diagonal trackpad panning and Ctrl/Cmd zoom
   useEffect(() => {
@@ -289,33 +326,7 @@ export default function Landing() {
 
   // Navigation to Portfolio
   function handleExplore() {
-    setLoading(true);
-    setTyped("");
-    setTyped2("");
-    const code1 = "> run saksham.portfolio()";
-    const code2 = "→ Loading FigJam assets...";
-    let i = 0;
-    let j = 0;
-
-    const t1 = setInterval(() => {
-      setTyped(code1.slice(0, i + 1));
-      i++;
-      if (i === code1.length) {
-        clearInterval(t1);
-        setTimeout(() => {
-          const t2 = setInterval(() => {
-            setTyped2(code2.slice(0, j + 1));
-            j++;
-            if (j === code2.length) {
-              clearInterval(t2);
-              setTimeout(() => {
-                navigate("/portfolio");
-              }, 400);
-            }
-          }, 32);
-        }, 350);
-      }
-    }, 32);
+    navigate("/portfolio");
   }
 
   // Editing Spawned Elements
@@ -402,6 +413,14 @@ export default function Landing() {
           >
             Reset
           </button>
+          <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5" />
+          <button
+            onClick={() => setTutorialStep(0)}
+            className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-[#A259FF] text-white border border-[#121212] rounded hover:bg-[#A259FF]/90 transition"
+            title="Quick Tour"
+          >
+            Tour
+          </button>
         </div>
 
         {/* Right Side: Avatars & Share */}
@@ -445,7 +464,7 @@ export default function Landing() {
       </header>
 
       {/* 2. MAIN SCROLLABLE/INTERACTIVE FIGJAM CANVAS */}
-      <div 
+      <div
         ref={canvasRef}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
@@ -460,11 +479,11 @@ export default function Landing() {
         }}
       >
         {/* Virtual 4000x2500 Interactive Layer */}
-        <div 
+        <div
           className="absolute inset-0 origin-center pointer-events-none"
-          style={{ 
+          style={{
             transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoom})`,
-            width: '4000px', 
+            width: '4000px',
             height: '2500px',
             left: 'calc(50% - 2000px)',
             top: 'calc(50% - 1250px)',
@@ -602,7 +621,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Static Sticky 1 */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#FFE082] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[140px] flex flex-col pointer-events-auto"
@@ -613,7 +632,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Static Sticky 2 */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#A5F3FC] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[140px] flex flex-col pointer-events-auto"
@@ -624,7 +643,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Corner Sticky 1: Top Left */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#FFE082] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[130px] flex flex-col pointer-events-auto"
@@ -635,7 +654,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Corner Sticky 2: Top Right */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#A5F3FC] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[130px] flex flex-col pointer-events-auto"
@@ -646,7 +665,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Corner Sticky 3: Bottom Left */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#FF99C8] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[130px] flex flex-col pointer-events-auto"
@@ -657,7 +676,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Corner Sticky 4: Bottom Right */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#A8E6CF] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[130px] flex flex-col pointer-events-auto"
@@ -668,7 +687,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Interest Sticky 1: Chess */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#A5F3FC] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[150px] flex flex-col pointer-events-auto"
@@ -679,7 +698,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Interest Sticky 2: Seedhe Maut / DHH */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#FF99C8] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[150px] flex flex-col pointer-events-auto"
@@ -690,7 +709,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Interest Sticky 3: Rock & Metal */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#FFE082] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[150px] flex flex-col pointer-events-auto"
@@ -701,7 +720,7 @@ export default function Landing() {
             </motion.div>
 
             {/* Interest Sticky 4: Calisthenics */}
-            <motion.div 
+            <motion.div
               drag={activeTool === 'hand'}
               dragMomentum={true}
               className="absolute p-4 bg-[#A8E6CF] border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_#121212] z-25 w-[150px] flex flex-col pointer-events-auto"
@@ -817,7 +836,6 @@ export default function Landing() {
 
               <button
                 onClick={handleExplore}
-                disabled={loading}
                 className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl bg-[#F24D1D] text-white text-base lg:text-lg font-bold border-2.5 border-[#121212] shadow-[4px_4px_0px_0px_rgba(18,18,18,1)] active:translate-x-1 active:translate-y-1 active:shadow-none hover:bg-[#F24D1D]/90 transition-all cursor-pointer font-sans"
               >
                 <span>Explore My Workspace</span>
@@ -1212,7 +1230,7 @@ export default function Landing() {
 
       {/* 4. FIGJAM FLOATING BOTTOM TOOLBAR */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white border-2.5 border-[#121212] rounded-2xl px-5 py-3 flex items-center gap-5 shadow-[4px_4px_0px_0px_#121212] select-none pointer-events-auto">
-        
+
         {/* Tool 1: Pointer Select Tool (V) */}
         <button
           onClick={() => setActiveTool('select')}
@@ -1276,17 +1294,116 @@ export default function Landing() {
         </button>
       </div>
 
-      {/* 6. CONSOLE LOADING OVERLAY (When exploring workspace) */}
-      {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#171717] bg-opacity-98">
-          <div className="flex flex-col items-start text-left max-w-lg px-8">
-            <pre className="text-green-400 text-xl lg:text-2xl font-mono mb-2 whitespace-pre leading-relaxed">{typed}<span className="animate-pulse">|</span></pre>
-            {typed.length === 25 && (
-              <pre className="text-green-400 text-lg lg:text-xl font-mono whitespace-pre leading-relaxed">{typed2}{typed2.length < 27 && <span className="animate-pulse">|</span>}</pre>
-            )}
-          </div>
-        </div>
-      )}
+      {/* FigBot welcome chip — shown when tutorial is idle */}
+      <AnimatePresence>
+        {showFigBotChip && tutorialStep === -1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2, delay: 0.6 }}
+            className="fixed bottom-[92px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
+          >
+            <div className="flex items-center gap-2 bg-white border-2 border-[#121212] rounded-full pl-2 pr-4 py-1.5 shadow-[3px_3px_0px_0px_#121212] cursor-pointer group"
+              onClick={() => setTutorialStep(0)}
+            >
+              <div className="w-7 h-7 rounded-full bg-[#A259FF] border-2 border-[#121212] flex items-center justify-center text-sm flex-shrink-0 group-hover:scale-110 transition-transform">
+                🤖
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[9px] font-black uppercase font-mono text-[#A259FF] tracking-wider">FigBot</span>
+                <span className="text-[10px] font-bold text-[#121212]">👋 Click for a quick tour!</span>
+              </div>
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowFigBotChip(false); }}
+                className="ml-1 text-[#999] hover:text-[#121212] text-[11px] leading-none cursor-pointer"
+                aria-label="Dismiss"
+              >
+                ×
+              </button>
+            </div>
+            {/* Down caret */}
+            <div
+              className="absolute bottom-[-7px] left-1/2 -translate-x-1/2 w-0 h-0"
+              style={{
+                borderLeft: '7px solid transparent',
+                borderRight: '7px solid transparent',
+                borderTop: '7px solid #121212',
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FigBot tutorial bubble — compact, sits above toolbar */}
+      <AnimatePresence>
+        {tutorialStep >= 0 && tutorialStep < TUTORIAL_STEPS.length && (() => {
+          const step = TUTORIAL_STEPS[tutorialStep];
+          return (
+            <motion.div
+              key={tutorialStep}
+              initial={{ opacity: 0, y: 8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.97 }}
+              transition={{ duration: 0.18 }}
+              className="fixed bottom-[92px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
+            >
+              <div className="bg-white border-2 border-[#121212] rounded-2xl shadow-[4px_4px_0px_0px_#121212] flex items-start gap-3 px-4 py-3 w-[300px]">
+                {/* Bot avatar */}
+                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#A259FF] border-2 border-[#121212] flex items-center justify-center text-sm shadow-[2px_2px_0px_0px_#121212]">
+                  🤖
+                </div>
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-[9px] font-black uppercase font-mono text-[#A259FF] tracking-wider">FigBot</span>
+                    <span className="text-[9px] text-[#121212]/30 font-mono">{tutorialStep + 1}/{TUTORIAL_STEPS.length}</span>
+                  </div>
+                  <p className="text-[11px] font-bold text-[#121212] mb-0.5 leading-snug">
+                    {step.emoji} {step.title}
+                  </p>
+                  <p className="text-[10px] text-[#666] leading-relaxed">{step.desc}</p>
+                  {/* Actions */}
+                  <div className="flex items-center gap-2 mt-2">
+                    {step.last ? (
+                      <button
+                        onClick={() => { setTutorialStep(-1); setShowFigBotChip(false); setActiveTool('select'); }}
+                        className="px-3 py-0.5 bg-[#0ACF83] text-white text-[9px] font-black rounded-lg border border-[#121212] hover:bg-[#0ACF83]/90 transition cursor-pointer"
+                      >
+                        Let's go! 🚀
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setTutorialStep(prev => prev + 1)}
+                        className="px-3 py-0.5 bg-[#A259FF] text-white text-[9px] font-black rounded-lg border border-[#121212] hover:bg-[#A259FF]/90 transition cursor-pointer"
+                      >
+                        Next →
+                      </button>
+                    )}
+                    <button
+                      onClick={() => { setTutorialStep(-1); setShowFigBotChip(false); }}
+                      className="text-[9px] text-[#999] hover:text-[#121212] transition cursor-pointer"
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </div>
+                {/* Down caret */}
+                <div
+                  className="absolute bottom-[-7px] left-1/2 -translate-x-1/2 w-0 h-0"
+                  style={{
+                    borderLeft: '7px solid transparent',
+                    borderRight: '7px solid transparent',
+                    borderTop: '7px solid #121212',
+                  }}
+                />
+              </div>
+            </motion.div>
+          );
+        })()}
+      </AnimatePresence>
+
+
     </div>
   );
 }
