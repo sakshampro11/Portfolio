@@ -873,7 +873,7 @@ export default function App() {
 
                               </div>
                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
-                                From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                                From designing grassroots sports ecosystems like <span className="font-semibold text-[#1ABCFE]">Club Duelz</span> to calming wellness platforms like <span className="font-semibold text-[#A259FF]">Beyond Moksha</span>, I enjoy solving real-world problems through user-centered design. I'm always exploring how design systems, micro-interactions, and visual storytelling can elevate digital experiences.
                               </div>
                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
                                 Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
@@ -1727,10 +1727,10 @@ export default function App() {
                               <span className="text-2xl mr-2 align-middle">👋</span>
                               <span className="text-lg font-bold text-[var(--text-primary)]">Hi, I'm Saksham Budhiraja</span>
                               <div className="mt-2 text-base text-[var(--text-secondary)]">
-                                A UI/UX designer and frontend developer who thinks in frames and builds in pixels. I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
+                                A Product designer and frontend developer who thinks in frames and builds in pixels. I'm passionate about creating intuitive, accessible, and engaging digital experiences that blend function with form.
                               </div>
                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
-                                From designing collaborative platforms like <span className="font-semibold text-[#1ABCFE]">Skollab</span> to civic tools like <span className="font-semibold text-[#A259FF]">City Issue Reporter</span>, I enjoy solving real-world problems through user-centered design. I work with tools like <span className="font-semibold text-[#1ABCFE]">Figma</span>, <span className="font-semibold text-[#61DAFB]">React</span>, and I'm always exploring how design systems and interactivity can enhance product experiences.
+                                From designing grassroots sports ecosystems like <span className="font-semibold text-[#1ABCFE]">Club Duelz</span> to calming wellness platforms like <span className="font-semibold text-[#A259FF]">Beyond Moksha</span>, I enjoy solving real-world problems through user-centered design. I'm always exploring how design systems, micro-interactions, and visual storytelling can elevate digital experiences.
                               </div>
                               <div className="mt-3 text-sm text-[var(--text-secondary)]">
                                 Currently pursuing a B.Tech in CSE, I believe in learning by building — and iterating with purpose.
