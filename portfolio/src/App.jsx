@@ -618,7 +618,7 @@ export default function App() {
   const profileMenuRef = useRef(null);
   const [currentSection, setCurrentSection] = useState('uiux'); // 'uiux' or 'visual'
   const [floatingImage, setFloatingImage] = useState(null); // { src, title }
-  const resumeUrl = encodeURI('/SakshamBudhiraja_resume (1).pdf');
+  const resumeUrl = encodeURI('/SakshamBudhiraja_resume.pdf');
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -755,9 +755,9 @@ export default function App() {
                   </div>
                   <div className="h-px bg-[var(--border)] opacity-30 my-1" />
                   <div className="flex flex-col space-y-2">
-                    <div className="flex items-center gap-2 px-2 py-2 rounded-lg opacity-50 italic cursor-not-allowed">
-                      <FaFileAlt /> Resume (Coming Soon)
-                    </div>
+                    <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-[var(--surface-secondary)] transition-colors">
+                      <FaFileAlt /> Resume
+                    </a>
                     <a href="https://www.linkedin.com/in/saksham-budhiraja-545b1028b/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-[var(--surface-secondary)] transition-colors">
                       <FaLinkedin /> LinkedIn
                     </a>
