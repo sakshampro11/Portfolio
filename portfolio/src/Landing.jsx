@@ -191,6 +191,10 @@ export default function Landing() {
     if (!hasSeen) {
       sessionStorage.setItem("hasSeenFigJamTutorial", "true");
     }
+    // Set default initial zoom to 0.75 on mobile devices
+    if (window.innerWidth < 768) {
+      setZoom(0.75);
+    }
   }, []);
   const [showFigBotChip, setShowFigBotChip] = useState(true);
 
@@ -541,7 +545,7 @@ export default function Landing() {
           </button>
           <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5 hidden md:block" />
           <button
-            onClick={() => setZoom(0.85)}
+            onClick={() => setZoom(window.innerWidth < 768 ? 0.75 : 0.85)}
             className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-white border border-[#121212] rounded hover:bg-[#121212]/5 transition text-[#121212] hidden md:block"
           >
             Reset
@@ -762,7 +766,7 @@ export default function Landing() {
               style={{ left: "1580px", top: "1270px", rotate: "-5deg", cursor: activeTool === 'hand' ? 'grab' : 'default' }}
             >
               <div className="text-[8px] font-bold text-[#121212] opacity-40 tracking-wider font-mono mb-1">sticky_note</div>
-              <div className="text-[11px] font-bold text-[#121212] font-mono leading-tight">Iterated layout based on live testing. ⚡</div>
+              <div className="text-[11px] font-bold text-[#121212] font-mono leading-tight">My fav games are PSP and Lexicide 🎮</div>
             </motion.div>
 
             {/* Static Sticky 2 */}
