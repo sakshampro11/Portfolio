@@ -191,10 +191,6 @@ export default function Landing() {
     if (!hasSeen) {
       sessionStorage.setItem("hasSeenFigJamTutorial", "true");
     }
-    // Set default initial zoom to 0.38 on mobile devices
-    if (window.innerWidth < 768) {
-      setZoom(0.38);
-    }
   }, []);
   const [showFigBotChip, setShowFigBotChip] = useState(true);
 
@@ -545,7 +541,7 @@ export default function Landing() {
           </button>
           <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5 hidden md:block" />
           <button
-            onClick={() => setZoom(window.innerWidth < 768 ? 0.38 : 0.85)}
+            onClick={() => setZoom(0.85)}
             className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-white border border-[#121212] rounded hover:bg-[#121212]/5 transition text-[#121212] hidden md:block"
           >
             Reset
