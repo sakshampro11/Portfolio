@@ -162,11 +162,38 @@ export default function Landing() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
+  // Touch Gesture Refs
+  const touchStartRef = useRef({ x: 0, y: 0 });
+  const touchPanStartRef = useRef({ x: 0, y: 0 });
+  const touchDistanceStartRef = useRef(0);
+  const touchZoomStartRef = useRef(1);
+  const isTouchZooming = useRef(false);
+  const isPanningRef = useRef(false);
+
+  // Refs to sync latest state into touch listeners to avoid listener rebuilds
+  const zoomRef = useRef(zoom);
+  const panOffsetRef = useRef(panOffset);
+  const activeToolRef = useRef(activeTool);
+  const isDrawingRef = useRef(isDrawing);
+  const selectedColorRef = useRef(selectedColor);
+  const currentLineRef = useRef(currentLine);
+
+  useEffect(() => { zoomRef.current = zoom; }, [zoom]);
+  useEffect(() => { panOffsetRef.current = panOffset; }, [panOffset]);
+  useEffect(() => { activeToolRef.current = activeTool; }, [activeTool]);
+  useEffect(() => { isDrawingRef.current = isDrawing; }, [isDrawing]);
+  useEffect(() => { selectedColorRef.current = selectedColor; }, [selectedColor]);
+  useEffect(() => { currentLineRef.current = currentLine; }, [currentLine]);
+
   // Show FigBot chip on first visit (but don't auto-start steps)
   useEffect(() => {
     const hasSeen = sessionStorage.getItem("hasSeenFigJamTutorial");
     if (!hasSeen) {
       sessionStorage.setItem("hasSeenFigJamTutorial", "true");
+    }
+    // Set default initial zoom to 0.38 on mobile devices
+    if (window.innerWidth < 768) {
+      setZoom(0.38);
     }
   }, []);
   const [showFigBotChip, setShowFigBotChip] = useState(true);
@@ -177,6 +204,115 @@ export default function Landing() {
       setActiveTool(TUTORIAL_STEPS[tutorialStep].tool);
     }
   }, [tutorialStep]);
+
+  // Touch handlers for mobile panning & zoom
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const handleTouchStart = (e) => {
+      const isCanvasBg = e.target.classList.contains('canvas-bg') || e.target === canvas;
+      if (!isCanvasBg && activeToolRef.current !== 'marker') {
+        isPanningRef.current = false;
+        return;
+      }
+      isPanningRef.current = true;
+
+      if (e.touches.length === 1) {
+        isTouchZooming.current = false;
+        const touch = e.touches[0];
+        touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+        touchPanStartRef.current = { ...panOffsetRef.current };
+
+        if (activeToolRef.current === 'marker') {
+          const rect = canvas.getBoundingClientRect();
+          const x = 2000 + (touch.clientX - rect.left - rect.width / 2 - panOffsetRef.current.x) / zoomRef.current;
+          const y = 1250 + (touch.clientY - rect.top - rect.height / 2 - panOffsetRef.current.y) / zoomRef.current;
+          setIsDrawing(true);
+          setCurrentLine({
+            points: [{ x, y }],
+            color: selectedColorRef.current === "#FFE082" ? "#F24E1E" : selectedColorRef.current
+          });
+        }
+      } else if (e.touches.length === 2) {
+        isTouchZooming.current = true;
+        const dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        touchDistanceStartRef.current = dist;
+        touchZoomStartRef.current = zoomRef.current;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isPanningRef.current && activeToolRef.current !== 'marker') return;
+
+      if (e.touches.length === 1 && !isTouchZooming.current) {
+        const touch = e.touches[0];
+        if (activeToolRef.current === 'marker') {
+          if (!isDrawingRef.current) return;
+          if (e.cancelable) e.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          const x = 2000 + (touch.clientX - rect.left - rect.width / 2 - panOffsetRef.current.x) / zoomRef.current;
+          const y = 1250 + (touch.clientY - rect.top - rect.height / 2 - panOffsetRef.current.y) / zoomRef.current;
+
+          setCurrentLine(prev => {
+            if (!prev) return prev;
+            return {
+              ...prev,
+              points: [...prev.points, { x, y }]
+            };
+          });
+        } else {
+          if (e.cancelable) e.preventDefault();
+          const dx = touch.clientX - touchStartRef.current.x;
+          const dy = touch.clientY - touchStartRef.current.y;
+          setPanOffset({
+            x: touchPanStartRef.current.x + dx,
+            y: touchPanStartRef.current.y + dy
+          });
+        }
+      } else if (e.touches.length === 2 && isTouchZooming.current) {
+        if (e.cancelable) e.preventDefault();
+        const dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        if (touchDistanceStartRef.current > 0) {
+          const factor = dist / touchDistanceStartRef.current;
+          let nextZoom = touchZoomStartRef.current * factor;
+          nextZoom = Math.max(0.3, Math.min(1.8, nextZoom));
+          setZoom(nextZoom);
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (isDrawingRef.current) {
+        setIsDrawing(false);
+        setLines(prev => {
+          if (currentLineRef.current && currentLineRef.current.points.length > 0) {
+            return [...prev, currentLineRef.current];
+          }
+          return prev;
+        });
+        setCurrentLine(null);
+      }
+      isTouchZooming.current = false;
+      isPanningRef.current = false;
+    };
+
+    canvas.addEventListener("touchstart", handleTouchStart, { passive: true });
+    canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
+    canvas.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchmove", handleTouchMove);
+      canvas.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, []);
 
   // Custom wheel handler for diagonal trackpad panning and Ctrl/Cmd zoom
   useEffect(() => {
@@ -364,59 +500,60 @@ export default function Landing() {
       style={{ fontFamily: '"Space Grotesk", sans-serif' }}
     >
       {/* 1. FIGJAM HEADER BAR */}
-      <header className="fixed top-0 left-0 w-full h-[56px] bg-white border-b-2.5 border-[#121212] z-40 flex items-center justify-between px-4 select-none">
+      <header className="fixed top-0 left-0 w-full h-[56px] bg-white border-b-2.5 border-[#121212] z-40 flex items-center justify-between px-3 md:px-4 select-none">
         {/* Left Side: Logo & Breadcrumbs */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#F24E1E] flex items-center justify-center border-2 border-[#121212] font-black text-white text-sm shadow-[2px_2px_0px_0px_#121212]">
-            F
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="w-8 h-8 rounded-lg bg-[#F24E1E] border border-[#121212]/30 shadow-[1px_1px_0px_0px_rgba(18,18,18,0.2)] flex-shrink-0 overflow-hidden">
+            <img src="/profile.JPG" alt="Profile" className="w-full h-full object-cover" />
           </div>
-          <div className="h-4 w-[1.5px] bg-[#121212]/20" />
-          <div className="flex items-center gap-1.5 font-mono text-[13px] font-bold text-[#121212]">
-            <span className="opacity-45 hover:opacity-100 cursor-pointer transition">Drafts</span>
-            <span className="opacity-25">/</span>
+          <div className="h-4 w-[1.5px] bg-[#121212]/20 hidden sm:block" />
+          <div className="flex items-center gap-1.5 font-mono text-[12px] md:text-[13px] font-bold text-[#121212]">
+            <span className="opacity-45 hover:opacity-100 cursor-pointer transition hidden md:inline">Drafts</span>
+            <span className="opacity-25 hidden md:inline">/</span>
             <span className="flex items-center gap-1.5">
-              Saksham&apos;s Portfolio Workspace ✨
-              <span className="px-1.5 py-0.5 text-[10px] bg-[#EAF6FF] text-[#007AFF] rounded border border-[#007AFF]/30 uppercase font-black tracking-wider">
+              <span className="hidden sm:inline">Saksham&apos;s Portfolio Workspace ✨</span>
+              <span className="sm:hidden">Saksham ✨</span>
+              <span className="px-1.5 py-0.5 text-[10px] bg-[#EAF6FF] text-[#007AFF] rounded border border-[#007AFF]/30 uppercase font-black tracking-wider hidden md:inline-block">
                 FigJam Mode
               </span>
             </span>
           </div>
           <div className="hidden lg:flex items-center gap-1 text-[11px] text-[#0ACF83] font-bold font-mono">
             <FaCloud className="w-3.5 h-3.5" />
-            <span>Saved to Cloud</span>
+            <span>Saved</span>
           </div>
         </div>
 
         {/* Center: Zoom Controls */}
-        <div className="flex items-center gap-1.5 bg-[#FAF9F6] border-2 border-[#121212] rounded-xl px-2 py-1 shadow-[2px_2px_0px_0px_#121212]">
+        <div className="flex items-center gap-1 bg-[#FAF9F6] border-2 border-[#121212] rounded-xl px-1.5 py-0.5 md:px-2 md:py-1 shadow-[2px_2px_0px_0px_#121212]">
           <button
-            onClick={() => setZoom(prev => Math.max(0.4, prev - 0.1))}
-            className="p-1 text-[#121212] hover:bg-[#121212]/5 rounded transition"
+            onClick={() => setZoom(prev => Math.max(0.3, prev - 0.1))}
+            className="p-1 text-[#121212] hover:bg-[#121212]/5 rounded transition hidden md:block"
             title="Zoom Out"
           >
             <FaMinus className="w-2.5 h-2.5" />
           </button>
-          <span className="text-[12px] font-black font-mono w-12 text-center text-[#121212]">
+          <span className="text-[11px] md:text-[12px] font-black font-mono w-10 md:w-12 text-center text-[#121212]">
             {Math.round(zoom * 100)}%
           </span>
           <button
             onClick={() => setZoom(prev => Math.min(1.8, prev + 0.1))}
-            className="p-1 text-[#121212] hover:bg-[#121212]/5 rounded transition"
+            className="p-1 text-[#121212] hover:bg-[#121212]/5 rounded transition hidden md:block"
             title="Zoom In"
           >
             <FaPlus className="w-2.5 h-2.5" />
           </button>
-          <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5" />
+          <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5 hidden md:block" />
           <button
-            onClick={() => setZoom(0.85)}
-            className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-white border border-[#121212] rounded hover:bg-[#121212]/5 transition text-[#121212]"
+            onClick={() => setZoom(window.innerWidth < 768 ? 0.38 : 0.85)}
+            className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-white border border-[#121212] rounded hover:bg-[#121212]/5 transition text-[#121212] hidden md:block"
           >
             Reset
           </button>
-          <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5" />
+          <div className="w-[1px] h-3 bg-[#121212]/20 mx-0.5 hidden md:block" />
           <button
             onClick={() => setTutorialStep(0)}
-            className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-[#A259FF] text-white border border-[#121212] rounded hover:bg-[#A259FF]/90 transition"
+            className="px-1.5 py-0.5 text-[9px] font-black font-mono bg-[#A259FF] text-white border border-[#121212] rounded hover:bg-[#A259FF]/90 transition hidden md:inline-block"
             title="Quick Tour"
           >
             Tour
@@ -424,9 +561,9 @@ export default function Landing() {
         </div>
 
         {/* Right Side: Avatars & Share */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           {/* Collaborative avatars */}
-          <div className="flex items-center -space-x-2.5">
+          <div className="hidden md:flex items-center -space-x-2.5">
             <div
               className="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#A259FF] text-white flex items-center justify-center text-[10px] font-black shadow-md cursor-pointer hover:translate-y-[-2px] transition-transform"
               title="Saksham (Editor)"
@@ -455,10 +592,11 @@ export default function Landing() {
 
           <button
             onClick={handleExplore}
-            className="flex items-center gap-2 px-4 py-2 bg-[#F24D1D] hover:bg-[#F24D1D]/90 text-white rounded-xl font-bold border-2 border-[#121212] shadow-[3px_3px_0px_0px_#121212] active:scale-95 transition-all text-xs lg:text-sm"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 md:px-4 md:py-2 bg-[#F24D1D] hover:bg-[#F24D1D]/90 text-white rounded-xl font-bold border-2 border-[#121212] shadow-[2px_2px_0px_0px_#121212] md:shadow-[3px_3px_0px_0px_#121212] active:scale-95 transition-all text-xs md:text-sm"
           >
-            <FaPlay className="w-3 h-3" />
-            <span>Present Portfolio</span>
+            <FaPlay className="w-2.5 h-2.5" />
+            <span className="hidden sm:inline">Present Portfolio</span>
+            <span className="sm:hidden">Present</span>
           </button>
         </div>
       </header>
@@ -1141,12 +1279,12 @@ export default function Landing() {
             initial={{ opacity: 0, y: 15, x: '-50%' }}
             animate={{ opacity: 1, y: 0, x: '-50%' }}
             exit={{ opacity: 0, y: 15, x: '-50%' }}
-            className="fixed bottom-[88px] left-1/2 z-40 bg-white border-2 border-[#121212] rounded-xl px-3 py-2 flex items-center gap-3 shadow-[3px_3px_0px_0px_#121212]"
+            className="hidden md:flex fixed bottom-[76px] md:bottom-[88px] left-1/2 z-40 bg-white border-2 border-[#121212] rounded-xl px-2 py-1.5 md:px-3 md:py-2 flex items-center gap-2.5 md:gap-3 shadow-[3px_3px_0px_0px_#121212] max-w-[95vw] overflow-x-auto whitespace-nowrap scrollbar-none"
           >
             {/* Color options picker */}
             {(activeTool === 'sticky' || activeTool === 'shape' || activeTool === 'marker') && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-black font-mono text-[#121212] mr-1 uppercase">Color:</span>
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                <span className="text-[9px] md:text-[10px] font-black font-mono text-[#121212] mr-1 uppercase">Color:</span>
                 {[
                   { hex: "#FFE082", title: "Yellow" },
                   { hex: "#80BFFF", title: "Blue" },
@@ -1158,7 +1296,7 @@ export default function Landing() {
                   <button
                     key={col.hex}
                     onClick={() => setSelectedColor(col.hex)}
-                    className="w-5 h-5 rounded-full border border-[#121212] transition-transform active:scale-95"
+                    className="w-4 h-4 md:w-5 md:h-5 rounded-full border border-[#121212] transition-transform active:scale-95 flex-shrink-0"
                     style={{
                       backgroundColor: col.hex,
                       scale: selectedColor === col.hex ? 1.25 : 1,
@@ -1173,8 +1311,8 @@ export default function Landing() {
             {/* Shape selection sub-options */}
             {activeTool === 'shape' && (
               <>
-                <div className="w-[1.5px] h-5 bg-[#121212]/20" />
-                <div className="flex items-center gap-1.5">
+                <div className="w-[1.5px] h-5 bg-[#121212]/20 flex-shrink-0" />
+                <div className="flex items-center gap-1 md:gap-1.5 flex-shrink-0">
                   {[
                     { id: 'rectangle', label: 'Box' },
                     { id: 'circle', label: 'Circle' },
@@ -1183,7 +1321,7 @@ export default function Landing() {
                     <button
                       key={s.id}
                       onClick={() => setSelectedShapeType(s.id)}
-                      className={`px-2 py-0.5 text-[10px] font-black font-mono rounded border border-[#121212] transition-colors ${selectedShapeType === s.id ? 'bg-[#121212] text-white' : 'bg-[#FAF9F6] text-[#121212]'}`}
+                      className={`px-1.5 py-0.5 md:px-2 md:py-0.5 text-[9px] md:text-[10px] font-black font-mono rounded border border-[#121212] transition-colors ${selectedShapeType === s.id ? 'bg-[#121212] text-white' : 'bg-[#FAF9F6] text-[#121212]'}`}
                     >
                       {s.label}
                     </button>
@@ -1194,13 +1332,13 @@ export default function Landing() {
 
             {/* Stamp selection sub-options */}
             {activeTool === 'stamp' && (
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black font-mono text-[#121212] uppercase mr-1">Stamp:</span>
+              <div className="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
+                <span className="text-[9px] md:text-[10px] font-black font-mono text-[#121212] uppercase mr-1">Stamp:</span>
                 {["👍", "❤️", "🔥", "⚡", "💡", "😢", "😂"].map((emoji) => (
                   <button
                     key={emoji}
                     onClick={() => setSelectedStamp(emoji)}
-                    className="text-xl hover:scale-125 transition-transform active:scale-95"
+                    className="text-base md:text-xl hover:scale-125 transition-transform active:scale-95 flex-shrink-0"
                     style={{
                       scale: selectedStamp === emoji ? 1.3 : 1
                     }}
@@ -1214,10 +1352,10 @@ export default function Landing() {
             {/* Draw clear control */}
             {activeTool === 'marker' && lines.length > 0 && (
               <>
-                <div className="w-[1.5px] h-5 bg-[#121212]/20" />
+                <div className="w-[1.5px] h-5 bg-[#121212]/20 flex-shrink-0" />
                 <button
                   onClick={() => setLines([])}
-                  className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-black font-mono text-red-500 hover:bg-red-50 rounded border border-red-500 transition-colors"
+                  className="flex items-center gap-1 px-1.5 py-0.5 md:px-2 md:py-0.5 text-[9px] md:text-[10px] font-black font-mono text-red-500 hover:bg-red-50 rounded border border-red-500 transition-colors flex-shrink-0"
                 >
                   <FaUndo className="w-2.5 h-2.5" />
                   <span>Clear Draw</span>
@@ -1229,41 +1367,41 @@ export default function Landing() {
       </AnimatePresence>
 
       {/* 4. FIGJAM FLOATING BOTTOM TOOLBAR */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white border-2.5 border-[#121212] rounded-2xl px-5 py-3 flex items-center gap-5 shadow-[4px_4px_0px_0px_#121212] select-none pointer-events-auto">
+      <div className="hidden md:flex fixed bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white border-2.5 border-[#121212] rounded-2xl px-3.5 py-2 md:px-5 md:py-3 flex items-center gap-3.5 md:gap-5 shadow-[4px_4px_0px_0px_#121212] select-none pointer-events-auto max-w-[95vw] overflow-x-auto whitespace-nowrap scrollbar-none">
 
         {/* Tool 1: Pointer Select Tool (V) */}
         <button
           onClick={() => setActiveTool('select')}
-          className={`hover:scale-115 transition-transform active:scale-95 ${activeTool === 'select' ? 'text-[#1ABCFE]' : 'text-[#121212]'}`}
+          className={`hover:scale-115 transition-transform active:scale-95 flex-shrink-0 ${activeTool === 'select' ? 'text-[#1ABCFE]' : 'text-[#121212]'}`}
           title="Pointer Tool"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" /><path d="m13 13 6 6" /></svg>
+          <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" /><path d="m13 13 6 6" /></svg>
         </button>
 
         {/* Tool 2: Hand Tool (Pan/Move) */}
         <button
           onClick={() => setActiveTool('hand')}
-          className={`hover:scale-115 transition-transform active:scale-95 ${activeTool === 'hand' ? 'text-[#A259FF]' : 'text-[#121212]'}`}
+          className={`hover:scale-115 transition-transform active:scale-95 flex-shrink-0 ${activeTool === 'hand' ? 'text-[#A259FF]' : 'text-[#121212]'}`}
           title="Hand Tool (Move Board Elements)"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5" /><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6" /><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9.5" /><path d="M6 14v-1.5a1.5 1.5 0 0 0-3 0V16a8 8 0 0 0 16 0v-3a2 2 0 0 0-2 2v2" /></svg>
+          <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5" /><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6" /><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9.5" /><path d="M6 14v-1.5a1.5 1.5 0 0 0-3 0V16a8 8 0 0 0 16 0v-3a2 2 0 0 0-2 2v2" /></svg>
         </button>
 
-        <div className="w-px h-5 bg-[#121212]/20" />
+        <div className="w-px h-5 bg-[#121212]/20 flex-shrink-0" />
 
         {/* Tool 3: Marker Drawing Tool (P) */}
         <button
           onClick={() => setActiveTool('marker')}
-          className={`hover:scale-115 transition-transform active:scale-95 ${activeTool === 'marker' ? 'text-[#F24E1E]' : 'text-[#121212]'}`}
+          className={`hover:scale-115 transition-transform active:scale-95 flex-shrink-0 ${activeTool === 'marker' ? 'text-[#F24E1E]' : 'text-[#121212]'}`}
           title="Marker Tool"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg>
+          <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg>
         </button>
 
         {/* Tool 4: Sticky Note Tool */}
         <button
           onClick={() => setActiveTool('sticky')}
-          className={`w-5 h-5 rounded shadow-[1px_1px_0px_0px_#121212] hover:scale-115 transition-transform active:scale-95 border-2 ${activeTool === 'sticky' ? 'border-[#FFC72C]' : 'border-[#121212]'}`}
+          className={`w-4 h-4 md:w-5 md:h-5 rounded shadow-[1px_1px_0px_0px_#121212] hover:scale-115 transition-transform active:scale-95 border-2 flex-shrink-0 ${activeTool === 'sticky' ? 'border-[#FFC72C]' : 'border-[#121212]'}`}
           style={{ backgroundColor: selectedColor }}
           title="Place Sticky Note"
         />
@@ -1271,14 +1409,14 @@ export default function Landing() {
         {/* Tool 5: Shapes Tool */}
         <button
           onClick={() => setActiveTool('shape')}
-          className={`w-5 h-5 rounded-full hover:scale-115 transition-transform active:scale-95 border-2 ${activeTool === 'shape' ? 'border-[#0ACF83] bg-[#0ACF83]/10' : 'border-[#121212]'}`}
+          className={`w-4 h-4 md:w-5 md:h-5 rounded-full hover:scale-115 transition-transform active:scale-95 border-2 flex-shrink-0 ${activeTool === 'shape' ? 'border-[#0ACF83] bg-[#0ACF83]/10' : 'border-[#121212]'}`}
           title="Place Shapes"
         />
 
         {/* Tool 6: Text Tool */}
         <button
           onClick={() => setActiveTool('text')}
-          className={`text-[15px] font-black hover:scale-115 transition-transform active:scale-95 font-mono ${activeTool === 'text' ? 'text-[#FF7262]' : 'text-[#121212]'}`}
+          className={`text-[13px] md:text-[15px] font-black hover:scale-115 transition-transform active:scale-95 font-mono flex-shrink-0 ${activeTool === 'text' ? 'text-[#FF7262]' : 'text-[#121212]'}`}
           title="Add Text"
         >
           T
@@ -1287,7 +1425,7 @@ export default function Landing() {
         {/* Tool 7: Stamp Emojis Tool */}
         <button
           onClick={() => setActiveTool('stamp')}
-          className={`text-lg hover:scale-115 transition-transform active:scale-95 ${activeTool === 'stamp' ? 'scale-125 filter drop-shadow-[0_0_2px_rgba(18,18,18,0.2)]' : 'opacity-85'}`}
+          className={`text-base md:text-lg hover:scale-115 transition-transform active:scale-95 flex-shrink-0 ${activeTool === 'stamp' ? 'scale-125 filter drop-shadow-[0_0_2px_rgba(18,18,18,0.2)]' : 'opacity-85'}`}
           title="Stamps / Emojis"
         >
           {selectedStamp}
@@ -1302,7 +1440,7 @@ export default function Landing() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, delay: 0.6 }}
-            className="fixed bottom-[92px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
+            className="hidden md:block fixed bottom-[92px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
           >
             <div className="flex items-center gap-2 bg-white border-2 border-[#121212] rounded-full pl-2 pr-4 py-1.5 shadow-[3px_3px_0px_0px_#121212] cursor-pointer group"
               onClick={() => setTutorialStep(0)}
@@ -1346,7 +1484,7 @@ export default function Landing() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.97 }}
               transition={{ duration: 0.18 }}
-              className="fixed bottom-[92px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
+              className="hidden md:block fixed bottom-[92px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
             >
               <div className="bg-white border-2 border-[#121212] rounded-2xl shadow-[4px_4px_0px_0px_#121212] flex items-start gap-3 px-4 py-3 w-[300px]">
                 {/* Bot avatar */}
