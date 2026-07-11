@@ -289,33 +289,30 @@ const projects = [
     y: 350,
   },
   {
-
     title: "City Issue Reporter (Lokally)",
-    thumbnail: "/lokallylp.png",
-    description: "Web UI/UX Design · Hackathon Project.",
-    tech: ["Figma", "React", "Tailwind CSS"],
-    tags: ["UI", "Web"],
+    thumbnail: "/L1.png",
+    description: "Full-Stack Civic Tech Web Platform with Gemini AI",
+    tech: ["React", "Express", "Gemini AI", "Firestore", "Tailwind CSS v4", "Leaflet.js"],
+    tags: ["AI", "Fullstack", "Web", "live"],
     colors: ["#2D89DA", "#202020", "#D9D9D9", "#F6554F"],
     links: {
+      live: "https://lokally-519985018130.asia-east1.run.app/",
+      github: "https://github.com/sakshampro11/lokally-community-hero",
       figma: "https://www.figma.com/design/RYlbktSxeGz0bgSXHV20iB/Nirvana---Hack2Hustle?node-id=0-1&t=YIJ4RnwQ4Pw52JKP-1",
       prototype: "https://www.figma.com/design/RYlbktSxeGz0bgSXHV20iB/Nirvana---Hack2Hustle?node-id=0-1&t=YIJ4RnwQ4Pw52JKP-1",
     },
     caseStudy: {
       heroImage: "/locallyhome.png",
       showcaseImages: [
-        "/lokallylp.png",
-        "/locallyhome.png",
-        "/lokally3.png",
-        "/lokally4.png",
+        "/L1.png",
+        "/L2.png",
+        "/L3.png",
+        "/L4.png",
       ],
-      overview: `Lokally is a civic-tech web platform that enables citizens to report local issues like potholes, broken streetlights, or garbage dumps directly to the municipal body. Designed during a civic innovation hackathon, Lokally simplifies the process of submitting, tracking, and prioritizing public problems — bringing accountability and transparency to urban governance.
-<br />
-<br />
-🛠 Tools: Figma, React, Tailwind CSS  <br />
-🎨 Roles: UI/UX Design, Ideation.`,
-      goal: "To simplify the citizen-to-municipality communication loop with an intuitive dashboard UI.",
-      designProcess: `A 7-step process was followed to take the project from ideation to a functional prototype, focusing on user needs and rapid iteration.`,
-      designSystem: "Comprehensive design system with color palette, typography, and components."
+      overview: `Lokally is a hyperlocal civic issue-reporting platform. Citizens report problems — potholes, garbage, water leaks, electrical faults, and more — with a photo and a precise map-pin location. Google's Gemini AI automatically categorizes each report (category, priority, title, summary) and performs real-time duplicate check based on Haversine distance, description, and photo contents.<br /><br />The community verifies and upvotes reports, and dedicated Resolver accounts track each issue through its lifecycle from "Reported" to "In Progress" to "Resolved". An impact dashboard surfaces AI-generated insights, and a citizen-only gamification layer rewards active reporters with XP points and badges.<br /><br />🛠 Tools: React 18, Express, Google GenAI SDK (Gemini), Firestore, Tailwind CSS v4, Motion, Leaflet.js, Cloudinary<br />🎨 Roles: Full-Stack Development, UI/UX Design, AI System Design`,
+      goal: "To bridge the gap in civic engagement by providing a transparent, AI-powered hyperlocal reporting system that builds trust and streamlines issue resolution.",
+      designProcess: "A 7-stage engineering and design lifecycle was implemented — from mobile-first reporting and AI categorization, to geolocation mapping, community verification, status updates, impact analytics, and gamification.",
+      designSystem: "A highly responsive, mobile-first design built with Tailwind CSS v4, featuring a map-pin picker, clear status indicator tags, and a custom dashboard interface."
     },
     x: 50,
     y: 650,
@@ -469,6 +466,16 @@ const designProcessSteps = [
   { step: 5, title: "Focus on Accessibility", description: "Ensuring the app is usable for everyone", icon: FaUniversalAccess, color: "text-yellow-300", iconColor: "text-yellow-300" },
   { step: 6, title: "Implement Urgency Tagging", description: "Adding tags to prioritize urgent issues", icon: FaTag, color: "text-orange-300", iconColor: "text-orange-300" },
   { step: 7, title: "Smooth Complaint Tracking", description: "Streamlining the process for tracking", icon: FaTasks, color: "text-red-300", iconColor: "text-red-300" },
+];
+
+const lokallyCityDesignProcessSteps = [
+  { step: 1, title: "Reporting & Feed", description: "Camera-first mobile reporting, location-aware feed, search, and device-aware responsive rendering.", icon: FaFileAlt, color: "text-blue-400", iconColor: "text-blue-400" },
+  { step: 2, title: "AI Categorization", description: "Gemini AI automatically tags categories, priority level, title, and summary to remove citizen friction.", icon: FaCogs, color: "text-purple-400", iconColor: "text-purple-400" },
+  { step: 3, title: "Mapping & Geolocation", description: "Interactive map-pin picker with Leaflet.js & OpenStreetMap for marking precise issue locations.", icon: FaMapMarkedAlt, color: "text-green-400", iconColor: "text-green-400" },
+  { step: 4, title: "Community Verification", description: "Citizens corroborate issues via upvotes and comments; auto-reopening triggers if resolved issues recur.", icon: FaUsers, color: "text-lime-400", iconColor: "text-lime-400" },
+  { step: 5, title: "Resolver Status Tracking", description: "Status card updates tracking issue lifecycle transparently from 'Reported' to 'In Progress' to 'Resolved'.", icon: FaTasks, color: "text-yellow-400", iconColor: "text-yellow-400" },
+  { step: 6, title: "Impact Dashboard & Insights", description: "Aggregated charts and Gemini AI-generated insights highlighting trends for citizens and city officials.", icon: FaChartBar, color: "text-orange-400", iconColor: "text-orange-400" },
+  { step: 7, title: "Leaderboard & Gamification", description: "A public leaderboard with XP and badges rewarding citizen reporting; separate private resolver tracking.", icon: FaStar, color: "text-red-400", iconColor: "text-red-400" },
 ];
 
 const farmEazyyDesignProcessSteps = [
@@ -1364,7 +1371,7 @@ export default function App() {
                           ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === "City Issue Reporter (Lokally)" ? (
                             <div className="relative">
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4">
-                                {designProcessSteps.map((item, index) => (
+                                {lokallyCityDesignProcessSteps.map((item, index) => (
                                   <div key={item.step} className={`flex items-start p-3 md:p-4 rounded-lg bg-[var(--background)] transform ${index % 2 !== 0 ? 'md:translate-y-12' : ''}`}>
                                     <div className="flex-shrink-0 mr-3 md:mr-4">
                                       <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 border-dashed border-[var(--border)] flex items-center justify-center`}>
@@ -1577,8 +1584,7 @@ export default function App() {
                             ) :
                               (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'City Issue Reporter (Lokally)' ? (
                                 <div className="text-xs text-[var(--text-secondary)]">
-                                  <div><span className="font-semibold text-[var(--text-primary)]">Space Grotesk</span></div>
-
+                                  <div><span className="font-semibold text-[var(--text-primary)]">Font:</span> Space Grotesk & Inter</div>
                                 </div>
                               ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'FarmEazyy' ? (
                                 <div className="text-xs text-[var(--text-secondary)]">
@@ -1628,6 +1634,13 @@ export default function App() {
                                   <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Visual Assets</div>
                                   <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
                                     Animated pixel art sprites matching typing speed
+                                  </div>
+                                </>
+                              ) : (currentSection === 'uiux' ? projects : visualDesignProjects)[selected].title === 'City Issue Reporter (Lokally)' ? (
+                                <>
+                                  <div className="text-sm font-semibold text-[var(--text-secondary)] mb-1">AI Duplicate Detection</div>
+                                  <div className="text-xs text-[var(--text-secondary)] border-2 border-dashed border-[var(--border)] rounded-lg min-h-[40px] md:min-h-[60px] p-2">
+                                    Haversine formula search + Gemini AI multi-modal similarity comparison to identify matching real-world issues.
                                   </div>
                                 </>
                               ) : (
@@ -1824,6 +1837,16 @@ export default function App() {
                           className="flex items-center justify-center gap-2 w-full bg-[var(--background)] hover:bg-[var(--border)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-md transition"
                         >
                           <FaLink /> Prototype
+                        </a>
+                      )}
+                      {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.github && (
+                        <a
+                          href={(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 w-full bg-[#24292e] hover:bg-[#2f363d] text-white font-bold py-2 px-4 rounded-md transition"
+                        >
+                          <FaGithub /> GitHub
                         </a>
                       )}
                       {(currentSection === 'uiux' ? projects : visualDesignProjects)[selected].links?.behance && (
